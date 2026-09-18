@@ -17,13 +17,10 @@ Target problem: a compact four-way waveguide power combiner for **9–11.5 GHz**
 
 This repository contains an **analytic design baseline and current HFSS seed**, not a validated hardware geometry.
 
-Primary standalone design note:
+Primary design notes:
 
-- [main.tex](main.tex) — current parameter-design rationale
-- [docs/mixed_mode_design_v1.md](docs/mixed_mode_design_v1.md) — newest theory layer: Sigma/Delta extraction, impedance-space tapering, bolt phasors, evanescent coupling and field normalization
-
-Supporting notes:
-
+- [main.tex](main.tex) — earlier standalone parameter-design rationale
+- [docs/mixed_mode_design_v1.md](docs/mixed_mode_design_v1.md) — newest theory layer: Σ/Δ extraction, impedance-space tapering, bolt phasors, evanescent coupling and field normalization
 - [docs/analytic_baseline.md](docs/analytic_baseline.md)
 - [docs/ridge_cross_section.md](docs/ridge_cross_section.md)
 
@@ -42,53 +39,49 @@ Reproducibility scripts:
 
 Use a common ridge width
 
-[
-w = 4.572 {m mm}.
-]
+\[
+w = 4.572\ {\rm mm}.
+\]
 
 Section 1:
 
-[
-g_1=7.672 {m mm},
-qquad
-L_1=9.872 {m mm}.
-]
+\[
+g_1=7.672\ {\rm mm},
+\qquad
+L_1=9.872\ {\rm mm}.
+\]
 
 Section 2:
 
-[
-g_2=4.984 {m mm},
-qquad
-L_2=8.857 {m mm}.
-]
+\[
+g_2=4.984\ {\rm mm},
+\qquad
+L_2=8.857\ {\rm mm}.
+\]
 
 These dimensions come from the self-consistent Cohn/TRM reduced model and must still be calibrated against HFSS eigenmode/wave-port extraction and the actual magic-tee junction.
 
 ## Important modeling rule
 
-Do **not** identify the magic-tee junction with a literal scalar (Z_0/2) load.
+Do **not** identify the magic-tee junction with a literal scalar \(Z_0/2\) load.
 
 For a symmetric pair, the natural variables are the sum/difference eigenchannels,
 
-[
-Gamma_Sigma=r+c,
-qquad
-Gamma_Delta=r-c.
-]
+\[
+\Gamma_\Sigma=r+c,
+\qquad
+\Gamma_\Delta=r-c.
+\]
 
-The next HFSS stage should therefore extract/de-embed the real junction in the
-Sigma/Delta basis, then optimize the ridge/taper around those complex
-frequency-dependent modal data.
+The next HFSS stage should therefore extract/de-embed the real junction in the Σ/Δ basis, then optimize the ridge/taper around those complex frequency-dependent modal data.
 
-Likewise, do not assume a smooth geometry interpolation implies a smooth
-impedance transition.  The current profile seed first designs (Z(z)), then
-inverts the reduced model for ridge geometry.
+Likewise, do not assume a smooth geometry interpolation implies a smooth impedance transition. The current profile seed first designs \(Z(z)\), then inverts the reduced model for ridge geometry.
 
 ## Production workflow
 
 1. verify the two uniform ridge sections;
 2. verify the impedance-space taper;
-3. simulate/de-embed one magic tee in Sigma/Delta basis;
+3. simulate/de-embed one magic tee in Σ/Δ basis;
 4. extract modal/effective complex load data;
 5. simulate tee + nearest taper jointly because compact spacing can retain evanescent coupling;
 6. add tuning bolts only for residual susceptance/ripple;
