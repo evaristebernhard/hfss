@@ -17,6 +17,10 @@ Target problem: a compact four-way waveguide power combiner for **9–11.5 GHz**
 
 This repository currently contains an **analytic design baseline**, not a validated HFSS geometry.
 
+Primary standalone design note:
+
+- [main.tex](main.tex) — current parameter-design rationale and recommended Cohn/TRM ridge seed
+
 The main technical notes are:
 
 - [docs/analytic_baseline.md](docs/analytic_baseline.md)
