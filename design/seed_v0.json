@@ -1,0 +1,47 @@
+{
+  "name": "wr90_magictee_double_ridge_seed_v0",
+  "units": "mm",
+  "band_GHz": [9.0, 11.5],
+  "electrical_center_GHz": 10.19465,
+  "wr90": {"a": 22.86, "b": 10.16},
+  "reduced_model_targets": {"z1_over_z0": 0.832686, "z2_over_z0": 0.600466},
+  "sections": [
+    {"name":"ridge_1","w":5.8,"g":6.0,"ridge_depth_each_wall":2.08,"L":9.60125,"w_over_a":0.253718,"g_over_b":0.590551},
+    {"name":"ridge_2","w":9.2,"g":4.0,"ridge_depth_each_wall":3.08,"L":9.60125,"w_over_a":0.402450,"g_over_b":0.393701}
+  ],
+  "taper": {
+    "type":"piecewise_smoothstep",
+    "control_stations":[
+      {"z":0.0,"w":0.0,"g":10.16},
+      {"z":9.60125,"w":5.8,"g":6.0},
+      {"z":19.2025,"w":9.2,"g":4.0}
+    ]
+  },
+  "fillet_radius":0.8,
+  "tuning_bolt":{
+    "enabled_initially":false,
+    "diameter":3.0,
+    "tip_radius":1.5,
+    "penetration_nominal":0.8,
+    "penetration_sweep":[0.0,2.5],
+    "axial_location_sweep":[3.0,7.0]
+  },
+  "sweeps":{
+    "w1":[4.8,6.8],
+    "g1":[5.0,7.0],
+    "w2":[8.0,10.5],
+    "g2":[3.5,5.0],
+    "L1":[8.7,10.5],
+    "L2":[8.7,10.5],
+    "fillet":[0.5,1.2],
+    "total_taper_length":[17.0,22.0]
+  },
+  "internal_targets":{
+    "return_loss_dB_min":25,
+    "isolation_dB_min":25,
+    "combining_efficiency_min":0.97,
+    "amplitude_imbalance_dB_max":0.3,
+    "phase_imbalance_deg_max":5.0,
+    "field_enhancement_ratio_target_max":3.0
+  }
+}
