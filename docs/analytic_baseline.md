@@ -457,6 +457,25 @@ while \(\pm3\%\) corners can fall to approximately
 
 This is a useful message for geometry extraction: if the final ridge sections are being designed by an equivalent-impedance map, a few-percent error in the effective impedance is enough to consume the entire return-loss margin.
 
+
+### 7.4 Real-load-ratio seed family
+
+The two-section minimax calculation is more useful if the effective de-embedded real load ratio is treated as a parameter rather than fixed at 0.5.
+
+Using the same WR90 phase law and optimizing two section impedances and lengths over 9–11.5 GHz gives:
+
+| assumed \(Z_L/Z_0\) | \(Z_1/Z_0\) | \(Z_2/Z_0\) | \(L_1\) | \(L_2\) | reduced-model worst RL |
+|---:|---:|---:|---:|---:|---:|
+| 0.40 | 0.78487 | 0.50964 | 9.6013 mm | 9.6012 mm | 31.59 dB |
+| 0.50 | 0.83269 | 0.60047 | 9.6013 mm | 9.6012 mm | 34.15 dB |
+| 0.60 | 0.87383 | 0.68663 | 9.6012 mm | 9.6013 mm | 36.87 dB |
+| 0.70 | 0.91015 | 0.76910 | 9.6013 mm | 9.6012 mm | 40.04 dB |
+| 0.80 | 0.94281 | 0.84853 | 9.6012 mm | 9.6012 mm | 44.14 dB |
+
+The near-constant optimum length is a consequence of choosing the physical length that makes the two band-edge TE10 phase errors symmetric about \(\pi/2\).
+
+This table should only be used after an HFSS de-embedding step identifies a meaningful, consistently normalized effective load. If the extracted load is significantly complex or strongly frequency dependent, a constant-real-load transformer table is no longer adequate; the remaining susceptance must be included explicitly or absorbed into the full-wave optimization.
+
 ---
 
 ## 8. How to map the analytic seed into a ridged waveguide
