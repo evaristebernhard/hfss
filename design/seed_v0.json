@@ -1,47 +1,90 @@
 {
-  "name": "wr90_magictee_double_ridge_seed_v0",
+  "name": "wr90_magictee_double_ridge_seed_current",
+  "schema_version": 1,
   "units": "mm",
   "band_GHz": [9.0, 11.5],
   "electrical_center_GHz": 10.19465,
   "wr90": {"a": 22.86, "b": 10.16},
-  "reduced_model_targets": {"z1_over_z0": 0.832686, "z2_over_z0": 0.600466},
+  "status": "analytic seed; requires HFSS eigenmode, de-embedding, and full 3-D validation",
+  "reduced_model": {
+    "conditional_load_note": "The historical ZL/Zref=0.5 model is only an initializer. Production design uses mixed-mode Sigma/Delta extraction from the actual magic-tee junction.",
+    "legacy_z1_over_z0": 0.832686,
+    "legacy_z2_over_z0": 0.600466
+  },
+  "ridge": {
+    "common_width": 4.572,
+    "common_width_over_a": 0.20,
+    "profile_strategy": "impedance_space_log_smoothstep_then_geometry_inversion",
+    "profile_reference_frequency_GHz": 10.19465
+  },
   "sections": [
-    {"name":"ridge_1","w":5.8,"g":6.0,"ridge_depth_each_wall":2.08,"L":9.60125,"w_over_a":0.253718,"g_over_b":0.590551},
-    {"name":"ridge_2","w":9.2,"g":4.0,"ridge_depth_each_wall":3.08,"L":9.60125,"w_over_a":0.402450,"g_over_b":0.393701}
+    {
+      "name": "ridge_1",
+      "w": 4.572,
+      "g": 7.672,
+      "ridge_depth_each_wall": 1.244,
+      "L": 9.872,
+      "g_over_b": 0.755118,
+      "cohn_impedance_ohm_at_f0_approx": 289.55,
+      "dominant_cutoff_GHz_approx": 5.97,
+      "te20_like_cutoff_GHz_approx": 13.58
+    },
+    {
+      "name": "ridge_2",
+      "w": 4.572,
+      "g": 4.984,
+      "ridge_depth_each_wall": 2.588,
+      "L": 8.857,
+      "g_over_b": 0.490551,
+      "cohn_impedance_ohm_at_f0_approx": 209.39,
+      "dominant_cutoff_GHz_approx": 5.12,
+      "te20_like_cutoff_GHz_approx": 14.15
+    }
   ],
   "taper": {
-    "type":"piecewise_smoothstep",
-    "control_stations":[
-      {"z":0.0,"w":0.0,"g":10.16},
-      {"z":9.60125,"w":5.8,"g":6.0},
-      {"z":19.2025,"w":9.2,"g":4.0}
-    ]
+    "type": "impedance_space_profile",
+    "total_length": 18.729,
+    "control_stations": [
+      {"z": 0.0, "w": 0.0, "g": 10.16, "role": "plain_WR90"},
+      {"z": 9.872, "w": 4.572, "g": 7.672, "role": "section_1_target"},
+      {"z": 18.729, "w": 4.572, "g": 4.984, "role": "section_2_target"}
+    ],
+    "note": "Do not linearly or smoothstep-interpolate geometry and assume impedance is smooth. Construct a target log-impedance trajectory and invert the Cohn reduced model for geometry before HFSS calibration."
   },
-  "fillet_radius":0.8,
-  "tuning_bolt":{
-    "enabled_initially":false,
-    "diameter":3.0,
-    "tip_radius":1.5,
-    "penetration_nominal":0.8,
-    "penetration_sweep":[0.0,2.5],
-    "axial_location_sweep":[3.0,7.0]
+  "tuning_bolts": {
+    "enabled_initially": false,
+    "role": "residual susceptance and ripple correction only",
+    "diameter": 3.0,
+    "tip_radius": 1.5,
+    "penetration_nominal": 0.8,
+    "penetration_sweep": [0.0, 2.5],
+    "first_spacing_seed": [8.5, 9.1],
+    "spacing_note": "Near f0, lambda_g/4 is about 8.50 mm in section 2 and 9.07 mm in section 1. Use this only as a phasor-cancellation seed."
   },
-  "sweeps":{
-    "w1":[4.8,6.8],
-    "g1":[5.0,7.0],
-    "w2":[8.0,10.5],
-    "g2":[3.5,5.0],
-    "L1":[8.7,10.5],
-    "L2":[8.7,10.5],
-    "fillet":[0.5,1.2],
-    "total_taper_length":[17.0,22.0]
+  "sweeps": {
+    "w_common": [4.0, 5.2],
+    "g1": [6.8, 8.5],
+    "g2": [4.4, 5.7],
+    "L1": [8.8, 10.8],
+    "L2": [7.9, 9.8],
+    "fillet": [0.6, 1.2],
+    "bolt_penetration": [0.0, 2.5],
+    "bolt_spacing": [7.0, 10.5]
   },
-  "internal_targets":{
-    "return_loss_dB_min":25,
-    "isolation_dB_min":25,
-    "combining_efficiency_min":0.97,
-    "amplitude_imbalance_dB_max":0.3,
-    "phase_imbalance_deg_max":5.0,
-    "field_enhancement_ratio_target_max":3.0
-  }
+  "internal_targets": {
+    "return_loss_dB_min": 25,
+    "isolation_dB_min": 25,
+    "combining_efficiency_min": 0.97,
+    "amplitude_imbalance_dB_max": 0.3,
+    "phase_imbalance_deg_max": 5.0,
+    "field_enhancement_ratio_target_max": 3.0
+  },
+  "hfss_validation_order": [
+    "uniform ridge section eigenmodes and wave-port normalization",
+    "impedance-space taper alone",
+    "single magic-tee mixed-mode extraction",
+    "magic-tee plus nearest taper as one coupled 3-D block",
+    "four-way tree under equal-amplitude equal-phase excitation",
+    "finite conductivity, peak field, and thermal-loss checks"
+  ]
 }
