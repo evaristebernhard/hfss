@@ -1,0 +1,430 @@
+\documentclass[11pt,a4paper]{ctexart}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,siunitx,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+
+\title{9--11.5 GHz 四路魔 T 功率合成器：当前参数设计思路}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本文单独说明当前 HFSS 项目的参数设计逻辑。目标是在 9--11.5 GHz 内实现四路相干功率合成，带内回波损耗和端口隔离度均优于 22 dB，合成效率不低于 95\%，峰值功率不低于 30 kW，连续平均功率不低于 1 kW。当前参数不是从完整四合一模型中盲目扫参得到，而是由 WR90 模态窗口、两节 minimax 阻抗变换、双脊波导 Cohn/TRM 模型以及高功率间隙约束逐层确定。
+\end{abstract}
+
+\section{总体设计路线}
+
+工作带宽为
+\[
+f\in[9,11.5]\,\mathrm{GHz},
+\qquad
+\mathrm{FBW}=\frac{11.5-9}{10.25}=24.39\%.
+\]
+这个相对带宽已经不适合依靠单节四分之一波变换或单个调谐螺栓完成匹配。当前路线为
+\[
+\boxed{
+\text{WR90 基准}
+\rightarrow
+\text{两节宽带阻抗变换}
+\rightarrow
+\text{双脊几何映射}
+\rightarrow
+\text{魔 T 结区}
+\rightarrow
+\text{少量螺栓微调}
+}.
+\]
+
+其中，双脊结构负责主体宽带匹配，螺栓只用于修正结区残余电抗。
+
+\section{WR90 为什么合适}
+
+采用
+\[
+a=22.86\,\mathrm{mm},
+\qquad
+b=10.16\,\mathrm{mm}.
+\]
+矩形波导截止频率
+\[
+f_{c,mn}
+=
+\frac{c}{2}
+\sqrt{
+\left(\frac{m}{a}\right)^2+
+\left(\frac{n}{b}\right)^2
+}
+\]
+给出
+\[
+f_{c,10}=6.557\,\mathrm{GHz},
+\qquad
+f_{c,20}=13.114\,\mathrm{GHz},
+\qquad
+f_{c,01}=14.754\,\mathrm{GHz}.
+\]
+因此整个 9--11.5 GHz 区间位于 WR90 的 TE$_{10}$ 单模窗口内。直波导本身的模态条件较干净，后续主要关注魔 T 结区、ridge 截面变化和螺栓附近的局部高阶模。
+
+TE$_{10}$ 传播常数为
+\[
+\beta(f)
+=
+\frac{2\pi f}{c}
+\sqrt{1-\left(\frac{f_{c,10}}{f}\right)^2}.
+\]
+由于波导色散明显，9 GHz 与 11.5 GHz 的导波波长差异较大，所以单节窄带变换器难以独立覆盖全部工作带宽。
+
+\section{四路合成对幅相一致性的要求}
+
+理想四路合成的和模输出为
+\[
+b_\Sigma
+=
+\frac{a_1+a_2+a_3+a_4}{2}.
+\]
+当四路等幅同相时，三个正交差模均为零，所有可用功率进入和模端口。
+
+理想无损合成效率为
+\[
+\eta_{\mathrm{comb}}
+=
+\frac{
+\left|a_1+a_2+a_3+a_4\right|^2
+}{
+4\sum_{i=1}^{4}|a_i|^2
+}.
+\]
+
+对于一对等幅输入，相位误差为 \(\phi\) 时有
+\[
+\frac{P_\Delta}{P_\Sigma}
+=
+\tan^2\frac{\phi}{2}.
+\]
+若差模抑制要求优于 22 dB，则
+\[
+|\phi|<9.08^\circ.
+\]
+因此实际设计内部目标取
+\[
+\boxed{\Delta\phi<5^\circ},
+\qquad
+\boxed{\Delta A<0.3\,\mathrm{dB}}.
+\]
+
+\section{从抽象两节变换器到双脊波导}
+
+第一步先用条件性 reduced model 假设
+\[
+Z_L=0.5Z_0.
+\]
+这个 0.5 只是解析设计假设，不代表真实三维魔 T 结区严格等价于标量二比一负载。
+
+两节无损传输线递推为
+\[
+Z_{{\rm in},k}
+=
+Z_k
+\frac{
+Z_{{\rm in},k+1}+jZ_k\tan\theta_k
+}{
+Z_k+jZ_{{\rm in},k+1}\tan\theta_k
+}.
+\]
+以带内最大反射系数最小为目标，早期 minimax 模型得到约
+\[
+\frac{Z_1}{Z_0}\approx0.8327,
+\qquad
+\frac{Z_2}{Z_0}\approx0.6005.
+\]
+
+早期模型还曾得到两节都约为 9.601 mm 的 WR90 电长度。但真实 ridge 会降低截止频率并改变传播常数，因此
+\[
+\beta_{\rm ridge}(f)\neq\beta_{\rm WR90}(f).
+\]
+所以当前设计中，ridge 几何和物理长度必须一起重新优化。
+
+\section{双脊截面的自洽模型}
+
+对称双脊截面定义
+\[
+w=\text{ridge width},
+\qquad
+g=\text{ridge gap},
+\qquad
+h_r=\frac{b-g}{2}.
+\]
+
+主模截止波长采用闭式近似
+\[
+\lambda_{cr}
+=
+2(a-w)
+\left[
+1+
+\frac{4}{\pi}
+\left(1+0.2\sqrt{\frac{b}{a-w}}\right)
+\frac{b}{a-w}
+\ln\csc\left(\frac{\pi g}{2b}\right)
++
+\left(2.45+0.2\frac{w}{a}\right)
+\frac{wb}{g(a-w)}
+\right]^{1/2},
+\]
+从而
+\[
+f_c=\frac{c}{\lambda_{cr}},
+\qquad
+\beta(f)
+=
+\frac{2\pi f}{c}
+\sqrt{1-\left(\frac{f_c}{f}\right)^2}.
+\]
+
+阻抗采用 Cohn 电压--电流归一化。在约 10.2 GHz，同一归一化下普通 WR90 的参考值约为
+\[
+Z_{\rm ref}\approx343\,\Omega.
+\]
+这里的 Cohn 阻抗不能与普通 TE 波阻抗直接混用。
+
+固定不同 \(w/a\) 后再优化两段 gap 和长度，结果表明在
+\[
+0.10\lesssim w/a\lesssim0.30
+\]
+范围内，reduced model 的最差回波几乎都在 33.4--33.5 dB 左右。因此 ridge width 的最终选择主要由制造、高阶模裕量和高功率 gap 决定，而不是追求零点几 dB 的理论差异。
+
+当前折中选取
+\[
+\boxed{w/a=0.20},
+\qquad
+\boxed{w=4.572\,\mathrm{mm}}.
+\]
+
+\section{当前推荐的两节参数}
+
+两节使用相同 ridge width：
+\[
+\boxed{w=4.572\,\mathrm{mm}}.
+\]
+
+第一节：
+\[
+\boxed{g_1=7.672\,\mathrm{mm}},
+\qquad
+\boxed{h_{r1}=1.244\,\mathrm{mm}},
+\qquad
+\boxed{L_1=9.872\,\mathrm{mm}}.
+\]
+其理论量约为
+\[
+f_{c1}\approx5.97\,\mathrm{GHz},
+\qquad
+f_{10,1}^{\rm TRM}\approx6.08\,\mathrm{GHz},
+\]
+\[
+f_{20,1}^{\rm TRM}\approx13.58\,\mathrm{GHz},
+\qquad
+Z_1\approx289.5\,\Omega,
+\qquad
+Z_1/Z_{\rm ref}\approx0.842.
+\]
+
+第二节：
+\[
+\boxed{g_2=4.984\,\mathrm{mm}},
+\qquad
+\boxed{h_{r2}=2.588\,\mathrm{mm}},
+\qquad
+\boxed{L_2=8.857\,\mathrm{mm}}.
+\]
+其理论量约为
+\[
+f_{c2}\approx5.12\,\mathrm{GHz},
+\qquad
+f_{10,2}^{\rm TRM}\approx5.20\,\mathrm{GHz},
+\]
+\[
+f_{20,2}^{\rm TRM}\approx14.15\,\mathrm{GHz},
+\qquad
+Z_2\approx209.3\,\Omega,
+\qquad
+Z_2/Z_{\rm ref}\approx0.609.
+\]
+
+\begin{table}[htbp]
+\centering
+\caption{当前双脊两节变换器参数}
+\begin{tabular}{lcc}
+\toprule
+参数 & Section 1 & Section 2 \\ 
+\midrule
+WR90 宽度 \(a\) & 22.86 mm & 22.86 mm \\ 
+WR90 高度 \(b\) & 10.16 mm & 10.16 mm \\ 
+ridge width \(w\) & 4.572 mm & 4.572 mm \\ 
+ridge gap \(g\) & 7.672 mm & 4.984 mm \\ 
+单边 ridge 高度 \(h_r\) & 1.244 mm & 2.588 mm \\ 
+物理长度 \(L\) & 9.872 mm & 8.857 mm \\ 
+\(Z/Z_{\rm ref}\) @ 10.2 GHz & 0.842 & 0.609 \\ 
+TE$_{20}$-like cutoff & 13.58 GHz & 14.15 GHz \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+这组参数应作为当前 HFSS 首轮建模的优先基线。
+
+\section{为什么这组参数替代早期 seed}
+
+早期工程 seed 曾采用
+\[
+(w_1,g_1,L_1)=(5.8,6.0,9.601)\,\mathrm{mm},
+\]
+\[
+(w_2,g_2,L_2)=(9.2,4.0,9.601)\,\mathrm{mm}.
+\]
+它只是把抽象的 \(0.833Z_0\) 和 \(0.600Z_0\) 快速映射成可制造尺寸，没有把 ridge 自身色散重新带入长度设计。
+
+当前 Cohn/TRM 参数改为共用
+\[
+w=4.572\,\mathrm{mm},
+\]
+并得到
+\[
+g_1=7.672\,\mathrm{mm},\quad L_1=9.872\,\mathrm{mm},
+\]
+\[
+g_2=4.984\,\mathrm{mm},\quad L_2=8.857\,\mathrm{mm}.
+\]
+这样同时满足三个目的：
+
+\begin{enumerate}[label=\arabic*.]
+\item 两节使用相同 ridge width，机械结构更简单；
+\item 每节长度使用自身 \(\beta_i(f)\) 重新优化，不再沿用普通 WR90 长度；
+\item 第一高阶 TE$_{20}$-like 截止仍约为 13.6--14.2 GHz，高于 11.5 GHz 工作上限。
+\end{enumerate}
+
+因此这组 Cohn/TRM 参数是当前主参数，早期 \texttt{geometry_seed_v0.md} 只保留为设计演进记录。
+
+\section{当前理论性能与高功率约束}
+
+在条件负载
+\[
+Z_L=0.5Z_{\rm ref}
+\]
+下，将 \(Z_1(f),Z_2(f)\) 与各自 \(\beta_1(f),\beta_2(f)\) 带入传输线递推，得到近似等波纹响应，最差回波约
+\[
+\boxed{RL_{\min}\approx33.5\,\mathrm{dB}}.
+\]
+最差点约位于 9.0、10.15 和 11.5 GHz。
+
+这个 33.5 dB 只表示两节 ridge 匹配器在 reduced model 中具有足够余量，不能直接当作完整魔 T 的 HFSS 结果。
+
+峰值功率方面，双脊电场会集中于 gap。用
+\[
+V_{\rm rms}\sim\sqrt{PZ},
+\qquad
+E_{{\rm gap},pk}\sim\frac{\sqrt2V_{\rm rms}}{g}
+\]
+做一阶估计，在 30 kW、约 10.2 GHz 时有
+\[
+E_{{\rm gap},1}^{\rm proxy}\approx0.54\,\mathrm{MV/m},
+\]
+\[
+E_{{\rm gap},2}^{\rm proxy}\approx0.71\,\mathrm{MV/m}.
+\]
+
+这不是最终击穿判据。HFSS 中应直接检查
+\[
+K_E
+=
+\frac{E_{\rm local,max}}{E_{\rm straight,max}},
+\]
+并把
+\[
+\boxed{K_E<3}
+\]
+作为首轮场增强筛选目标。
+
+这也是第二节 gap 保持在约 5 mm，而不是继续压缩到 1--2 mm 的主要原因。
+
+\section{HFSS 首轮建模顺序}
+
+当前参数已经足够支撑本地 HFSS 首轮建模，建议顺序如下：
+
+\begin{enumerate}[label=\arabic*.]
+\item 建均匀 Section 1：\(w=4.572\) mm，\(g=7.672\) mm，检查前 3--4 个模态、传播常数和峰值电场。
+\item 建均匀 Section 2：\(w=4.572\) mm，\(g=4.984\) mm，做同样检查。
+\item 建两节 back-to-back 变换器，先取 \(L_1=9.872\) mm、\(L_2=8.857\) mm。
+\item 首轮可先用硬台阶确认两节机制，再改为 smooth taper。
+\item 变换器本身确认后再接入单个魔 T 结区。
+\item 最后级联成四合一，并用四路等幅同相激励检查回波、隔离、效率和幅相一致性。
+\end{enumerate}
+
+外部验收指标为
+\[
+RL>22\,\mathrm{dB},
+\qquad
+Isolation>22\,\mathrm{dB},
+\qquad
+\eta_{\rm comb}>95\%.
+\]
+内部设计目标建议保留余量：
+\[
+RL>25\,\mathrm{dB},
+\qquad
+Isolation>25\,\mathrm{dB},
+\qquad
+\eta_{\rm comb}>97\%.
+\]
+
+\section{结论}
+
+当前参数设计的关键不是单独猜某个 ridge gap，而是保持从系统指标到几何参数的连续逻辑：
+
+\[
+\boxed{
+\text{带宽与合成指标}
+\rightarrow
+\text{WR90 模态窗口}
+\rightarrow
+\text{两节 minimax 阻抗轨迹}
+\rightarrow
+\text{Cohn/TRM 双脊映射}
+\rightarrow
+\text{高功率 gap 约束}
+}.
+\]
+
+当前优先采用
+\[
+\boxed{w=4.572\,\mathrm{mm}},
+\]
+\[
+\boxed{g_1=7.672\,\mathrm{mm},\quad L_1=9.872\,\mathrm{mm}},
+\]
+\[
+\boxed{g_2=4.984\,\mathrm{mm},\quad L_2=8.857\,\mathrm{mm}}.
+\]
+
+下一阶段 HFSS 的主要任务不是重新猜尺寸，而是验证这些理论 seed 在真实三维魔 T 结区中的模态、真实等效负载、局部峰值场和四路幅相一致性。
+
+\section*{参考文献}
+\begin{thebibliography}{9}
+\bibitem{Cohn1947}
+S. B. Cohn,
+Properties of Ridge Wave Guide,
+\emph{Proceedings of the IRE}, 1947.
+
+\bibitem{Hoefer1982}
+W. J. R. Hoefer and M. N. Burton,
+Closed-form expressions for the parameters of finned and ridged waveguides,
+\emph{IEEE Transactions on Microwave Theory and Techniques}, 1982.
+
+\bibitem{Misra2014}
+A. Misra and V. S. Pandit,
+Studies on the coupling transformer to improve the performance of microwave ion source,
+\emph{Review of Scientific Instruments}, vol. 85, 063301, 2014.
+\end{thebibliography}
+
+\end{document}
