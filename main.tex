@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{ctexart}
 \usepackage[margin=2.2cm]{geometry}
-\usepackage{amsmath,amssymb,booktabs,siunitx,hyperref,enumitem}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 
 \title{9--11.5 GHz 四路魔 T 功率合成器：当前参数设计思路}
 \author{}
@@ -298,13 +298,13 @@ g_2=4.984\,\mathrm{mm},\quad L_2=8.857\,\mathrm{mm}.
 \]
 这样同时满足三个目的：
 
-\begin{enumerate}[label=\arabic*.]
+\begin{enumerate}
 \item 两节使用相同 ridge width，机械结构更简单；
 \item 每节长度使用自身 \(\beta_i(f)\) 重新优化，不再沿用普通 WR90 长度；
 \item 第一高阶 TE$_{20}$-like 截止仍约为 13.6--14.2 GHz，高于 11.5 GHz 工作上限。
 \end{enumerate}
 
-因此这组 Cohn/TRM 参数是当前主参数，早期 \texttt{geometry\_seed\_v0.md} 只保留为设计演进记录。
+因此这组 Cohn/TRM 参数是当前主参数，早期工程参数只作为设计演进过程，不再作为当前建模基线。
 
 \section{当前理论性能与高功率约束}
 
@@ -352,7 +352,7 @@ K_E
 
 当前参数已经足够支撑本地 HFSS 首轮建模，建议顺序如下：
 
-\begin{enumerate}[label=\arabic*.]
+\begin{enumerate}
 \item 建均匀 Section 1：\(w=4.572\) mm，\(g=7.672\) mm，检查前 3--4 个模态、传播常数和峰值电场。
 \item 建均匀 Section 2：\(w=4.572\) mm，\(g=4.984\) mm，做同样检查。
 \item 建两节 back-to-back 变换器，先取 \(L_1=9.872\) mm、\(L_2=8.857\) mm。
