@@ -17,13 +17,17 @@ Target problem: a compact four-way waveguide power combiner for **9–11.5 GHz**
 
 This repository currently contains an **analytic design baseline**, not a validated HFSS geometry.
 
-The main technical note is:
+The main technical notes are:
 
 - [docs/analytic_baseline.md](docs/analytic_baseline.md)
+- [docs/ridge_cross_section.md](docs/ridge_cross_section.md)
 
-A small reproducibility script is provided for the reduced two-section transmission-line seed model:
+Reproducibility scripts:
 
 - [scripts/transformer_seed.py](scripts/transformer_seed.py)
+- [scripts/ridge_cross_section_seed.py](scripts/ridge_cross_section_seed.py)
+
+The current **conditional** first HFSS ridge seed uses a common ridge width of 4.572 mm, with section-1 gap/length 7.672/9.872 mm and section-2 gap/length 4.984/8.857 mm. These dimensions come from a self-consistent Cohn/TRM reduced model and must still be calibrated against HFSS eigenmode/wave-port extraction and the actual magic-tee junction.
 
 ## Important modeling rule
 
