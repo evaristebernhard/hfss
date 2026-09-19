@@ -217,7 +217,7 @@ def _subtract_double_ridge_taper(hfss):
     Create metal intrusions in the H arm and subtract them from the vacuum
     propagation region.
 
-    The final 6 mm nearest the tee uses the g2 section.  Moving from the H-port
+    The final TERMINAL_RIDGE_LEN section nearest the tee uses g2.  Moving from the H-port
     toward the tee:
 
         WR90 -> smooth-ish B-to-G1 -> G1-to-G2 -> uniform G2 -> tee.
