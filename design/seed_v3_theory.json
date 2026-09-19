@@ -1,0 +1,93 @@
+{
+  "name": "magictee_v3_stagea_informed_seed",
+  "status": "design_input_not_yet_hfss_validated",
+  "based_on": {
+    "parity_baseline": "v2 parity-corrected baseline",
+    "empirical_sweep": "hfss/results/v2_stage_a/summary.json",
+    "best_H_stageA_case": "g2_5p80mm_lt_7p50mm"
+  },
+  "band_GHz": [
+    9,
+    11.5
+  ],
+  "wr90_mm": {
+    "A": 22.86,
+    "B": 10.16
+  },
+  "preserve": {
+    "parity_axis": "X",
+    "coordinates": {
+      "X": "collinear",
+      "Y": "H arm",
+      "Z": "E arm"
+    },
+    "e_arm_orientation": "propagate +Z; narrow B along X; broad A along Y"
+  },
+  "H_upstream_taper_mm": {
+    "ridge_width": 4.572,
+    "g1": 7.672,
+    "L1": 9.872,
+    "g2_start": 5.8,
+    "L2": 8.857,
+    "terminal_length_start": 7.5
+  },
+  "H_matching_cell_mm": {
+    "type": "centered mirror-symmetric H-plane sidewall iris/step",
+    "iris_open_seed": 20,
+    "iris_open_range": [
+      18.8,
+      21.5
+    ],
+    "iris_thickness_seed": 3,
+    "iris_thickness_range": [
+      2,
+      4
+    ],
+    "iris_offset_seed": 8.5,
+    "iris_offset_range": [
+      6.5,
+      10.5
+    ],
+    "terminal_ridge_width_seed": 4.572,
+    "terminal_ridge_width_range": [
+      4.57,
+      8
+    ],
+    "terminal_gap_start": 5.8,
+    "terminal_length_start": 7.5,
+    "edge_radius_later_range": [
+      0.8,
+      1.5
+    ]
+  },
+  "E_matcher_mm": {
+    "type": "centered symmetric two-section double-ridge",
+    "ridge_width": 6.858,
+    "near_junction": {
+      "gap": 4.299,
+      "length": 9.228
+    },
+    "outer": {
+      "gap": 6.544,
+      "length": 10.392
+    },
+    "straight_port_extension": 10,
+    "total_arm_length_formula": "9.228 + 10.392 + 10.0"
+  },
+  "objective": {
+    "primary": "minimize max_f(max(|r_plus|,|r_minus|))",
+    "forbidden_parity_constraint_dB": -30,
+    "final_external_RL_target_dB": 22,
+    "internal_RL_target_dB": 25
+  },
+  "stageA_empirical": {
+    "best_H_band_worst_RL_dB": 1.2659610415765972,
+    "best_H_band_worst_transmission_dB": -5.971282700990273,
+    "best_E_band_worst_RL_dB": 5.402238072396366,
+    "conclusion": "old g2/Lt controls are insufficient; add missing geometry directions"
+  },
+  "bolts": {
+    "enabled": false,
+    "reason": "residual mirrored tuning only after passive v3 matching"
+  }
+}
