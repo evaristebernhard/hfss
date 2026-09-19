@@ -125,6 +125,147 @@ The desired transmission magnitude is then fixed automatically by losslessness.
 
 ---
 
+---
+
+## 3.1 Symmetry theorem behind the block diagonalization
+
+The parity decomposition is not merely a convenient basis change.
+
+Let (mathcal P_x) denote the mirror operation
+
+[
+xmapsto -x
+]
+
+together with the corresponding vector transformation of the electromagnetic fields.
+
+If the geometry, materials and boundary conditions are invariant under this reflection, the Maxwell operator commutes with (mathcal P_x).
+
+The scattering operator must therefore commute with the induced port-parity operator:
+
+[
+[S,mathcal P_x]=0.
+]
+
+Hence (S) preserves the eigenspaces of (mathcal P_x).
+
+For the corrected v2 geometry,
+
+[
+mathcal P_x c_+=+c_+,
+qquad
+mathcal P_x H=+H,
+]
+
+while
+
+[
+mathcal P_x c_-=-c_-,
+qquad
+mathcal P_x E=-E.
+]
+
+Therefore, in the exact symmetric problem,
+
+[
+S_{c_+,c_-}
+=
+S_{c_+,E}
+=
+S_{H,c_-}
+=
+S_{H,E}
+=
+0.
+]
+
+The observed -59 dB level is therefore best interpreted as numerical/meshing residual rather than a physical coupling mechanism.
+
+This gives an important design rule:
+
+[
+oxed{
+	ext{preserve }xmapsto-x	ext{ symmetry during matching optimization.}
+}
+]
+
+---
+
+## 3.2 Common-mode design variables versus differential tolerance variables
+
+Suppose a tuning feature is introduced in a mirrored pair with parameters (p_L) and (p_R).
+
+Define
+
+[
+p_+
+=
+rac{p_L+p_R}{2},
+qquad
+p_-
+=
+rac{p_L-p_R}{2}.
+]
+
+The common-mode variable (p_+) preserves mirror symmetry.
+
+To first order it may change
+
+[
+r_+, r_-, t_H, t_E,
+]
+
+but it does not create cross-parity scattering.
+
+The differential variable (p_-) is odd under the mirror operation and therefore is the leading parameter that generates forbidden coupling.
+
+Near a symmetric design,
+
+[
+S_{+-}
+approx
+left.
+rac{partial S_{+-}}{partial p_-}
+ight|_{p_-=0}
+p_-,
+]
+
+while
+
+[
+left.
+rac{partial S_{+-}}{partial p_+}
+ight|_{p_-=0}
+=0.
+]
+
+The same statement applies to (S_{H,E}), (S_{c_+,E}), and (S_{c_-,H}).
+
+Thus future tuning bolts, posts, irises or machining features should be parameterized in two different categories:
+
+### Design coordinates
+
+Use symmetric/common-mode combinations such as
+
+[
+p_+
+]
+
+to improve matching.
+
+### Tolerance coordinates
+
+Use antisymmetric/differential combinations such as
+
+[
+p_-
+]
+
+to quantify isolation degradation from machining and assembly error.
+
+This separation prevents an optimizer from improving return loss by accidentally sacrificing the parity protection that currently gives more than 50 dB of modal isolation.
+
+
 ## 4. Why the physical-port RL can be misleading
 
 In the physical basis,
