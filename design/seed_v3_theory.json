@@ -1,6 +1,6 @@
 {
   "name": "magictee_v3_stagea_informed_seed",
-  "status": "design_input_not_yet_hfss_validated",
+  "status": "REJECTED_BY_V3_1_THEORY_AUDIT_DO_NOT_IMPLEMENT",
   "based_on": {
     "parity_baseline": "v2 parity-corrected baseline",
     "empirical_sweep": "hfss/results/v2_stage_a/summary.json",
@@ -89,5 +89,14 @@
   "bolts": {
     "enabled": false,
     "reason": "residual mirrored tuning only after passive v3 matching"
+  },
+  "audit_document": "docs/v3_theory_audit.md",
+  "E_matcher": {
+    "status": "withdrawn",
+    "reason": "old seed synthesized from c-minus driving-point reflection as if it were an E-side scalar load; use full two-port required-load equation instead"
+  },
+  "H_matching_cell": {
+    "status": "withdrawn_as_canonical",
+    "reason": "old iris seed overlaps existing ridge taper; choose H-A junction step or H-B dedicated-throat iris"
   }
 }
