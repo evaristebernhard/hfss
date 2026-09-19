@@ -576,6 +576,211 @@ The first parameter must alter the effective conductance, not only the electrica
 
 ---
 
+---
+
+## 12.5 A lower-order impossibility check from the conductance range
+
+There is a useful result that does not depend on the detailed transmission-line realization.
+
+Assume first that the H susceptance can be cancelled perfectly, and suppose the only remaining control is a frequency-independent conductance scale (s):
+
+[
+G_{m new}(f)=s,G_+(f).
+]
+
+For a real normalized admittance (G), the reflection magnitude is
+
+[
+|Gamma|
+=
+left|
+rac{1-G}{1+G}
+ight|.
+]
+
+If the original conductance ranges over
+
+[
+G_{min}le G_+(f)le G_{max},
+]
+
+the minimax constant scale is obtained by balancing the two endpoint reflections:
+
+[
+(sG_{min})(sG_{max})=1.
+]
+
+Hence
+
+[
+oxed{
+s_*=rac{1}{sqrt{G_{min}G_{max}}}.
+}
+]
+
+From the de-embedded v2 data,
+
+[
+G_{min}approx0.0636,
+qquad
+G_{max}approx0.1774,
+]
+
+so
+
+[
+s_*approx9.42.
+]
+
+Even under the optimistic assumption of perfect reactive cancellation, the optimally rescaled endpoint admittances are only about
+
+[
+0.599
+quad	ext{and}quad
+1.670,
+]
+
+giving
+
+[
+oxed{
+RL_{m best, constant H scale}
+approx12.0 {m dB}.
+}
+]
+
+This is a genuine structural statement for the extracted conductance trajectory:
+
+[
+oxed{
+	ext{one frequency-independent H coupling parameter cannot reach 22 dB.}
+}
+]
+
+The H-side design therefore needs a parameter that changes the frequency dependence of the coupling, not merely its overall strength.
+
+The same test can be applied to the nearly real E load.
+
+Using
+
+[
+R_{E,min}approx0.2985,
+qquad
+R_{E,max}approx0.4820,
+]
+
+the best possible frequency-independent impedance scaling gives only
+
+[
+oxed{
+RL_{m best, constant E scale}
+approx18.5 {m dB}.
+}
+]
+
+This independently confirms the transmission-line synthesis result that the E block needs at least one additional frequency-shaping degree of freedom beyond a single transformer ratio.
+
+---
+
+## 12.6 How many effective H-side degrees of freedom are indicated?
+
+Write the fitted H conductance as
+
+[
+G_+(x)
+=
+g_0+g_1x+g_2x^2
+]
+
+with
+
+[
+g_0=0.114602,
+qquad
+g_1=-0.058474,
+qquad
+g_2=0.006306.
+]
+
+Suppose a junction modification produces a low-order frequency-dependent coupling multiplier
+
+[
+M(x)
+=
+a(1+bx+cx^2).
+]
+
+To flatten the transformed conductance
+
+[
+widetilde G(x)=M(x)G_+(x)
+]
+
+around the center, choose the first coefficients so that the constant, linear and quadratic terms equal (1,0,0).
+
+This gives approximately
+
+[
+a=rac1{g_0}approx8.73,
+]
+
+[
+b=-rac{g_1}{g_0}approx0.510,
+]
+
+[
+capprox0.205.
+]
+
+With this purely algebraic conductance flattening, the residual endpoint mismatch corresponds to a return-loss scale of roughly 27--29 dB before accounting for the susceptance.
+
+By contrast:
+
+- overall scale only -> about 12 dB;
+- scale plus first-order tilt -> still only about 18--20 dB;
+- scale plus curvature control -> potentially enough margin for the 22/25 dB target.
+
+This does **not** mean three literal tuning screws are required.
+
+It means the H-plane geometry must provide approximately three independent effects:
+
+1. set the coupling level;
+2. correct its first-order frequency slope;
+3. correct enough curvature to keep the band edges from separating.
+
+The existing variables can now be interpreted more usefully:
+
+- a new H-junction aperture/throat variable: mainly coupling level;
+- terminal ridge length (L_t): mainly phase / susceptance and some slope;
+- (g_2) or terminal ridge shape: coupling slope/curvature.
+
+This makes
+
+[
+oxed{
+p_H
+=
+(p_{m aperture},L_t,g_2)
+}
+]
+
+a more defensible first three-parameter H model than blindly reopening all five ridge variables.
+
+The susceptance fit
+
+[
+B_+(x)
+=
+-0.080057
+-0.056137x
++0.026638x^2
+]
+
+is comparatively easier: cancelling only its constant and linear terms leaves a quadratic residual of order (0.027), small enough that the corresponding reflection scale is already well below the main conductance error.
+
+Therefore the principal H-side difficulty is conclusively the **frequency dependence of the coupling conductance**, not merely junction reactance.
+
+
 ## 13. Recommended reduced-order design hierarchy
 
 The analysis now suggests the following hierarchy.
