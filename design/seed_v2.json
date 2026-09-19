@@ -1,0 +1,77 @@
+{
+  "name": "wr90_magictee_parity_corrected_seed_v2",
+  "status": "next_full_wave_seed_after_v1_diagnosis",
+  "units": "mm",
+  "band_GHz": [
+    9,
+    11.5
+  ],
+  "electrical_center_GHz": 10.2,
+  "wr90": {
+    "a": 22.86,
+    "b": 10.16
+  },
+  "geometry_correction": {
+    "e_arm_propagation_axis": "+Z",
+    "e_arm_cross_section": {
+      "x_dimension": 10.16,
+      "y_dimension": 22.86
+    },
+    "dominant_e_field_axis": "X",
+    "parity_target": "odd under X->-X",
+    "integration_line_axis": "X"
+  },
+  "ridge_fixed_first_run": {
+    "w": 4.572,
+    "g1": 7.672,
+    "L1": 9.872,
+    "g2": 4.984,
+    "L2": 8.857,
+    "terminal_ridge_len": 6
+  },
+  "stage_A_sweep": {
+    "g2": [
+      4.6,
+      5,
+      5.4,
+      5.8
+    ],
+    "terminal_ridge_len": [
+      4.5,
+      6,
+      7.5
+    ],
+    "hold_fixed": [
+      "w",
+      "g1",
+      "L1",
+      "L2"
+    ]
+  },
+  "targets": {
+    "external_return_loss_dB_min": 22,
+    "external_isolation_dB_min": 22,
+    "internal_modal_return_loss_dB_min": 25,
+    "internal_modal_leakage_dB_max": -25,
+    "internal_combining_efficiency_min": 0.97,
+    "field_enhancement_ratio_max": 3
+  },
+  "acceptance_before_optimizer": [
+    "c_minus reflection is no longer approximately unity",
+    "c_minus_to_E coupling is strong and symmetry-allowed",
+    "c_plus_to_E leakage is small",
+    "c_minus_to_H leakage is small"
+  ],
+  "later_tuning_bolts": {
+    "enabled_after_passive_match_only": true,
+    "diameter": 3,
+    "penetration_sweep": [
+      0,
+      2
+    ],
+    "pair_spacing_sweep": [
+      7.5,
+      10
+    ]
+  }
+}
