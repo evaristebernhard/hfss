@@ -1,0 +1,43 @@
+# Python cache and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# LaTeX/build products
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex*
+*.toc
+*.bbl
+*.blg
+*.run.xml
+
+# HFSS/AEDT generated state and locks
+*.aedt
+*.aedt.lock
+*.aedtresults/
+hfss/output*/
+
+# Generated tabular calculation output
+*.csv
+
+# Keep curated results that are intentionally uploaded from this workspace.
+!hfss/results/
+!hfss/results/**/*.aedt
+!hfss/results/**/*.s4p
+!hfss/results/**/*.csv
+!hfss/results/**/*.md
+
+# Local/editor/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary scratch files
+tmp/
+scratch/

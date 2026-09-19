@@ -63,7 +63,8 @@ L2 = 8.857
 
 TAPER_TOTAL = L1 + L2          # 18.729 mm
 TERMINAL_RIDGE_LEN = 6.0       # short g2 section before the junction
-H_ARM_ACTIVE_LEN = TAPER_TOTAL + TERMINAL_RIDGE_LEN
+PORT_STRAIGHT_LEN = 10.0       # un-ridged WR90 section before the H-port
+H_ARM_ACTIVE_LEN = PORT_STRAIGHT_LEN + TAPER_TOTAL + TERMINAL_RIDGE_LEN
 
 # Straight collinear arms measured from the junction center.
 COLLINEAR_HALF_LEN = 35.0
@@ -93,7 +94,7 @@ def taper_gap_from_port_distance(s_mm: float) -> float:
     """
     Provisional geometry map used by v1.
 
-    s=0 is the ordinary WR90 port end.
+    s=0 is the first taper station after the ordinary WR90 port extension.
     s=TAPER_TOTAL is the g2 end nearest the tee.
 
     Section 1 maps B -> G1; section 2 maps G1 -> G2.
@@ -132,7 +133,8 @@ def _launch_hfss(project_path: str, version: str, non_graphical: bool):
             solution_type="Modal",
             non_graphical=non_graphical,
             new_desktop=True,
-            close_on_exit=False,
+            close_on_exit=True,
+            student_version=True,
         )
 
     # Compatibility path for older PyAEDT releases.
@@ -217,7 +219,7 @@ def _subtract_double_ridge_taper(hfss):
         WR90 -> smooth-ish B-to-G1 -> G1-to-G2 -> uniform G2 -> tee.
     """
     h_port_y = A / 2.0 + H_ARM_ACTIVE_LEN
-    taper_near_tee_y = h_port_y - TAPER_TOTAL
+    taper_near_tee_y = h_port_y - PORT_STRAIGHT_LEN - TAPER_TOTAL
 
     tools = []
 
@@ -234,7 +236,7 @@ def _subtract_double_ridge_taper(hfss):
             continue
 
         # y decreases as s increases from the external H port toward the tee.
-        y0 = h_port_y - s1
+        y0 = h_port_y - PORT_STRAIGHT_LEN - s1
         dy = s1 - s0
 
         top = _box(
@@ -336,6 +338,7 @@ def _assign_ports_and_walls(hfss, geom):
         integration_line=zline_1,
         modes=1,
         name="P1_CollinearMinusX",
+        renormalize=False,
         characteristic_impedance="Zwave",
     )
     hfss.wave_port(
@@ -343,6 +346,7 @@ def _assign_ports_and_walls(hfss, geom):
         integration_line=zline_2,
         modes=1,
         name="P2_CollinearPlusX",
+        renormalize=False,
         characteristic_impedance="Zwave",
     )
     hfss.wave_port(
@@ -350,6 +354,7 @@ def _assign_ports_and_walls(hfss, geom):
         integration_line=zline_3,
         modes=1,
         name="P3_HArm_Ridged",
+        renormalize=False,
         characteristic_impedance="Zwave",
     )
     hfss.wave_port(
@@ -357,6 +362,7 @@ def _assign_ports_and_walls(hfss, geom):
         integration_line=yline_4,
         modes=1,
         name="P4_EArm",
+        renormalize=False,
         characteristic_impedance="Zwave",
     )
 
@@ -424,6 +430,16 @@ def _define_design_variables(hfss):
 
 
 def build(args):
+    global RIDGE_W, G1, L1, G2, L2, TAPER_TOTAL, H_ARM_ACTIVE_LEN
+
+    RIDGE_W = args.ridge_w
+    G1 = args.g1
+    L1 = args.l1
+    G2 = args.g2
+    L2 = args.l2
+    TAPER_TOTAL = L1 + L2
+    H_ARM_ACTIVE_LEN = PORT_STRAIGHT_LEN + TAPER_TOTAL + TERMINAL_RIDGE_LEN
+
     outdir = Path(args.output).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
@@ -474,6 +490,13 @@ def build(args):
     else:
         print("Build-only mode. Re-run with --solve after checking geometry.")
 
+    # Do not leave ansysedtsv.exe or an .aedt.lock behind when this launcher
+    # process exits. The saved project can be reopened from AEDT afterwards.
+    try:
+        hfss.release_desktop()
+    except Exception as exc:
+        print("AEDT release warning:", exc)
+
     return hfss
 
 
@@ -499,6 +522,11 @@ def parse_args():
         action="store_true",
         help="Run AEDT without GUI",
     )
+    p.add_argument("--ridge-w", type=float, default=RIDGE_W)
+    p.add_argument("--g1", type=float, default=G1)
+    p.add_argument("--l1", type=float, default=L1)
+    p.add_argument("--g2", type=float, default=G2)
+    p.add_argument("--l2", type=float, default=L2)
     return p.parse_args()
 
 
