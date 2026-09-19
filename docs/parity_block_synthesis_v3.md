@@ -1035,3 +1035,372 @@ G_H(f)+jB_H(f)
 ]
 
 with one explicit coupling parameter and one explicit reactive parameter, then solve analytically for the values required to move the fitted H trajectory toward (Y=1) over the band.
+
+---
+
+## 16. Explicit H-block transformer + shunt-admittance interpretation
+
+A useful minimal even-mode equivalent circuit is
+
+[
+oxed{
+y_H(f)
+approx
+n_H^2(f)+jb_H(f)
+}
+]
+
+where
+
+- (n_H(f)) is an effective transformer/coupling coefficient between the even collinear mode and the H branch;
+- (b_H(f)) is the residual normalized shunt susceptance of the junction and nearby discontinuities.
+
+This is consistent with standard H-plane T-junction equivalent-network descriptions based on ideal-transformer and admittance representations.
+
+From the fitted v2 admittance,
+
+[
+G_H(x)
+=
+0.114602
+-0.058474x
++0.006306x^2,
+]
+
+so
+
+[
+n_H(x)=sqrt{G_H(x)}.
+]
+
+Representative values are
+
+[
+n_H(-1)approx0.424,
+qquad
+n_H(0)approx0.339,
+qquad
+n_H(+1)approx0.250.
+]
+
+Thus the effective coupling is not only too small; it also decreases strongly with frequency.
+
+The amplitude correction required to move the conductance toward unity is
+
+[
+m_H(x)=rac1{n_H(x)}.
+]
+
+At the same three points,
+
+[
+oxed{
+m_H(-1)approx2.36,quad
+m_H(0)approx2.95,quad
+m_H(+1)approx4.00.
+}
+]
+
+A quadratic expansion around band center is
+
+[
+oxed{
+m_H(x)
+approx
+2.954
++0.754x
++0.207x^2.
+}
+]
+
+Equivalently, in logarithmic form,
+
+[
+oxed{
+ln m_H(x)
+approx
+1.08295
++0.26026x
++0.03948x^2,
+}
+]
+
+whose maximum approximation error over the fitted band is only about (4.2	imes10^{-3}).
+
+This is a compact target for future geometry-Jacobian fitting.
+
+The reactive correction target is simply
+
+[
+b_{m corr}(x)
+=
+-B_H(x),
+]
+
+hence
+
+[
+oxed{
+b_{m corr}(x)
+approx
+0.080057
++0.056137x
+-0.026638x^2.
+}
+]
+
+The H matching geometry therefore has a clear reduced-order target:
+
+1. increase mean coupling by roughly a factor 3 in amplitude;
+2. make the coupling increase with frequency strongly enough to compensate the present negative slope;
+3. supply an opposite effective susceptance with modest curvature.
+
+---
+
+## 17. Why a symmetric H-plane step/iris cell is the preferred new structure
+
+Standard rectangular-waveguide discontinuity theory models H-plane discontinuities as primarily inductive elements, while E-plane discontinuities are primarily capacitive. A symmetric H-plane discontinuity is attractive here because it can be placed near the sidewalls, where the TE10 electric field is small.
+
+For the present 30 kW peak-power requirement this is preferable, as a first choice, to a sharp center post or thin probe located near an electric-field maximum.
+
+Published X-band magic-T designs also demonstrate that an H-plane T-junction can be matched by a broad step at the junction, with its height, thickness and longitudinal offset used as optimization variables. Separate high-power work has reported that sharp matching-probe / phase-plate tips can become the limiting high-field features, reinforcing the preference for broad, rounded matching geometry rather than relying on a deep sharp probe.
+
+For the present geometry, the proposed H-side matching cell is therefore:
+
+[
+oxed{
+	ext{symmetric H-plane step/iris}
++
+	ext{short terminal ridge}
+}
+]
+
+with all metal features mirrored under (xmapsto-x).
+
+A useful abstract parameter set is
+
+[
+oxed{
+p_H
+=
+(a_i,t_i,d_i,w_t)
+}
+]
+
+where
+
+- (a_i): centered iris opening / effective H-plane aperture;
+- (t_i): longitudinal thickness of the step/iris;
+- (d_i): distance from the tee reference plane;
+- (w_t): terminal-ridge width, allowed to differ from the upstream taper width.
+
+The existing (g_2) and (L_t) remain available but should not all be released at the same time.
+
+### Intended control roles
+
+The intended first-order roles are
+
+[
+a_i
+ightarrow
+	ext{coupling level},
+]
+
+[
+t_i
+ightarrow
+	ext{coupling dispersion / curvature},
+]
+
+[
+d_i
+ightarrow
+	ext{effective reflection phase and susceptance},
+]
+
+[
+w_t
+ightarrow
+	ext{local H-arm impedance with less need to shrink the ridge gap}.
+]
+
+These are not exact one-to-one mappings; the future Jacobian will quantify the cross-coupling.
+
+---
+
+## 18. H-side scale estimates before simulation
+
+At 10.25 GHz the plain-WR90 guided wavelength is approximately
+
+[
+lambda_gapprox38.05 {m mm},
+qquad
+lambda_g/4approx9.51 {m mm}.
+]
+
+Therefore a matching discontinuity located within roughly
+
+[
+0.18lambda_g
+lesssim d_i
+lesssim
+0.27lambda_g
+]
+
+corresponds to about
+
+[
+oxed{
+6.8 {m mm}
+lesssim d_i
+lesssim
+10.3 {m mm}.
+}
+]
+
+This range is large enough to rotate the discontinuity reflection phasor substantially while remaining compact.
+
+A published X-band H-plane tee using a broad matching step used, at 9.25 GHz, a full-width step with dimensions of order 2.9 mm height, 3.2 mm thickness and 8.23 mm offset. These values are not transferable directly because that design used a different reduced-height topology, but after electrical scaling they support a first-order dimensional scale of a few millimeters for step thickness/depth and roughly 7--10 mm for offset.
+
+Accordingly, a theory-only initial range is
+
+[
+oxed{
+t_isim2.0	ext{--}4.0 {m mm},
+}
+]
+
+[
+oxed{
+d_isim6.5	ext{--}10.5 {m mm}.
+}
+]
+
+The aperture (a_i) should initially be kept broad; the goal is not to create a narrow high-field slot.
+
+All exposed edges should ultimately be rounded. A first mechanical radius scale of roughly 0.8--1.5 mm is more consistent with the high-power objective than a sharp corner.
+
+---
+
+## 19. Terminal ridge width as a separate high-power variable
+
+The current model forces the terminal ridge width to remain
+
+[
+w_t=4.572 {m mm}.
+]
+
+The Cohn model shows that, at fixed gap (gapprox4.984) mm and 10.2 GHz, increasing the local ridge-width ratio changes the approximate impedance ratio as follows:
+
+| (w_t/a) | (Z_t/Z_{m ref}) |
+|---:|---:|
+| 0.20 | 0.609 |
+| 0.25 | 0.570 |
+| 0.30 | 0.536 |
+| 0.35 | 0.508 |
+| 0.40 | 0.484 |
+
+Thus widening the terminal ridge can lower the local impedance by roughly 20% without shrinking the gap.
+
+This is not enough by itself to cure the H coupling deficit, but it is a useful high-power-friendly fine-control variable.
+
+A reasonable later range is
+
+[
+oxed{
+4.57 {m mm}
+le w_t
+le
+8.0 {m mm}
+}
+]
+
+while retaining (g_t) near 5 mm until peak-field calculations justify any smaller gap.
+
+---
+
+## 20. E-block geometry synthesis with ridge dispersion included
+
+The previous ((0.75,0.50)) E-block result used idealized transmission-line sections.
+
+A second reduced-model optimization was performed using
+
+1. the extracted de-embedded E-load fit;
+2. the repository Cohn ridge impedance model;
+3. each ridge section's own frequency-dependent propagation constant.
+
+For several common E-ridge widths, the resulting minima are:
+
+| (w_E/a) | reduced worst RL | (g_{E1}) mm | (g_{E2}) mm | (L_{E1}) mm | (L_{E2}) mm |
+|---:|---:|---:|---:|---:|---:|
+| 0.20 | 24.68 dB | 5.768 | 3.518 | 10.206 | 9.211 |
+| 0.25 | 24.63 dB | 6.195 | 3.935 | 10.294 | 9.218 |
+| **0.30** | **24.57 dB** | **6.544** | **4.299** | **10.392** | **9.228** |
+| 0.35 | 24.50 dB | 6.821 | 4.614 | 10.505 | 9.243 |
+
+The small RL differences are not important. The important tradeoff is gap size versus higher-mode margin.
+
+For
+
+[
+oxed{w_E/a=0.30},
+]
+
+the first approximate TE20-like cutoffs are
+
+[
+f_{20,E1}approx13.68 {m GHz},
+qquad
+f_{20,E2}approx14.09 {m GHz}.
+]
+
+This provides a useful margin above 11.5 GHz while keeping the smaller gap above 4.2 mm.
+
+Therefore the recommended primary E-arm theoretical seed is
+
+[
+oxed{
+w_E=0.30a=6.858 {m mm},
+}
+]
+
+[
+oxed{
+g_{E1}=6.54 {m mm},
+quad
+L_{E1}=10.39 {m mm},
+}
+]
+
+[
+oxed{
+g_{E2}=4.30 {m mm},
+quad
+L_{E2}=9.23 {m mm}.
+}
+]
+
+A high-power alternative is (w_E/a=0.35), which increases the minimum gap to about 4.61 mm but reduces the TE20-like margin to approximately 13.5--13.6 GHz.
+
+The (w_E/a=0.30) case is the better first compromise.
+
+---
+
+## 21. Physical orientation of the new E double-ridge matcher
+
+The v2 E arm propagates along (+Z), with
+
+- narrow dimension (B) along (X);
+- broad dimension (A) along (Y).
+
+Therefore the E-arm double ridges must be rotated consistently:
+
+- the two ridges protrude inward from the (x=pm B/2) walls;
+- the clear ridge gap is measured along (X);
+- ridge width (w_E) is measured along (Y);
+- the two sections extend longitudinally along (Z).
+
+This construction preserves the (xmapsto-x) mirror symmetry and therefore preserves the odd parity of the E channel.
+
+The new E matcher should not use an off-center ridge, single-sided post or asymmetric screw as a nominal design variable.
+
