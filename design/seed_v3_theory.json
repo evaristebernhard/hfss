@@ -1,0 +1,73 @@
+{
+  "name": "magictee_v3_theory_seed",
+  "status": "theory_only_not_hfss_validated",
+  "based_on": "v2 parity-corrected baseline",
+  "band_GHz": [
+    9,
+    11.5
+  ],
+  "preserve": {
+    "parity_axis": "X",
+    "e_arm_orientation": "propagate +Z, narrow X, broad Y",
+    "upstream_H_ridge": {
+      "w": 4.572,
+      "g1": 7.672,
+      "L1": 9.872,
+      "g2": 4.984,
+      "L2": 8.857,
+      "terminal_len": 6
+    }
+  },
+  "E_matcher": {
+    "type": "symmetric_two_section_double_ridge",
+    "ridge_width": 6.858,
+    "section_near_junction": {
+      "gap": 4.299,
+      "length": 9.228
+    },
+    "section_outer": {
+      "gap": 6.544,
+      "length": 10.392
+    },
+    "reduced_model_worst_RL_dB": 24.57,
+    "estimated_TE20_like_cutoff_GHz": {
+      "near_junction": 14.09,
+      "outer": 13.68
+    }
+  },
+  "H_junction_cell": {
+    "type": "mirror_symmetric_H_plane_step_or_iris_plus_terminal_ridge",
+    "iris_thickness_range": [
+      2,
+      4
+    ],
+    "iris_offset_range": [
+      6.5,
+      10.5
+    ],
+    "terminal_ridge_width_range": [
+      4.57,
+      8
+    ],
+    "terminal_gap_initial": 4.984,
+    "terminal_length_initial": 6,
+    "edge_radius_initial_range": [
+      0.8,
+      1.5
+    ],
+    "extracted_coupling_multiplier_target": {
+      "low_band": 2.36,
+      "center": 2.95,
+      "high_band": 4
+    }
+  },
+  "optimization_rule": {
+    "nominal_coordinates": "mirror-symmetric only",
+    "differential_coordinates": "tolerance/isolation only",
+    "objective": "minimize max_f(max(|r_plus|,|r_minus|))"
+  },
+  "bolts": {
+    "enabled": false,
+    "reason": "residual tuning only after passive H/E matching"
+  }
+}
