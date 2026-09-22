@@ -4,7 +4,7 @@ Analytic system seed for the v4 4-to-1 Magic-T tree.
 
 Reports:
 - WR90 TE10 guided wavelengths over 9--11.5 GHz
-- the three-screw electrical phases for the frozen 0/8.4/17.6 mm spacing
+- the three-screw electrical phases for the frozen 0/5.0/19.5 mm spacing
 - 95% system insertion-loss budget
 - equal-path phase tolerance scales for the two-stage 4-to-1 tree
 
@@ -20,7 +20,7 @@ A = 22.86e-3
 FC = C0 / (2*A)
 
 FREQS = [9.0e9, 10.25e9, 11.5e9]
-SCREW_REL_MM = [0.0, 8.4, 17.6]
+SCREW_REL_MM = [0.0, 5.0, 19.5]
 ETA_TARGET = 0.95
 
 
