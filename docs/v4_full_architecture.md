@@ -59,19 +59,20 @@ junction stepped septum
 
 ### J0: junction-local matching cell
 
-Use a mirror-symmetric rounded partial-height boss pair / local post structure.
+Use a mirror-symmetric rounded partial-height cylindrical post pair.
 Its purpose is to supply the missing R11 weak singular direction.
 
 Primary variables:
-- boss height hb
-- boss longitudinal position yb
+- post height hp
+- post longitudinal position yp
 
-Secondary frozen seed dimensions:
-- boss width wb
-- boss length lb
-- internal corner radius rb
+Frozen first seed:
+- post radius rp = 1.5 mm
+- post height hp = 0.70 mm
+- post axis yp = 1.50 mm from the H-plane junction mouth
 
-The boss is not a tuning screw. It is a permanent broadband junction element.
+The post pair is not a tuning screw. It is a permanent broadband junction
+element and remains symmetric about the collinear parity plane.
 
 ### J1: mild H-plane throat
 
@@ -101,17 +102,22 @@ design objective.
 Three screws are included in the geometry from the beginning but remain retracted
 during passive synthesis.
 
-Nominal axial seeds from the existing ridge-guided wavelength estimate:
+Nominal relative axial seeds are now chosen as a broadband basis rather than
+as a single-frequency quarter-wave cancellation pair:
 - screw 1: z1 = 0 mm reference
-- screw 2: z2 = 8.4 mm
-- screw 3: z3 = 17.6 mm
+- screw 2: z2 = 5.0 mm
+- screw 3: z3 = 19.5 mm
 
-Thus:
-- d12 = 8.4 mm
-- d23 = 9.2 mm
+Using nine equally spaced frequencies over 9--11.5 GHz and the weak-reflection
+basis exp(-2j beta(f) z_i), column-normalized real/imag SVD gives:
 
-The slight nonuniform spacing avoids making all screw phasors redundant over the
-24.4% fractional bandwidth.
+- old [0, 8.4, 17.6] mm: condition number about 11.70,
+  sigma_min/sigma_max about 0.0855;
+- new [0, 5.0, 19.5] mm: condition number about 2.24,
+  sigma_min/sigma_max about 0.4456.
+
+Therefore the new positions are preferred for broadband three-parameter
+residual fitting. They are not claimed to be the final mechanical optimum.
 
 Penetration variables:
 - p1, p2, p3
@@ -179,15 +185,13 @@ of merely improving one scalar return-loss point.
 ## 6. Boss seed
 
 Initial geometry:
-- hb = 0.70 mm
-- yb = 1.00 mm from the H-plane junction mouth
-- wb = 5.5 mm
-- lb = 3.0 mm
-- rb = 0.6 mm
+- post radius = 1.50 mm
+- post height hp = 0.70 mm
+- post axis yp = 1.50 mm from the H-plane junction mouth
 
 First local identification half-steps:
-- hb +/- 0.20 mm
-- yb +/- 0.50 mm
+- hp +/- 0.20 mm
+- yp +/- 0.50 mm
 
 This is deliberately small: the first decision is whether the two new boss
 columns project onto the old weak output directions.
@@ -208,12 +212,29 @@ Five full-wave solves:
 Compare the two new step-normalized sensitivity columns against the existing R11
 subspace.
 
-Acceptance:
-- the smallest useful singular value must rise by at least ~5x over R11, or
-- sigma_min/sigma_max should move toward >= 0.01 as a first gate.
+Primary acceptance is direct weak-direction controllability.
 
-If the boss fails this test, replace it with a partial-height post rather than
-sweeping its dimensions widely.
+R11 leaves approximately 0.260 error along its weakest output direction u4.
+For the two new step-normalized post columns c_h and c_y define
+
+    g_h = |u4^T c_h|,
+    g_y = |u4^T c_y|.
+
+If each coordinate is allowed to move by at most two identification half-steps,
+the first-order upper-bound correction is
+
+    C4 = 2 (g_h + g_y).
+
+Require
+
+    g_h + g_y >= 0.130
+
+so that C4 >= 0.260.
+
+The augmented singular values are still reported as a secondary diagnostic,
+but a 5x increase of sigma_min alone is not sufficient. If the post pair fails
+the direct weak-direction gate, replace the local matching concept immediately
+rather than performing a wide Cartesian sweep.
 
 ### Phase B: passive synthesis
 
@@ -321,3 +342,42 @@ inside a three-Magic-T binary 4-to-1 tree.
 
 Future work should optimize this architecture rather than repeatedly invent new
 topologies.
+
+
+---
+
+## 12. Mathematical synthesis update after R11
+
+The v4 workflow is explicitly split into orthogonal physical jobs:
+
+1. the junction-local post pair targets the R11 weak output direction and the
+   center-frequency complex mismatch;
+2. H-throat length/width remain spectral-slope and phase controls;
+3. the double-ridge transformer should be synthesized from a target impedance
+   trajectory instead of treated as a large free sweep;
+4. the three screws are a residual broadband basis and should be solved by
+   constrained complex least squares after the passive structure reaches the
+   18--20 dB return-loss region;
+5. the three-Magic-T four-way tree is first closed as an S-parameter network,
+   then confirmed by one full 3D assembly.
+
+For small screw penetrations,
+
+    Gamma_screw(f) ~= sum_i c_i(f) p_i,
+
+where c_i(f) is measured from one small HFSS penetration perturbation per screw.
+The tuning problem is then
+
+    min || Gamma_passive(f_k) + sum_i c_i(f_k) p_i ||_2
+
+subject to
+
+    0 <= p_i <= 1.5 mm
+
+for the preferred range.
+
+This replaces blind screw sweeps with a directly identified linear residual
+model.
+
+The complete derivation and quantitative R11 control target are documented in
+`docs/v4_mathematical_synthesis.md`.
