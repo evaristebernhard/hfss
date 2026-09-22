@@ -24,23 +24,23 @@
   },
   "single_cell": {
     "H_path_order": [
-      "junction_local_rounded_boss",
+      "junction_local_partial_height_post_pair",
       "mild_H_plane_throat",
       "terminal_double_ridge",
       "smooth_double_ridge_transformer",
       "three_screw_residual_tuner",
       "WR90_reference"
     ],
-    "boss": {
+    "local_post_pair": {
+      "shape": "cylindrical_partial_height_pair",
+      "radius_mm": 1.5,
       "height_mm": 0.7,
-      "position_from_junction_mm": 1,
-      "width_mm": 5.5,
-      "length_mm": 3,
-      "corner_radius_mm": 0.6,
+      "axis_position_from_junction_mm": 1.5,
       "identification_half_steps": {
         "height_mm": 0.2,
-        "position_mm": 0.5
-      }
+        "axis_position_mm": 0.5
+      },
+      "note": "symmetric top/bottom post pair preserves collinear parity and gives rounded high-power-compatible local loading"
     },
     "H_throat": {
       "a_mm": 20.4,
@@ -60,7 +60,8 @@
       "profile": "smoothstep_log_gap"
     },
     "screws": {
-      "axial_positions_mm": [
+      "tuner_offset_after_taper_mm": 3,
+      "relative_axial_positions_mm": [
         0,
         8.4,
         17.6
@@ -70,6 +71,7 @@
         0,
         0
       ],
+      "radius_mm": 1,
       "preferred_penetration_range_mm": [
         0,
         1.5
@@ -101,7 +103,7 @@
     "conclusion": "old coordinate system is practically rank deficient"
   },
   "gates": {
-    "boss_direction_test": {
+    "local_post_direction_test": {
       "minimum_sigma_min_gain_over_r11": 5,
       "preferred_sigma_min_over_sigma_max": 0.01
     },
