@@ -1,0 +1,82 @@
+{
+  "name": "magictee_v3_4_H_orthogonal_reactive_cell",
+  "status": "baseline_hfss_validated_jacobian_pending",
+  "purpose": "separate H spectral-slope, reactive, level, and phase controls before residual tuning",
+  "reference_result": "hfss/results/v3_4_H_reactive_cell_latest/single_magictee_v3_4_hreactive.s4p",
+  "preserve": {
+    "E_arm": "v2 parity-corrected geometry unchanged",
+    "parity_axis": "X",
+    "upstream_H_taper": {
+      "ridge_w_mm": 4.572,
+      "g1_mm": 7.672,
+      "L1_mm": 9.872,
+      "L2_mm": 8.857
+    },
+    "terminal_gap_mm": 5.8,
+    "terminal_length_mm": 7.5,
+    "port_straight_mm": 10
+  },
+  "H_candidate": {
+    "topology": "mild reduced-width throat then localized symmetric reduced-height capacitive cell then terminal double ridge",
+    "throat_broad_dimension_seed_mm": 20.4,
+    "throat_broad_dimension_range_mm": [
+      19.8,
+      21
+    ],
+    "throat_length_seed_mm": 5.5,
+    "throat_length_range_mm": [
+      4.5,
+      6.5
+    ],
+    "capacitive_cell_height_seed_mm": 9,
+    "capacitive_cell_height_range_mm": [
+      8.5,
+      9.6
+    ],
+    "capacitive_cell_length_seed_mm": 2.5,
+    "capacitive_cell_length_range_mm": [
+      1.5,
+      3.5
+    ],
+    "terminal_ridge_width_seed_mm": 4.572,
+    "terminal_ridge_width_range_mm": [
+      4,
+      6.5
+    ]
+  },
+  "intended_coordinates": {
+    "h_throat_a": "spectral slope and real-part transformation",
+    "h_throat_len": "phase",
+    "h_cap_height": "localized capacitive compensation",
+    "h_terminal_ridge_w": "coupling level and residual impedance"
+  },
+  "first_jacobian": {
+    "feature_vector": [
+      "Re(Gamma_H(f0))",
+      "Im(Gamma_H(f0))",
+      "Re(dGamma_H/df at f0)",
+      "Im(dGamma_H/df at f0)"
+    ],
+    "f0_GHz": 10.25,
+    "perturbations": {
+      "h_throat_a_mm": 0.4,
+      "h_throat_len_mm": 1,
+      "h_cap_height_mm": 0.4,
+      "h_terminal_ridge_w_mm": 0.5
+    },
+    "total_center_plus_central_difference_cases": 9
+  },
+  "acceptance": {
+    "first_structural_gate_tH_min": 0.85,
+    "preferred_pre_residual_tH_min": 0.9,
+    "parity_forbidden_max_dB": -30,
+    "decision_metric": "4x4 complex-reflection Jacobian must be numerically full-rank before large optimization"
+  },
+  "notes": [
+    "20.4 mm throat width is a linearized seed from the measured v2 to v3.3 band-edge slope reversal.",
+    "Reduced-height cell is intentionally shallow and short to add a reactive degree of freedom without using a thin tuning screw.",
+    "No 30 kW qualification is implied until local field enhancement is extracted with rounded final geometry.",
+    "The committed v3.4 center solve improves H/even worst-band RL to 2.663 dB and |t_H|min to 0.677; the 8 perturbation solves are still required before claiming Jacobian rank.",
+    "The terminal-ridge-width central-difference half-step is reduced from 0.8 mm to 0.5 mm so both perturbation points stay inside the documented 4.0--6.5 mm range."
+  ]
+}
