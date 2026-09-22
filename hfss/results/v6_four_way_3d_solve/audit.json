@@ -1,0 +1,109 @@
+{
+  "source": "hfss/results/v6_four_way_3d_solve/four_way_magictee_v6_3d.s8p",
+  "port_order": [
+    "IN1",
+    "IN2",
+    "IN3",
+    "IN4",
+    "OUT",
+    "DUMP_A",
+    "DUMP_B",
+    "DUMP_C"
+  ],
+  "excitation": "a1=a2=a3=a4=1; a5..a8=0; total incident power normalized to 4 W",
+  "band_GHz": [
+    9.0,
+    11.5
+  ],
+  "points": 51,
+  "metrics": {
+    "eta_output": {
+      "min": 0.36357461820127857,
+      "min_freq_GHz": 9.7,
+      "max": 0.9997872704946105,
+      "max_freq_GHz": 10.25,
+      "mean": 0.7228933473036625
+    },
+    "eta_input_reflection": {
+      "min": 0.00021217381948439908,
+      "min_freq_GHz": 10.25,
+      "max": 0.6364222149674059,
+      "max_freq_GHz": 9.7,
+      "mean": 0.2770988334177171
+    },
+    "eta_dump": {
+      "min": 3.3155709096542774e-07,
+      "min_freq_GHz": 10.15,
+      "max": 3.3432698344978505e-05,
+      "max_freq_GHz": 9.3,
+      "mean": 7.783040837864923e-06
+    },
+    "eta_all_external": {
+      "min": 0.9999985780598405,
+      "min_freq_GHz": 10.5,
+      "max": 1.0000008339370856,
+      "max_freq_GHz": 10.8,
+      "mean": 0.9999999637622173
+    },
+    "active_return_loss_min_dB": {
+      "min": 1.9419654568161344,
+      "min_freq_GHz": 9.7,
+      "max": 35.636306563561284,
+      "max_freq_GHz": 10.25,
+      "mean": 8.466918286710973
+    },
+    "matched_input_isolation_min_dB": {
+      "min": 7.271925374024901,
+      "min_freq_GHz": 11.2,
+      "max": 17.958104978459456,
+      "max_freq_GHz": 9.5,
+      "mean": 10.70970468870098
+    },
+    "output_path_amplitude_spread_dB": {
+      "min": 0.013943957123460993,
+      "min_freq_GHz": 10.5,
+      "max": 0.055703888576217574,
+      "max_freq_GHz": 9.65,
+      "mean": 0.03628037838354637
+    },
+    "output_path_phase_spread_deg": {
+      "min": 0.05392861249999394,
+      "min_freq_GHz": 10.15,
+      "max": 0.5800173769999813,
+      "max_freq_GHz": 11.4,
+      "mean": 0.24340137974548987
+    },
+    "reciprocity_error_max": {
+      "min": 1.0691481060292432e-15,
+      "min_freq_GHz": 9.0,
+      "max": 1.1771630690931442e-12,
+      "max_freq_GHz": 11.1,
+      "mean": 3.815889284089255e-13
+    },
+    "singular_value_max": {
+      "min": 1.0000000000022438,
+      "min_freq_GHz": 9.0,
+      "max": 1.000003363446336,
+      "max_freq_GHz": 11.25,
+      "mean": 1.000000455895971
+    }
+  },
+  "power_scaling": {
+    "total_input_30000W": {
+      "output_min_W": 10907.238546038358,
+      "output_max_W": 29993.618114838315,
+      "reflection_max_W": 19092.666449022177,
+      "dump_max_W": 1.0029809503493552
+    },
+    "total_input_1000W": {
+      "output_min_W": 363.57461820127855,
+      "output_max_W": 999.7872704946104
+    }
+  },
+  "reference_comparison": {
+    "source": "hfss/results/v6_four_way_cascade_refined/four_way_cascade.s8p",
+    "eta_output_error_min": -0.009043133576311035,
+    "eta_output_error_max": 0.015870410663923362,
+    "eta_output_error_rms": 0.005505118868845902
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "source": "hfss/results/v5_junction_pair_screen/pair_r1p5_h1p5/single_magictee_v4_full.s4p",
+  "port_mapping": {
+    "P1": "-X",
+    "P2": "+X",
+    "P3": "H-arm/sum",
+    "P4": "E-arm/difference"
+  },
+  "excitation": "a1=a2=1, a3=a4=0 for in-phase sum/H mode; normalization is 2 W incident in the S-parameter reference system",
+  "band_GHz": [
+    9.0,
+    11.5
+  ],
+  "points": 101,
+  "metrics": {
+    "sum_eta_H": {
+      "min": 0.43630222364272386,
+      "min_freq_GHz": 9.0,
+      "max": 0.4960784160333068,
+      "max_freq_GHz": 11.225,
+      "mean": 0.45948640572275185
+    },
+    "sum_eta_E_leak": {
+      "min": 3.226079236517378e-08,
+      "min_freq_GHz": 10.825,
+      "max": 1.436453291236413e-07,
+      "max_freq_GHz": 11.5,
+      "mean": 6.138611396281997e-08
+    },
+    "sum_eta_reflection": {
+      "min": 0.5039213755266315,
+      "min_freq_GHz": 11.225,
+      "max": 0.5636977236853387,
+      "max_freq_GHz": 9.0,
+      "mean": 0.5405127486329165
+    },
+    "sum_eta_all_ports": {
+      "min": 0.9999893683673269,
+      "min_freq_GHz": 9.075,
+      "max": 1.000000567593215,
+      "max_freq_GHz": 9.4,
+      "mean": 0.9999992157417824
+    },
+    "sum_balance_gap": {
+      "min": -5.675932150950302e-07,
+      "min_freq_GHz": 9.4,
+      "max": 1.0631632673119285e-05,
+      "max_freq_GHz": 9.075,
+      "mean": 7.842582175843765e-07
+    },
+    "diff_eta_E": {
+      "min": 0.6594883158646375,
+      "min_freq_GHz": 11.5,
+      "max": 0.8380317386013327,
+      "max_freq_GHz": 9.0,
+      "mean": 0.759080291861562
+    },
+    "diff_eta_H_leak": {
+      "min": 1.558609587559446e-07,
+      "min_freq_GHz": 11.5,
+      "max": 3.978108992823598e-07,
+      "max_freq_GHz": 9.55,
+      "mean": 3.133269293690632e-07
+    }
+  },
+  "power_scaling": {
+    "30000W": {
+      "H_output_min_W": 13089.066709281717,
+      "H_output_max_W": 14882.352480999205,
+      "E_leak_max_W": 0.004309359873709239,
+      "input_reflection_max_W": 16910.93171056016,
+      "all_ports_min_W": 29999.681051019805,
+      "balance_gap_max_W": 0.31894898019357854
+    },
+    "1000W": {
+      "H_output_min_W": 436.30222364272385,
+      "H_output_max_W": 496.07841603330684,
+      "E_leak_max_W": 0.00014364532912364132,
+      "input_reflection_max_W": 563.6977236853387,
+      "all_ports_min_W": 999.9893683673268,
+      "balance_gap_max_W": 0.010631632673119285
+    }
+  },
+  "interpretation": {
+    "efficiency_gate": ">90% coherent sum/H output efficiency",
+    "network_result": "The raw single-cell S4P can verify port-power accounting only; it cannot verify full four-way tree efficiency.",
+    "high_power_result": "30 kW and 1 kW values below are linear port-power scaling. Peak E-field, conductor loss, breakdown and thermal limits remain unverified because the solve used PEC walls and save_fields=False."
+  }
+}

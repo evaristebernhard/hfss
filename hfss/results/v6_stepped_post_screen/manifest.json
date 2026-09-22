@@ -1,0 +1,45 @@
+{
+  "program": "v6 stepped through-post screen",
+  "fixed": {
+    "lower_height_mm": 10.16,
+    "total_height_mm": 16.25
+  },
+  "cases": [
+    {
+      "name": "uniform_r2p4",
+      "lower_radius_mm": 2.4,
+      "upper_radius_mm": 2.4,
+      "output": "hfss\\results\\v6_stepped_post_screen\\uniform_r2p4\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "upper_r1p5",
+      "lower_radius_mm": 2.4,
+      "upper_radius_mm": 1.5,
+      "output": "hfss\\results\\v6_stepped_post_screen\\upper_r1p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "upper_r3p2",
+      "lower_radius_mm": 2.4,
+      "upper_radius_mm": 3.2,
+      "output": "hfss\\results\\v6_stepped_post_screen\\upper_r3p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "lower_r2p4_upper_r0p8",
+      "lower_radius_mm": 2.4,
+      "upper_radius_mm": 0.8,
+      "output": "hfss\\results\\v6_stepped_post_screen\\lower_r2p4_upper_r0p8\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "lower_r2p0_upper_r1p0",
+      "lower_radius_mm": 2.0,
+      "upper_radius_mm": 1.0,
+      "output": "hfss\\results\\v6_stepped_post_screen\\lower_r2p0_upper_r1p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "lower_r2p0_upper_r0p8",
+      "lower_radius_mm": 2.0,
+      "upper_radius_mm": 0.8,
+      "output": "hfss\\results\\v6_stepped_post_screen\\lower_r2p0_upper_r0p8\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

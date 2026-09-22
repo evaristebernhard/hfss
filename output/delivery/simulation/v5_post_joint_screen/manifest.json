@@ -1,0 +1,33 @@
+{
+  "program": "v5 joint through/local-post screen",
+  "cases": [
+    {
+      "name": "r2p4_h15_pair_off",
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 15.0,
+      "local_pair_height_mm": 0.0,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_post_joint_screen\\r2p4_h15_pair_off\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "r2p4_h16p25_pair_off",
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "local_pair_height_mm": 0.0,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_post_joint_screen\\r2p4_h16p25_pair_off\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "r2p4_h16p25_pair_on",
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "local_pair_height_mm": 0.7,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_post_joint_screen\\r2p4_h16p25_pair_on\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "r3p0_h16p25_pair_off",
+      "through_post_radius_mm": 3.0,
+      "through_post_height_mm": 16.25,
+      "local_pair_height_mm": 0.0,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_post_joint_screen\\r3p0_h16p25_pair_off\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

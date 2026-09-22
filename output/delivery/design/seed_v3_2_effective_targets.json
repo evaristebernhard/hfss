@@ -1,0 +1,59 @@
+{
+  "name": "magictee_v3_2_effective_targets",
+  "status": "theory_targets_not_geometry",
+  "band_GHz": [
+    9,
+    11.5
+  ],
+  "H": {
+    "stageA_reference": {
+      "g2_mm": 5.8,
+      "terminal_ridge_len_mm": 7.5
+    },
+    "target_RL_dB": 22,
+    "target_theta_deg_min": 85.444,
+    "stageA_theta_deg": {
+      "f9": 51.694,
+      "f10p2": 42.238,
+      "f11p5": 30.189
+    },
+    "missing_angle_linear_fit_deg": {
+      "x_definition": "(f_GHz-10.25)/1.25",
+      "intercept": 44.214,
+      "slope": 10.765
+    },
+    "primary_topology": "junction-local high-pass coupling throat/step",
+    "throat_cutoff_seed_GHz": 7.986,
+    "throat_broad_dimension_seed_mm": 18.77,
+    "pre_residual_match_gate": {
+      "t_H_min": 0.85,
+      "preferred_t_H_min": 0.9
+    },
+    "residual_match": "symmetric iris/paired tuning only after junction improvement"
+  },
+  "E": {
+    "exact_target": "Gamma_L*=-S--/(S-E*S E- - S--*SEE)",
+    "effective_model": {
+      "x_definition": "(f_GHz-10.25)/1.25",
+      "r_eff": "1.5895 - 0.2204*x",
+      "x_series_normalized": "1.0629*(f/10.2)*(ZTE(10.2)/ZTE(f))",
+      "predicted_worst_RL_dB": 23.84
+    },
+    "physical_interpretation": [
+      "localized dispersive transformation ratio",
+      "negative transformation-ratio slope versus frequency",
+      "series inductive reactance"
+    ],
+    "rejected_as_primary": [
+      "old low-impedance two-section double-ridge seed",
+      "long one-section narrowed throat",
+      "long two-section propagating throat",
+      "fixed shunt L/C correction"
+    ]
+  },
+  "high_power": {
+    "remote_H_cancellation_rejected": true,
+    "reason": "Stage-A best at 11.5 GHz requires about 3.95x travelling-wave power scale",
+    "field_metric": "K_E=Emax_local/Emax_straight_WR90"
+  }
+}

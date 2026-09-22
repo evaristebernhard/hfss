@@ -1,0 +1,56 @@
+{
+  "program": "v6 dual-reactance H screen",
+  "fixed": {
+    "through_post_radius_mm": 2.4,
+    "through_post_height_mm": 16.25,
+    "local_post_pair_height_mm": 0.7,
+    "screws": "retracted"
+  },
+  "cases": [
+    {
+      "name": "post_only_long",
+      "throat_a": 22.86,
+      "throat_len": 12.0,
+      "iris_open": 0.0,
+      "iris_thickness": 1.5,
+      "iris_offset": 5.0,
+      "output": "hfss\\results\\v6_dual_h_screen\\post_only_long\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "iris21p0_o5p0",
+      "throat_a": 22.86,
+      "throat_len": 12.0,
+      "iris_open": 21.0,
+      "iris_thickness": 1.5,
+      "iris_offset": 5.0,
+      "output": "hfss\\results\\v6_dual_h_screen\\iris21p0_o5p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "iris20p0_o5p0",
+      "throat_a": 22.86,
+      "throat_len": 12.0,
+      "iris_open": 20.0,
+      "iris_thickness": 1.5,
+      "iris_offset": 5.0,
+      "output": "hfss\\results\\v6_dual_h_screen\\iris20p0_o5p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "iris21p0_o8p0",
+      "throat_a": 22.86,
+      "throat_len": 12.0,
+      "iris_open": 21.0,
+      "iris_thickness": 1.5,
+      "iris_offset": 8.0,
+      "output": "hfss\\results\\v6_dual_h_screen\\iris21p0_o8p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "iris20p0_o8p0",
+      "throat_a": 22.86,
+      "throat_len": 12.0,
+      "iris_open": 20.0,
+      "iris_thickness": 1.5,
+      "iris_offset": 8.0,
+      "output": "hfss\\results\\v6_dual_h_screen\\iris20p0_o8p0\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

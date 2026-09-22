@@ -1,0 +1,87 @@
+{
+  "name": "wr90_magictee_double_ridge_seed_v1",
+  "status": "rough_first_hfss_baseline",
+  "units": "mm",
+  "band_GHz": [9.0, 11.5],
+  "electrical_center_GHz": 10.19465,
+  "wr90": {
+    "a": 22.86,
+    "b": 10.16,
+    "fc10_GHz": 6.557,
+    "fc20_GHz": 13.114
+  },
+  "model_note": "The former 5.8/9.2 mm ridge-width seed is obsolete. This file now tracks the common-width Cohn/TRM baseline. The 0.5 load remains only a reduced-model initializer until the single magic-tee mixed-mode load is extracted in HFSS.",
+  "reduced_model": {
+    "conditional_load_ratio": 0.5,
+    "common_ridge_width_ratio": 0.20,
+    "common_ridge_width": 4.572,
+    "predicted_worst_RL_dB": 33.5
+  },
+  "sections": [
+    {
+      "name": "ridge_1",
+      "w": 4.572,
+      "g": 7.672,
+      "ridge_depth_each_wall": 1.244,
+      "L": 9.872,
+      "fc_closed_form_GHz": 5.97,
+      "fc_TE20_like_GHz": 13.58,
+      "Z_over_Zref_at_10p2GHz": 0.842
+    },
+    {
+      "name": "ridge_2",
+      "w": 4.572,
+      "g": 4.984,
+      "ridge_depth_each_wall": 2.588,
+      "L": 8.857,
+      "fc_closed_form_GHz": 5.12,
+      "fc_TE20_like_GHz": 14.15,
+      "Z_over_Zref_at_10p2GHz": 0.609
+    }
+  ],
+  "taper_v1": {
+    "strategy": "impedance_space_first_geometry_second",
+    "profile": "piecewise_log_impedance_smoothstep",
+    "control_stations": [
+      {"z": 0.0, "Z_over_Zref": 1.0, "g": 10.16},
+      {"z": 9.872, "Z_over_Zref": 0.842, "g": 7.672},
+      {"z": 18.729, "Z_over_Zref": 0.609, "g": 4.984}
+    ],
+    "note": "For v1 the gap mapping may be approximate. HFSS calibration of modal impedance takes precedence over the analytic Cohn map."
+  },
+  "mixed_mode_v1": {
+    "modes": ["Sigma", "Delta1", "Delta2", "Delta3"],
+    "external_RL_dB_min": 22,
+    "external_isolation_dB_min": 22,
+    "internal_modal_RL_dB_target": 25,
+    "phase_imbalance_deg_target_max": 5.0,
+    "amplitude_imbalance_dB_target_max": 0.3
+  },
+  "tuning_bolts_v1": {
+    "enabled_after_passive_taper": true,
+    "diameter": 3.0,
+    "tip_radius": 1.5,
+    "penetration_initial": 0.6,
+    "penetration_sweep": [0.0, 2.0],
+    "pair_spacing_initial": 8.8,
+    "pair_spacing_sweep": [7.5, 10.0],
+    "basis": "approximately quarter guided wavelength at 10.195 GHz, giving near-pi reflected-wave phase separation"
+  },
+  "sweeps_v1": {
+    "w_common": [4.0, 5.5],
+    "g1": [6.8, 8.4],
+    "g2": [4.3, 5.8],
+    "L1": [9.0, 10.7],
+    "L2": [8.0, 9.7],
+    "bolt_spacing": [7.5, 10.0],
+    "bolt_penetration": [0.0, 2.0]
+  },
+  "internal_targets": {
+    "return_loss_dB_min": 25,
+    "isolation_dB_min": 25,
+    "combining_efficiency_min": 0.97,
+    "amplitude_imbalance_dB_max": 0.3,
+    "phase_imbalance_deg_max": 5.0,
+    "field_enhancement_ratio_target_max": 3.0
+  }
+}

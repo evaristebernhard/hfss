@@ -1,0 +1,63 @@
+{
+  "name": "magictee_v7_optimized_four_way_tree",
+  "status": "full_3d_confirmed_research_seed_not_spec_compliant",
+  "band_GHz": [9.0, 11.5],
+  "topology": "three-cell binary Magic-T tree with equal WR90 interstage sections",
+  "junction_post": {
+    "lower_radius_mm": 1.4,
+    "lower_height_mm": 6.2,
+    "upper_radius_mm": 0.9,
+    "total_height_from_bottom_mm": 16.25
+  },
+  "local_H_post_pair": {
+    "radius_mm": 1.5,
+    "height_mm": 0.7,
+    "axis_offset_from_H_junction_mm": 2.0
+  },
+  "H_throat": {
+    "a_mm": 20.4,
+    "length_mm": 5.5
+  },
+  "equal_interstage_length_mm": 1.38,
+  "screws": "retracted",
+  "single_cell_pec_metrics": {
+    "H_sum_efficiency_min": 0.7801209935666552,
+    "H_sum_efficiency_mean": 0.8699273142551842,
+    "H_sum_efficiency_max": 0.9396796612619528,
+    "E_difference_efficiency_min": 0.7037817170485999,
+    "E_difference_efficiency_mean": 0.7746496657440364,
+    "E_difference_efficiency_max": 0.8340182284951171,
+    "result": "hfss/results/v7_stepped_post_local/joint_l1p4_s6p2/audit.json"
+  },
+  "network_optimization": {
+    "candidate_count": 10,
+    "stage_combination_count": 100,
+    "output_efficiency_min": 0.5184085886689689,
+    "output_efficiency_mean": 0.7930005027208306,
+    "output_efficiency_max": 0.999879721907864,
+    "active_return_loss_min_dB": 3.1360603434202483,
+    "matched_input_isolation_min_dB": 7.145802893988838,
+    "result": "hfss/results/v7_mixed_tree_optimized/optimization.json"
+  },
+  "full_3d_four_way": {
+    "solver": "HFSS 2025.2 Student",
+    "boundary_model": "PEC",
+    "points": 51,
+    "output_efficiency_min": 0.5017192986481086,
+    "output_efficiency_mean": 0.7833756511463373,
+    "output_efficiency_max": 0.999693357123619,
+    "active_return_loss_min_dB": 2.9494547325620593,
+    "matched_input_isolation_min_dB": 6.942705141856235,
+    "network_eta_rms_error": 0.012169530675717247,
+    "result": "hfss/results/v7_four_way_3d_optimized/audit.json"
+  },
+  "target_check": {
+    "continuous_band_output_efficiency_ge_0p95": false,
+    "continuous_band_active_return_loss_ge_22dB": false,
+    "continuous_band_input_isolation_ge_22dB": false,
+    "output_ge_30000W_for_30000W_total_input": false,
+    "output_ge_1000W_for_1000W_total_input": false
+  },
+  "next_architecture_action": "Add an independent broadband matching degree of freedom at each H/sum port or between tree stages; post-only tuning has reached a narrow-resonance tradeoff.",
+  "warning": "PEC S-parameters only. Peak electric field, finite conductivity, breakdown, multipactor, thermal loading, and cooling remain unverified. Power figures are linear scaling, not a power-handling qualification."
+}

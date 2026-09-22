@@ -1,0 +1,19 @@
+{
+  "penetrations_mm": [
+    1.1721182608181409,
+    1.986759743651603,
+    1.6906036757375043
+  ],
+  "predicted_eta_H_min": 0.47535853985255844,
+  "predicted_eta_H_mean": 0.6796784975566957,
+  "predicted_eta_H_max": 0.7636109042105631,
+  "min_freq_GHz": 11.5,
+  "predicted_reflection_max": 0.5353428665954063,
+  "predicted_E_leak_max": 4.617870645088561e-05,
+  "optimizer": {
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "objective": 0.550267180342906
+  },
+  "warning": "First-order interpolation from separate 1 mm screw perturbations; requires HFSS validation."
+}

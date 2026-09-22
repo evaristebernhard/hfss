@@ -1,0 +1,78 @@
+{
+  "candidate_count": 12,
+  "combination_count": 144,
+  "best": {
+    "first_stage": "v6_l2_u08",
+    "second_stage": "v6_l2_u08",
+    "length_mm": 4.72999999999999,
+    "eta_min": 0.3739083149317753,
+    "eta_mean": 0.7296663299678339,
+    "eta_max": 0.9998970824608071
+  },
+  "first_stage_source": "hfss/results/v6_stepped_post_screen/lower_r2p0_upper_r0p8/single_magictee_v4_full.s4p",
+  "second_stage_source": "hfss/results/v6_stepped_post_screen/lower_r2p0_upper_r0p8/single_magictee_v4_full.s4p",
+  "metrics": {
+    "eta_output": {
+      "min": 0.3739083149317753,
+      "min_freq_GHz": 9.675,
+      "max": 0.9998970824608071,
+      "max_freq_GHz": 11.25,
+      "mean": 0.7296663299678339
+    },
+    "eta_input_reflection": {
+      "min": 0.00010390244527580362,
+      "min_freq_GHz": 11.25,
+      "max": 0.6260839098566764,
+      "max_freq_GHz": 9.675,
+      "mean": 0.2703266806260716
+    },
+    "eta_dump": {
+      "min": 4.8215886347624345e-06,
+      "min_freq_GHz": 10.9,
+      "max": 1.6005598251185346e-05,
+      "max_freq_GHz": 9.3,
+      "mean": 8.710094328814623e-06
+    },
+    "eta_all_external": {
+      "min": 0.9999917605435221,
+      "min_freq_GHz": 11.475,
+      "max": 1.000025274253178,
+      "max_freq_GHz": 11.35,
+      "mean": 1.0000017206882343
+    },
+    "active_return_loss_min_dB": {
+      "min": 2.0038756145029692,
+      "min_freq_GHz": 9.675,
+      "max": 36.15842576862669,
+      "max_freq_GHz": 11.25,
+      "mean": 8.404261086799163
+    },
+    "matched_input_isolation_min_dB": {
+      "min": 7.114330272718274,
+      "min_freq_GHz": 11.15,
+      "max": 17.994154496396884,
+      "max_freq_GHz": 9.475,
+      "mean": 10.507470871898754
+    },
+    "output_path_amplitude_spread_dB": {
+      "min": 0.007127946084095237,
+      "min_freq_GHz": 10.85,
+      "max": 0.06958693448108974,
+      "max_freq_GHz": 9.25,
+      "mean": 0.03510553532052298
+    },
+    "output_path_phase_spread_deg": {
+      "min": 0.03781656607370403,
+      "min_freq_GHz": 11.025,
+      "max": 0.918312403311698,
+      "max_freq_GHz": 11.5,
+      "mean": 0.333584839885849
+    }
+  },
+  "power_scaling_30000W": {
+    "output_min_W": 11217.249447953258,
+    "output_max_W": 29996.912473824214,
+    "reflection_max_W": 18782.51729570029
+  },
+  "warning": "Network optimization using existing PEC single-cell samples; selected geometry requires full 3-D confirmation."
+}

@@ -1,0 +1,33 @@
+{
+  "program": "v5 through-junction matching-post screen",
+  "cases": [
+    {
+      "name": "through_r2p4_h8p0",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 8.0,
+      "tip_z_mm": 2.92,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_screen\\through_r2p4_h8p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "through_r2p4_h10p2",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 10.2,
+      "tip_z_mm": 5.119999999999999,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_screen\\through_r2p4_h10p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "through_r2p4_h12p5",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 12.5,
+      "tip_z_mm": 7.42,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_screen\\through_r2p4_h12p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "through_r2p4_h15p0",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 15.0,
+      "tip_z_mm": 9.92,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_screen\\through_r2p4_h15p0\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

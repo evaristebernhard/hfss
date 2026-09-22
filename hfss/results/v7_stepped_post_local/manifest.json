@@ -1,0 +1,133 @@
+{
+  "program": "v7 local stepped-post screen",
+  "cases": [
+    {
+      "name": "center_l2p0_u0p9_s10p16_t16p25",
+      "lower_radius": 2.0,
+      "lower_height": 10.16,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\center_l2p0_u0p9_s10p16_t16p25\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "lower1p8",
+      "lower_radius": 1.8,
+      "lower_height": 10.16,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\lower1p8\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "lower2p2",
+      "lower_radius": 2.2,
+      "lower_height": 10.16,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\lower2p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "split9p2",
+      "lower_radius": 2.0,
+      "lower_height": 9.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\split9p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "split11p2",
+      "lower_radius": 2.0,
+      "lower_height": 11.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\split11p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "total15p5",
+      "lower_radius": 2.0,
+      "lower_height": 10.16,
+      "upper_radius": 0.9,
+      "total_height": 15.5,
+      "output": "hfss\\results\\v7_stepped_post_local\\total15p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "total17p0",
+      "lower_radius": 2.0,
+      "lower_height": 10.16,
+      "upper_radius": 0.9,
+      "total_height": 17.0,
+      "output": "hfss\\results\\v7_stepped_post_local\\total17p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p8_s9p2",
+      "lower_radius": 1.8,
+      "lower_height": 9.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p8_s9p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p6_s9p2",
+      "lower_radius": 1.6,
+      "lower_height": 9.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p6_s9p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p8_s8p2",
+      "lower_radius": 1.8,
+      "lower_height": 8.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p8_s8p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p6_s8p2",
+      "lower_radius": 1.6,
+      "lower_height": 8.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p6_s8p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p4_s8p2",
+      "lower_radius": 1.4,
+      "lower_height": 8.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p4_s8p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p6_s7p2",
+      "lower_radius": 1.6,
+      "lower_height": 7.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p6_s7p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p4_s7p2",
+      "lower_radius": 1.4,
+      "lower_height": 7.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p4_s7p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p6_s6p2",
+      "lower_radius": 1.6,
+      "lower_height": 6.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p6_s6p2\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "joint_l1p4_s6p2",
+      "lower_radius": 1.4,
+      "lower_height": 6.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "hfss\\results\\v7_stepped_post_local\\joint_l1p4_s6p2\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

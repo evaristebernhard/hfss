@@ -1,0 +1,26 @@
+{
+  "program": "v5 through-post extended-height screen",
+  "cases": [
+    {
+      "name": "through_r2p4_h17p5",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 17.5,
+      "tip_z_mm": 12.42,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_extend\\through_r2p4_h17p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "through_r2p4_h20p0",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 20.0,
+      "tip_z_mm": 14.92,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_extend\\through_r2p4_h20p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "through_r2p4_h22p5",
+      "radius_mm": 2.4,
+      "height_from_bottom_mm": 22.5,
+      "tip_z_mm": 17.42,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_through_post_extend\\through_r2p4_h22p5\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

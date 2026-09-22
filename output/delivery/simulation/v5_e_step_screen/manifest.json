@@ -1,0 +1,37 @@
+{
+  "program": "v5 E-arm short height-step screen",
+  "cases": [
+    {
+      "name": "e_b8p0_l3p0",
+      "e_step_b_mm": 8.0,
+      "e_step_len_mm": 3.0,
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_e_step_screen\\e_b8p0_l3p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "e_b8p0_l5p0",
+      "e_step_b_mm": 8.0,
+      "e_step_len_mm": 5.0,
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_e_step_screen\\e_b8p0_l5p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "e_b6p5_l5p0",
+      "e_step_b_mm": 6.5,
+      "e_step_len_mm": 5.0,
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_e_step_screen\\e_b6p5_l5p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "e_b8p0_l7p5",
+      "e_step_b_mm": 8.0,
+      "e_step_len_mm": 7.5,
+      "through_post_radius_mm": 2.4,
+      "through_post_height_mm": 16.25,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_e_step_screen\\e_b8p0_l7p5\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

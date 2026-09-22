@@ -1,0 +1,54 @@
+{
+  "name": "magictee_v3_3_H_junction_candidate",
+  "status": "build_only_candidate_not_hfss_validated",
+  "purpose": "test missing high-frequency H/even coupling direction only",
+  "preserve": {
+    "E_arm": "v2 parity-corrected geometry unchanged",
+    "parity_axis": "X",
+    "upstream_H_taper": {
+      "ridge_w_mm": 4.572,
+      "g1_mm": 7.672,
+      "L1_mm": 9.872,
+      "L2_mm": 8.857
+    },
+    "port_straight_mm": 10
+  },
+  "H_candidate": {
+    "topology": "junction-local reduced-broad-dimension throat then terminal ridge",
+    "throat_broad_dimension_seed_mm": 18.8,
+    "throat_broad_dimension_range_mm": [
+      18.4,
+      19.2
+    ],
+    "throat_side_shoulder_seed_mm": 2.03,
+    "throat_length_seed_mm": 5.5,
+    "throat_length_range_mm": [
+      4,
+      7
+    ],
+    "throat_cutoff_seed_GHz": 7.973,
+    "terminal_gap_seed_mm": 5.8,
+    "terminal_length_seed_mm": 7.5,
+    "terminal_ridge_width_seed_mm": 4.572,
+    "terminal_ridge_width_range_mm": [
+      4.57,
+      8
+    ]
+  },
+  "intended_coordinates": {
+    "h_throat_a": "coupling spectral slope",
+    "h_throat_len": "phase",
+    "h_terminal_ridge_w": "coupling level/local impedance"
+  },
+  "first_sensitivity": {
+    "h_throat_a_delta_mm": 0.4,
+    "h_throat_len_delta_mm": 1,
+    "h_terminal_ridge_w_delta_mm": 0.8
+  },
+  "acceptance": {
+    "parity_forbidden_max_dB": -30,
+    "desired_direction": "11.5 GHz H coupling improves at least as strongly as 9 GHz",
+    "pre_residual_match_tH_min_target": 0.85,
+    "field_enhancement_review_threshold": 3
+  }
+}

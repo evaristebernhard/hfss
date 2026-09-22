@@ -1,0 +1,29 @@
+{
+  "program": "v5 symmetric junction-pair screen",
+  "cases": [
+    {
+      "name": "pair_r1p5_h0p5",
+      "radius_mm": 1.5,
+      "height_mm": 0.5,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_junction_pair_screen\\pair_r1p5_h0p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "pair_r1p5_h1p5",
+      "radius_mm": 1.5,
+      "height_mm": 1.5,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_junction_pair_screen\\pair_r1p5_h1p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "pair_r1p5_h2p5",
+      "radius_mm": 1.5,
+      "height_mm": 2.5,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_junction_pair_screen\\pair_r1p5_h2p5\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "pair_r2p5_h1p5",
+      "radius_mm": 2.5,
+      "height_mm": 1.5,
+      "output": "C:\\Users\\chaoy\\Documents\\hfss_v5_junction_pair_screen\\pair_r2p5_h1p5\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

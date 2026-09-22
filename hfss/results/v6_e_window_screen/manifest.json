@@ -1,0 +1,40 @@
+{
+  "program": "v6 localized E-window screen",
+  "fixed": {
+    "through_post_radius_mm": 2.4,
+    "through_post_height_mm": 16.25,
+    "local_post_pair_height_mm": 0.7,
+    "H_throat_a_mm": 20.4,
+    "H_throat_length_mm": 5.5
+  },
+  "cases": [
+    {
+      "name": "no_window",
+      "opening": 0.0,
+      "thickness": 1.5,
+      "offset": 7.0,
+      "output": "hfss\\results\\v6_e_window_screen\\no_window\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "win20p0_o7p0",
+      "opening": 20.0,
+      "thickness": 1.5,
+      "offset": 7.0,
+      "output": "hfss\\results\\v6_e_window_screen\\win20p0_o7p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "win18p0_o7p0",
+      "opening": 18.0,
+      "thickness": 1.5,
+      "offset": 7.0,
+      "output": "hfss\\results\\v6_e_window_screen\\win18p0_o7p0\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "win20p0_o10p0",
+      "opening": 20.0,
+      "thickness": 1.5,
+      "offset": 10.0,
+      "output": "hfss\\results\\v6_e_window_screen\\win20p0_o10p0\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

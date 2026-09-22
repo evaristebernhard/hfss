@@ -1,0 +1,244 @@
+{
+  "program": "v3.4 first-order H-block Jacobian",
+  "builder": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+  "version": "2025.2",
+  "solve": true,
+  "center": {
+    "h_throat_a": 20.4,
+    "h_throat_len": 5.5,
+    "h_cap_height": 9.0,
+    "h_terminal_ridge_w": 4.572
+  },
+  "deltas": {
+    "h_throat_a": 0.4,
+    "h_throat_len": 1.0,
+    "h_cap_height": 0.4,
+    "h_terminal_ridge_w": 0.5
+  },
+  "cases": [
+    {
+      "name": "h_throat_a_minus",
+      "parameters_mm": {
+        "h_throat_a": 20.0,
+        "h_throat_len": 5.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_a_minus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_a_minus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_throat_a_plus",
+      "parameters_mm": {
+        "h_throat_a": 20.799999999999997,
+        "h_throat_len": 5.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_a_plus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.8",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_a_plus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_throat_len_minus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 4.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_len_minus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "4.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_len_minus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_throat_len_plus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 6.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_len_plus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "6.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_throat_len_plus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_cap_height_minus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 5.5,
+        "h_cap_height": 8.6,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_cap_height_minus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "8.6",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_cap_height_minus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_cap_height_plus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 5.5,
+        "h_cap_height": 9.4,
+        "h_terminal_ridge_w": 4.572
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_cap_height_plus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "9.4",
+        "--h-terminal-ridge-w",
+        "4.572"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_cap_height_plus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_terminal_ridge_w_minus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 5.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 4.072
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_terminal_ridge_w_minus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "4.072"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_terminal_ridge_w_minus\\single_magictee_v3_4_hreactive.s4p"
+    },
+    {
+      "name": "h_terminal_ridge_w_plus",
+      "parameters_mm": {
+        "h_throat_a": 20.4,
+        "h_throat_len": 5.5,
+        "h_cap_height": 9.0,
+        "h_terminal_ridge_w": 5.072
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\build_single_magictee_v3_4_hreactive.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_terminal_ridge_w_plus",
+        "--solve",
+        "--non-graphical",
+        "--h-throat-a",
+        "20.4",
+        "--h-throat-len",
+        "5.5",
+        "--h-cap-height",
+        "9",
+        "--h-terminal-ridge-w",
+        "5.072"
+      ],
+      "expected_output": "\\\\wsl.localhost\\Ubuntu\\tmp\\hfss-r11\\hfss\\output_v3_4_jacobian\\h_terminal_ridge_w_plus\\single_magictee_v3_4_hreactive.s4p"
+    }
+  ]
+}

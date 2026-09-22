@@ -1,0 +1,48 @@
+{
+  "name": "magictee_v6_stepped_through_post",
+  "status": "screened_balanced_seed_not_final",
+  "band_GHz": [9.0, 11.5],
+  "junction_post": {
+    "lower_radius_mm": 2.0,
+    "lower_height_mm": 10.16,
+    "upper_radius_mm": 1.0,
+    "total_height_from_bottom_mm": 16.25,
+    "interpretation": "separate control of the collinear-junction section and the E-arm extension"
+  },
+  "local_H_post_pair": {
+    "radius_mm": 1.5,
+    "height_mm": 0.7,
+    "axis_offset_from_H_junction_mm": 2.0
+  },
+  "H_throat": {
+    "a_mm": 20.4,
+    "length_mm": 5.5
+  },
+  "screws": "retracted",
+  "pec_screen_metrics": {
+    "H_sum_efficiency_min": 0.6488159947420047,
+    "H_sum_efficiency_max": 0.9282904691014648,
+    "H_sum_efficiency_mean": 0.8175338335195509,
+    "E_difference_efficiency_min": 0.652647969158,
+    "E_difference_efficiency_max": 0.7866823122526716,
+    "E_difference_efficiency_mean": 0.7269055824814865
+  },
+  "result": "hfss/results/v6_stepped_post_screen/lower_r2p0_upper_r1p0/single_magictee_v4_full.s4p",
+  "four_way_cascade": {
+    "equal_interstage_length_mm": 4.66,
+    "output_efficiency_min": 0.3684009877610784,
+    "output_efficiency_mean": 0.7260383674784873,
+    "output_efficiency_max": 1.0000535215401234,
+    "result": "hfss/results/v6_four_way_cascade_refined/cascade_summary.json"
+  },
+  "full_3d_four_way": {
+    "status": "PEC eight-port solve complete",
+    "points": 51,
+    "output_efficiency_min": 0.36357461820127857,
+    "output_efficiency_mean": 0.7228933473036625,
+    "output_efficiency_max": 0.9997872704946105,
+    "network_eta_rms_error": 0.005505118868845902,
+    "result": "hfss/results/v6_four_way_3d_solve/audit.json"
+  },
+  "warning": "The seed is still far from 22 dB return loss and is not power-qualified. PEC and save_fields=False were used."
+}

@@ -1,0 +1,25 @@
+{
+  "source": "hfss/results/v5_hiris_screen/throat7p5/single_magictee_v4_full.s4p",
+  "model": "normalized lossless TL(theta1)-shunt(b1)-TL(theta2)-shunt(b2), matched termination",
+  "solution": {
+    "theta1_deg_at_10p25GHz": 43.723794106862314,
+    "theta2_deg_at_10p25GHz": 0.02292310332504562,
+    "equivalent_length1_mm_WR90": 4.6217636168996155,
+    "equivalent_length2_mm_WR90": 0.002423055160199345,
+    "b1_normalized": 3.447736391944403,
+    "b2_normalized": -3.3186576613575998
+  },
+  "predicted": {
+    "return_loss_min_dB": 3.1463691042349944,
+    "return_loss_mean_dB": 4.2080441256288115,
+    "efficiency_min": 0.515422673441806,
+    "efficiency_mean": 0.6115590870752168,
+    "gamma_load_max": 0.06715176273047198
+  },
+  "optimizer": {
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "objective": 0.7456930137643495
+  },
+  "warning": "This is a reduced normalized single-mode network target, not an HFSS-qualified geometry."
+}

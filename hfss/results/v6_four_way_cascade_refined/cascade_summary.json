@@ -1,0 +1,90 @@
+{
+  "source_cell": "hfss/results/v6_stepped_post_screen/lower_r2p0_upper_r1p0/single_magictee_v4_full.s4p",
+  "topology": "three identical 4-port Magic-T cells; A.H->C.P1 and B.H->C.P2; all E ports matched",
+  "external_port_order": [
+    "IN1",
+    "IN2",
+    "IN3",
+    "IN4",
+    "OUT",
+    "DUMP_A",
+    "DUMP_B",
+    "DUMP_C"
+  ],
+  "band_GHz": [
+    9.0,
+    11.5
+  ],
+  "best_equal_interstage_length_mm": 4.659999999999986,
+  "metrics": {
+    "eta_output": {
+      "min": 0.3684009877610784,
+      "min_freq_GHz": 9.7,
+      "max": 1.0000535215401234,
+      "max_freq_GHz": 11.275,
+      "mean": 0.7260383674784873
+    },
+    "eta_input_reflection": {
+      "min": 9.899601101682118e-07,
+      "min_freq_GHz": 11.275,
+      "max": 0.6315983061849642,
+      "max_freq_GHz": 9.7,
+      "mean": 0.27397259635644555
+    },
+    "eta_dump": {
+      "min": 3.587114417612929e-07,
+      "min_freq_GHz": 9.4,
+      "max": 6.707446260833188e-06,
+      "max_freq_GHz": 11.5,
+      "mean": 2.0522461313063944e-06
+    },
+    "eta_all_external": {
+      "min": 0.9999928714644281,
+      "min_freq_GHz": 11.125,
+      "max": 1.0002032009241446,
+      "max_freq_GHz": 11.4,
+      "mean": 1.000013016081064
+    },
+    "active_return_loss_min_dB": {
+      "min": 1.9864497521512867,
+      "min_freq_GHz": 9.7,
+      "max": 56.785464543393324,
+      "max_freq_GHz": 11.275,
+      "mean": 8.753982436360387
+    },
+    "matched_input_isolation_min_dB": {
+      "min": 7.3833672225052,
+      "min_freq_GHz": 10.05,
+      "max": 18.36270315864755,
+      "max_freq_GHz": 9.5,
+      "mean": 10.794243012022061
+    },
+    "output_path_amplitude_spread_dB": {
+      "min": 0.0004250209518112129,
+      "min_freq_GHz": 10.3,
+      "max": 0.029881679129359046,
+      "max_freq_GHz": 11.5,
+      "mean": 0.008464367558682464
+    },
+    "output_path_phase_spread_deg": {
+      "min": 0.0898486516789413,
+      "min_freq_GHz": 9.35,
+      "max": 0.3009490473318631,
+      "max_freq_GHz": 11.5,
+      "mean": 0.16916412513220816
+    }
+  },
+  "power_scaling": {
+    "total_input_30000W": {
+      "output_min_W": 11052.029632832351,
+      "output_max_W": 30001.6056462037,
+      "reflected_max_W": 18947.949185548925,
+      "dump_max_W": 0.20122338782499566
+    },
+    "total_input_1000W": {
+      "output_min_W": 368.4009877610784,
+      "output_max_W": 1000.0535215401234
+    }
+  },
+  "warning": "Lossless PEC S-parameter cascade only; conductor loss, peak field, breakdown, thermal behavior and 3-D interstage discontinuities are not included."
+}
