@@ -1,0 +1,155 @@
+{
+  "program": "v4 junction-local post direction identification",
+  "version": "2025.2",
+  "center": {
+    "post_height": 0.7,
+    "post_y": 2.0
+  },
+  "half_steps": {
+    "post_height": 0.2,
+    "post_y": 0.5
+  },
+  "screws_retracted": true,
+  "cases": [
+    {
+      "name": "center",
+      "parameters_mm": {
+        "post_height": 0.7,
+        "post_y": 2.0
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\home\\ubuntu\\hfss\\hfss\\build_single_magictee_v4_full.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\center",
+        "--post-height",
+        "0.7",
+        "--post-y",
+        "2.0",
+        "--screw-p1",
+        "0",
+        "--screw-p2",
+        "0",
+        "--screw-p3",
+        "0",
+        "--solve",
+        "--non-graphical"
+      ],
+      "expected_output": "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\center\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "post_height_minus",
+      "parameters_mm": {
+        "post_height": 0.49999999999999994,
+        "post_y": 2.0
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\home\\ubuntu\\hfss\\hfss\\build_single_magictee_v4_full.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_height_minus",
+        "--post-height",
+        "0.49999999999999994",
+        "--post-y",
+        "2.0",
+        "--screw-p1",
+        "0",
+        "--screw-p2",
+        "0",
+        "--screw-p3",
+        "0",
+        "--solve",
+        "--non-graphical"
+      ],
+      "expected_output": "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_height_minus\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "post_height_plus",
+      "parameters_mm": {
+        "post_height": 0.8999999999999999,
+        "post_y": 2.0
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\home\\ubuntu\\hfss\\hfss\\build_single_magictee_v4_full.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_height_plus",
+        "--post-height",
+        "0.8999999999999999",
+        "--post-y",
+        "2.0",
+        "--screw-p1",
+        "0",
+        "--screw-p2",
+        "0",
+        "--screw-p3",
+        "0",
+        "--solve",
+        "--non-graphical"
+      ],
+      "expected_output": "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_height_plus\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "post_y_minus",
+      "parameters_mm": {
+        "post_height": 0.7,
+        "post_y": 1.5
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\home\\ubuntu\\hfss\\hfss\\build_single_magictee_v4_full.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_y_minus",
+        "--post-height",
+        "0.7",
+        "--post-y",
+        "1.5",
+        "--screw-p1",
+        "0",
+        "--screw-p2",
+        "0",
+        "--screw-p3",
+        "0",
+        "--solve",
+        "--non-graphical"
+      ],
+      "expected_output": "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_y_minus\\single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "post_y_plus",
+      "parameters_mm": {
+        "post_height": 0.7,
+        "post_y": 2.5
+      },
+      "command": [
+        "C:\\Users\\chaoy\\AppData\\Roaming\\.pyaedt_env\\3_10\\Scripts\\python.exe",
+        "\\\\wsl.localhost\\Ubuntu\\home\\ubuntu\\hfss\\hfss\\build_single_magictee_v4_full.py",
+        "--version",
+        "2025.2",
+        "--output",
+        "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_y_plus",
+        "--post-height",
+        "0.7",
+        "--post-y",
+        "2.5",
+        "--screw-p1",
+        "0",
+        "--screw-p2",
+        "0",
+        "--screw-p3",
+        "0",
+        "--solve",
+        "--non-graphical"
+      ],
+      "expected_output": "C:\\Users\\chaoy\\Documents\\hfss_v4_work_y2\\post_y_plus\\single_magictee_v4_full.s4p"
+    }
+  ]
+}

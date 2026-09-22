@@ -1,0 +1,73 @@
+{
+  "v4_center_feature": [
+    0.45729886414164805,
+    0.5416560110464388,
+    0.9337800593686052,
+    -0.8372490341668329
+  ],
+  "r11_singular_values": [
+    0.16461155920610873,
+    0.07230326405602508,
+    0.002145771152981427,
+    0.00039044800977584886
+  ],
+  "r11_weak_output_direction_u4": [
+    0.34440060859039623,
+    0.8801727275811746,
+    -0.31386827597718375,
+    0.09039300725161778
+  ],
+  "new_post_columns": {
+    "post_height": {
+      "per_mm": [
+        -0.0460706631526904,
+        -0.014400287716622995,
+        -0.04716250771072322,
+        0.10727694363461937
+      ],
+      "step_normalized": [
+        -0.00921413263053808,
+        -0.002880057543324599,
+        -0.009432501542144645,
+        0.021455388726923874
+      ],
+      "weak_u4_projection": 0.0008083208831245177,
+      "weak_2d_projection_norm": 0.00131932024754636,
+      "column_norm": 0.025347598749230284
+    },
+    "post_y": {
+      "per_mm": [
+        0.007786753835420546,
+        0.005694591695301066,
+        0.016760460408167033,
+        -0.016734741193526692
+      ],
+      "step_normalized": [
+        0.003893376917710273,
+        0.002847295847650533,
+        0.008380230204083516,
+        -0.008367370596763346
+      ],
+      "weak_u4_projection": 0.0004603533349105222,
+      "weak_2d_projection_norm": 0.0006074957844146617,
+      "column_norm": 0.012786970964400466
+    }
+  },
+  "heuristic_augmented_singular_values": [
+    0.1651931484430254,
+    0.07642041853868482,
+    0.0024246524935041688,
+    0.0008694756154034717
+  ],
+  "heuristic_sigma_min_gain_over_r11": 2.2268665574774635,
+  "heuristic_sigma_min_over_sigma_max": 0.005263387880178039,
+  "center_metrics": {
+    "c_plus_worst_return_loss_dB": 2.7700480092975917,
+    "c_plus_worst_return_loss_freq_GHz": 9.0,
+    "c_plus_to_H_min_coupling_dB": -3.26468789752075,
+    "tH_min_linear": 0.6866977195074483,
+    "worst_forbidden_coupling_dB": -45.109669462114645
+  },
+  "decision": "FAIL_DIRECTION_GATE",
+  "warning": "Augmented SVD mixes R11 v3.4 derivatives with v4 post derivatives; use only to screen the new physical direction. Re-identify the full v4 Jacobian after a pass."
+}
