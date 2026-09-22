@@ -1,0 +1,118 @@
+{
+  "name": "magictee_v4_full_architecture",
+  "status": "architecture_frozen_initial_seed",
+  "hfss_target": "2022.2",
+  "band_GHz": [
+    9,
+    11.5
+  ],
+  "system": {
+    "topology": "three_magictee_binary_tree_4_to_1",
+    "first_stage_cells": [
+      "MT-A",
+      "MT-B"
+    ],
+    "second_stage_cell": "MT-C",
+    "difference_ports": "matched_high_power_loads",
+    "targets": {
+      "return_loss_dB_min": 22,
+      "isolation_dB_min": 22,
+      "combining_efficiency_min": 0.95,
+      "peak_output_power_kW_min": 30,
+      "cw_output_power_kW_min": 1
+    }
+  },
+  "single_cell": {
+    "H_path_order": [
+      "junction_local_rounded_boss",
+      "mild_H_plane_throat",
+      "terminal_double_ridge",
+      "smooth_double_ridge_transformer",
+      "three_screw_residual_tuner",
+      "WR90_reference"
+    ],
+    "boss": {
+      "height_mm": 0.7,
+      "position_from_junction_mm": 1,
+      "width_mm": 5.5,
+      "length_mm": 3,
+      "corner_radius_mm": 0.6,
+      "identification_half_steps": {
+        "height_mm": 0.2,
+        "position_mm": 0.5
+      }
+    },
+    "H_throat": {
+      "a_mm": 20.4,
+      "length_mm": 5.5
+    },
+    "terminal_ridge": {
+      "width_mm": 4.572,
+      "gap_mm": 5.8,
+      "length_mm": 7.5
+    },
+    "ridge_taper": {
+      "width_mm": 4.572,
+      "g1_mm": 7.672,
+      "L1_mm": 9.872,
+      "g2_mm": 5.8,
+      "L2_mm": 8.857,
+      "profile": "smoothstep_log_gap"
+    },
+    "screws": {
+      "axial_positions_mm": [
+        0,
+        8.4,
+        17.6
+      ],
+      "penetrations_mm": [
+        0,
+        0,
+        0
+      ],
+      "preferred_penetration_range_mm": [
+        0,
+        1.5
+      ],
+      "hard_penetration_limit_mm": 2,
+      "role": "residual_tuning_only"
+    },
+    "E_arm": {
+      "parity_orientation": "v2_corrected",
+      "topology": "stepped_septum_plus_short_height_transformer",
+      "status": "geometry_to_be_synthesized_after_H_cell_control_closure"
+    }
+  },
+  "r11_reference": {
+    "result_dir": "hfss/results/v3_4_jacobian_r11",
+    "center_feature": [
+      0.4655677979580888,
+      0.4487612579448936,
+      0.6863612266411869,
+      -0.8864094937591468
+    ],
+    "step_normalized_singular_values": [
+      0.16461155920610876,
+      0.07230326405602513,
+      0.002145771152981428,
+      0.0003904480097758489
+    ],
+    "condition_number": 421.5966148748206,
+    "conclusion": "old coordinate system is practically rank deficient"
+  },
+  "gates": {
+    "boss_direction_test": {
+      "minimum_sigma_min_gain_over_r11": 5,
+      "preferred_sigma_min_over_sigma_max": 0.01
+    },
+    "passive_return_loss_stages_dB": [
+      10,
+      15,
+      18,
+      20
+    ],
+    "screw_activation_after_passive_return_loss_dB": 18,
+    "final_nominal_return_loss_dB": 22,
+    "final_nominal_isolation_internal_target_dB": 30
+  }
+}
