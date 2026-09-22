@@ -2,14 +2,22 @@
 """
 Analyze the five-case v4 post-pair identification program.
 
-The primary question is not scalar return loss.  It is whether the new
-post-height and post-position sensitivity columns project strongly onto the
-weak output directions of the measured R11 Jacobian.
+The primary question is not scalar return loss and not merely whether the
+smallest singular value increases.  It is whether the new post-height and
+post-position sensitivity columns can directly control the measured weak R11
+output direction strongly enough to remove the remaining weak-direction error.
 
-A heuristic augmented SVD is also reported by appending the two new post
-columns to the R11 step-normalized Jacobian.  Because the v4 topology is not
-identical to v3.4, this augmented SVD is a direction-screening diagnostic,
-not a final Newton model.
+R11 weak-direction residual magnitude is approximately 0.260.  With at most
+two identification half-steps allowed per post coordinate, the direct first
+gate is:
+
+    |u4^T c_h| + |u4^T c_y| >= 0.130 per half-step,
+
+because two steps then provide an upper-bound weak-direction correction of at
+least 0.260.
+
+A heuristic augmented SVD is still reported, but it is secondary because the
+v4 topology is not identical to v3.4.
 """
 
 from __future__ import annotations
@@ -29,6 +37,11 @@ W = np.array([
 ], dtype=complex)
 
 HALF_STEPS = {"post_height": 0.20, "post_y": 0.50}
+R11_WEAK_DIRECTION_ERROR = 0.260
+MAX_IDENTIFICATION_STEPS_PER_COORDINATE = 2.0
+REQUIRED_SUM_ABS_U4_PROJECTION = (
+    R11_WEAK_DIRECTION_ERROR / MAX_IDENTIFICATION_STEPS_PER_COORDINATE
+)
 
 
 def parse_touchstone(path: Path):
@@ -100,7 +113,11 @@ def main():
     repo = here.parent
     p = argparse.ArgumentParser()
     p.add_argument("--root", type=Path, default=here/"output_v4_local_id")
-    p.add_argument("--r11", type=Path, default=repo/"hfss"/"results"/"v3_4_jacobian_r11"/"jacobian_analysis.json")
+    p.add_argument(
+        "--r11",
+        type=Path,
+        default=repo/"hfss"/"results"/"v3_4_jacobian_r11"/"jacobian_analysis.json",
+    )
     p.add_argument("--output", type=Path)
     args = p.parse_args()
 
@@ -112,7 +129,13 @@ def main():
     weak2 = U[:,-2:]
 
     rec = {}
-    for name in ["center","post_height_minus","post_height_plus","post_y_minus","post_y_plus"]:
+    for name in [
+        "center",
+        "post_height_minus",
+        "post_height_plus",
+        "post_y_minus",
+        "post_y_plus",
+    ]:
         path = root/name/"single_magictee_v4_full.s4p"
         if not path.exists():
             raise FileNotFoundError(path)
@@ -120,17 +143,26 @@ def main():
 
     feat = {k:feature(v) for k,v in rec.items()}
     cols = {}
+    signed_u4 = {}
     for param in ["post_height","post_y"]:
         d = HALF_STEPS[param]
         deriv = (feat[param+"_plus"] - feat[param+"_minus"])/(2*d)
         step_col = deriv*d
+        signed = float(weak @ step_col)
+        signed_u4[param] = signed
         cols[param] = {
             "per_mm": deriv,
             "step_normalized": step_col,
-            "weak_u4_projection": float(abs(weak @ step_col)),
+            "weak_u4_projection_signed": signed,
+            "weak_u4_projection_abs": abs(signed),
             "weak_2d_projection_norm": float(np.linalg.norm(weak2.T @ step_col)),
             "column_norm": float(np.linalg.norm(step_col)),
         }
+
+    sum_abs_u4 = sum(abs(v) for v in signed_u4.values())
+    weak_capacity_two_steps = (
+        MAX_IDENTIFICATION_STEPS_PER_COORDINATE * sum_abs_u4
+    )
 
     C = np.column_stack([
         cols["post_height"]["step_normalized"],
@@ -139,34 +171,53 @@ def main():
     aug = np.column_stack([oldJ, C])
     saug = np.linalg.svd(aug, compute_uv=False)
 
+    direct_pass = sum_abs_u4 >= REQUIRED_SUM_ABS_U4_PROJECTION
+    heuristic_svd_pass = (
+        saug[-1] >= 5*s[-1] or saug[-1]/saug[0] >= 0.01
+    )
+
     centerF = feat["center"]
     report = {
         "v4_center_feature": centerF.tolist(),
         "r11_singular_values": s.tolist(),
         "r11_weak_output_direction_u4": weak.tolist(),
+        "r11_weak_direction_error": R11_WEAK_DIRECTION_ERROR,
+        "max_identification_steps_per_coordinate": MAX_IDENTIFICATION_STEPS_PER_COORDINATE,
+        "required_sum_abs_u4_projection_per_halfstep": REQUIRED_SUM_ABS_U4_PROJECTION,
         "new_post_columns": {
             k:{kk:(vv.tolist() if hasattr(vv,"tolist") else vv) for kk,vv in val.items()}
             for k,val in cols.items()
         },
+        "sum_abs_u4_projection_per_halfstep": sum_abs_u4,
+        "estimated_two_step_weak_direction_capacity": weak_capacity_two_steps,
+        "direct_weak_direction_gate_pass": direct_pass,
         "heuristic_augmented_singular_values": saug.tolist(),
         "heuristic_sigma_min_gain_over_r11": float(saug[-1]/s[-1]),
         "heuristic_sigma_min_over_sigma_max": float(saug[-1]/saug[0]),
+        "heuristic_svd_gate_pass": heuristic_svd_pass,
         "center_metrics": metrics(rec["center"]),
         "decision": (
             "PASS_DIRECTION_GATE"
-            if saug[-1] >= 5*s[-1] or saug[-1]/saug[0] >= 0.01
+            if direct_pass
             else "FAIL_DIRECTION_GATE"
         ),
-        "warning": "Augmented SVD mixes R11 v3.4 derivatives with v4 post derivatives; use only to screen the new physical direction. Re-identify the full v4 Jacobian after a pass."
+        "warning": (
+            "The direct u4 controllability gate is primary. The augmented SVD "
+            "mixes R11 v3.4 derivatives with v4 post derivatives and is only a "
+            "secondary direction-screening diagnostic. Re-identify the full "
+            "v4 Jacobian after a pass."
+        ),
     }
 
     out = args.output.resolve() if args.output else root/"local_control_analysis.json"
     out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print("decision:", report["decision"])
-    print("post_height weak projection:", cols["post_height"]["weak_u4_projection"])
-    print("post_y weak projection:", cols["post_y"]["weak_u4_projection"])
+    print("post_height signed u4 projection:", signed_u4["post_height"])
+    print("post_y signed u4 projection:", signed_u4["post_y"])
+    print("sum abs u4 projection / half-step:", sum_abs_u4)
+    print("two-step weak-direction capacity:", weak_capacity_two_steps)
+    print("required weak-direction correction:", R11_WEAK_DIRECTION_ERROR)
     print("augmented singular values:", saug)
-    print("sigma_min gain:", report["heuristic_sigma_min_gain_over_r11"])
     print("report:", out)
 
 
