@@ -63,8 +63,8 @@
       "tuner_offset_after_taper_mm": 3,
       "relative_axial_positions_mm": [
         0,
-        8.4,
-        17.6
+        5,
+        19.5
       ],
       "penetrations_mm": [
         0,
@@ -77,7 +77,24 @@
         1.5
       ],
       "hard_penetration_limit_mm": 2,
-      "role": "residual_tuning_only"
+      "role": "residual_tuning_only",
+      "spacing_rationale": {
+        "model": "normalized weak-reflection phasor basis exp(-2j beta(f) z_i), 9 frequency samples over 9--11.5 GHz",
+        "old_positions_mm": [
+          0,
+          8.4,
+          17.6
+        ],
+        "old_condition_number": 11.7028,
+        "new_positions_mm": [
+          0,
+          5,
+          19.5
+        ],
+        "new_condition_number": 2.244,
+        "old_sigma_min_over_sigma_max": 0.08545,
+        "new_sigma_min_over_sigma_max": 0.44564
+      }
     },
     "E_arm": {
       "parity_orientation": "v2_corrected",
@@ -104,8 +121,11 @@
   },
   "gates": {
     "local_post_direction_test": {
-      "minimum_sigma_min_gain_over_r11": 5,
-      "preferred_sigma_min_over_sigma_max": 0.01
+      "r11_weak_direction_error": 0.26,
+      "max_identification_steps_per_coordinate": 2,
+      "required_sum_abs_u4_projection_per_step": 0.13,
+      "equivalent_required_weak_direction_capacity": 0.26,
+      "note": "Primary gate is direct controllability of the measured R11 weak output direction, not merely sigma_min gain."
     },
     "passive_return_loss_stages_dB": [
       10,
