@@ -1,0 +1,271 @@
+{
+  "feature_definition": [
+    "Re(Gamma_H_even(f0))",
+    "Im(Gamma_H_even(f0))",
+    "Re(dGamma_H_even/df at f0)",
+    "Im(dGamma_H_even/df at f0)"
+  ],
+  "f0_GHz": 10.25,
+  "df_GHz": 0.025,
+  "parameters": [
+    "h_throat_a",
+    "h_throat_len",
+    "h_cap_height",
+    "h_terminal_ridge_w"
+  ],
+  "center_parameters_mm": {
+    "h_throat_a": 20.4,
+    "h_throat_len": 5.5,
+    "h_cap_height": 9.0,
+    "h_terminal_ridge_w": 4.572
+  },
+  "central_difference_half_steps_mm": {
+    "h_throat_a": 0.4,
+    "h_throat_len": 1.0,
+    "h_cap_height": 0.4,
+    "h_terminal_ridge_w": 0.5
+  },
+  "center_feature": [
+    0.4655677979580888,
+    0.4487612579448936,
+    0.6863612266411869,
+    -0.8864094937591468
+  ],
+  "jacobian_per_mm": [
+    [
+      -0.03831405440204286,
+      -0.009314291732634095,
+      0.01697445934064734,
+      0.031895372541140665
+    ],
+    [
+      -0.0018400580099572211,
+      -0.05164968338043824,
+      -0.019171589089574947,
+      -0.007641193224243281
+    ],
+    [
+      -0.01889026988668968,
+      -0.15420985863636832,
+      -0.04904125035641374,
+      -0.016711555179250492
+    ],
+    [
+      0.09621486079841174,
+      0.0034422706431430083,
+      -0.058342380881873934,
+      -0.10267921553207404
+    ]
+  ],
+  "step_normalized_jacobian": [
+    [
+      -0.015325621760817143,
+      -0.009314291732634095,
+      0.006789783736258936,
+      0.015947686270570333
+    ],
+    [
+      -0.0007360232039828885,
+      -0.05164968338043824,
+      -0.007668635635829979,
+      -0.0038205966121216406
+    ],
+    [
+      -0.0075561079546758725,
+      -0.15420985863636832,
+      -0.019616500142565496,
+      -0.008355777589625246
+    ],
+    [
+      0.038485944319364696,
+      0.0034422706431430083,
+      -0.023336952352749574,
+      -0.05133960776603702
+    ]
+  ],
+  "raw_svd": {
+    "singular_values": [
+      0.1759597442991071,
+      0.15814201368245948,
+      0.004842077803078351,
+      0.0009250868570260914
+    ],
+    "sigma_min_over_sigma_max": 0.005257377820767756,
+    "condition_number": 190.20889007630154,
+    "numerical_rank": 4,
+    "effective_rank_5pct": 2,
+    "effective_rank_1pct": 3
+  },
+  "step_normalized_svd": {
+    "singular_values": [
+      0.16461155920610876,
+      0.07230326405602513,
+      0.002145771152981428,
+      0.0003904480097758489
+    ],
+    "sigma_min_over_sigma_max": 0.0023719355533651934,
+    "condition_number": 421.5966148748206,
+    "numerical_rank": 4,
+    "effective_rank_5pct": 2,
+    "effective_rank_1pct": 3
+  },
+  "newton_step_in_halfstep_units": [
+    145.04450460178947,
+    -70.55428131542779,
+    616.1108927842532,
+    -193.32543971298156
+  ],
+  "trust_limited_step_in_halfstep_units": [
+    0.75,
+    -0.75,
+    0.75,
+    -0.75
+  ],
+  "trust_limited_parameter_delta_mm": {
+    "h_throat_a": 0.30000000000000004,
+    "h_throat_len": -0.75,
+    "h_cap_height": 0.30000000000000004,
+    "h_terminal_ridge_w": -0.375
+  },
+  "trust_limited_candidate_mm": {
+    "h_throat_a": 20.7,
+    "h_throat_len": 4.75,
+    "h_cap_height": 9.3,
+    "h_terminal_ridge_w": 4.197
+  },
+  "case_metrics": {
+    "center": {
+      "c_plus_worst_return_loss_dB": 2.663296988446882,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.431120347600742,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.387553274430781,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4651970827969973,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -48.727667820577445,
+      "worst_forbidden_coupling_freq_GHz": 11.375,
+      "tH_min_linear": 0.6770524847658251
+    },
+    "h_throat_a_minus": {
+      "c_plus_worst_return_loss_dB": 2.4775029752388624,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.41711301433419,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.6177244914415234,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4708211195322125,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -50.045546639882815,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6593466066644799
+    },
+    "h_throat_a_plus": {
+      "c_plus_worst_return_loss_dB": 2.8140723502048233,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.4481851549506395,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.215829036267178,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4583035832041888,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -54.90069706964544,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6905713365512114
+    },
+    "h_throat_len_minus": {
+      "c_plus_worst_return_loss_dB": 2.7191625671294557,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.403934532743806,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.322366622526618,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4760753569298013,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -59.843225587314976,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6821528043576458
+    },
+    "h_throat_len_plus": {
+      "c_plus_worst_return_loss_dB": 2.674428950124536,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.46835618527818,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.37435456759004,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4502774489299097,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -55.88531929904708,
+      "worst_forbidden_coupling_freq_GHz": 11.325,
+      "tH_min_linear": 0.678082086870182
+    },
+    "h_cap_height_minus": {
+      "c_plus_worst_return_loss_dB": 2.7412495524610607,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.407760338707737,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.2971528272449073,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4745327203163274,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -53.921665261217186,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6841358653945525
+    },
+    "h_cap_height_plus": {
+      "c_plus_worst_return_loss_dB": 2.619605878696982,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.450553771723819,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.439662219879387,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4574521790503334,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -49.050767064147884,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6730028277607785
+    },
+    "h_terminal_ridge_w_minus": {
+      "c_plus_worst_return_loss_dB": 2.802479154007732,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.396756186858091,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.2285698788576584,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4789778915589662,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -62.36243265580932,
+      "worst_forbidden_coupling_freq_GHz": 11.5,
+      "tH_min_linear": 0.6895591188932052
+    },
+    "h_terminal_ridge_w_plus": {
+      "c_plus_worst_return_loss_dB": 2.5751202404825104,
+      "c_plus_worst_return_loss_freq_GHz": 9.0,
+      "c_minus_worst_return_loss_dB": 5.396170813646217,
+      "c_minus_worst_return_loss_freq_GHz": 11.5,
+      "c_plus_to_H_min_coupling_dB": -3.494007284979723,
+      "c_plus_to_H_min_coupling_freq_GHz": 9.0,
+      "c_minus_to_E_min_coupling_dB": -1.4792150638449235,
+      "c_minus_to_E_min_coupling_freq_GHz": 11.5,
+      "worst_forbidden_coupling_dB": -59.83612344599422,
+      "worst_forbidden_coupling_freq_GHz": 9.0,
+      "tH_min_linear": 0.6688051917482204
+    }
+  },
+  "case_paths": {
+    "center": "/home/ubuntu/hfss/hfss/results/v3_4_H_reactive_cell_latest/single_magictee_v3_4_hreactive.s4p",
+    "h_throat_a_minus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_throat_a_minus/single_magictee_v3_4_hreactive.s4p",
+    "h_throat_a_plus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_throat_a_plus/single_magictee_v3_4_hreactive.s4p",
+    "h_throat_len_minus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_throat_len_minus/single_magictee_v3_4_hreactive.s4p",
+    "h_throat_len_plus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_throat_len_plus/single_magictee_v3_4_hreactive.s4p",
+    "h_cap_height_minus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_cap_height_minus/single_magictee_v3_4_hreactive.s4p",
+    "h_cap_height_plus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_cap_height_plus/single_magictee_v3_4_hreactive.s4p",
+    "h_terminal_ridge_w_minus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_terminal_ridge_w_minus/single_magictee_v3_4_hreactive.s4p",
+    "h_terminal_ridge_w_plus": "/home/ubuntu/hfss/hfss/results/v3_4_jacobian_r11/h_terminal_ridge_w_plus/single_magictee_v3_4_hreactive.s4p"
+  },
+  "structural_gates": {
+    "tH_min_required": 0.85,
+    "tH_min_preferred": 0.9,
+    "forbidden_coupling_max_dB": -30.0
+  }
+}
