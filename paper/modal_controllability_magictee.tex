@@ -1,0 +1,280 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{amsmath,amssymb,booktabs,bm,cite}
+
+\title{Symmetry-Protected Modal Controllability for Broadband X-Band Magic-T Power Combining}
+\author{Author~Names~Omitted~for~Draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A broadband waveguide Magic-T is studied as a modal-controllability problem rather than a scalar S-parameter optimization problem.
+Mirror symmetry decomposes the collinear excitation into even and odd parity channels that ideally couple to the H and E arms, respectively.
+A full-band real Jacobian is constructed from the complex modal reflections over 9--11.5~GHz, and singular-value analysis is used to quantify independent geometric control directions.
+An earlier parameterization is practically ill conditioned with a reported step-normalized condition number of approximately 422.
+A later three-parameter central-difference data set at a legacy stepped-post center gives a full-band condition number of approximately 6.95, but the odd/E block remains poorly conditioned at approximately 74.4.
+A strict four-parameter identification at the final design seed is therefore proposed by reopening the upper-post radius.
+The framework separates modal rank, created by spatially distinct junction perturbations, from spectral rank, created by throat and distributed ridge-transformer sections.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Magic-T, waveguide combiner, even-odd modes, S-parameter sensitivity, Jacobian conditioning, broadband matching.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Waveguide Magic-T junctions are attractive for high-power microwave combining because of low conductor loss, high power-handling capability, and their natural sum/difference operation.
+Their main difficulty is broadband matching.
+Published wideband designs therefore combine several distinct matching elements such as posts, irises, steps, septa, and ridge transitions \cite{peng2024ridge,leal2013compact,ggw2022}.
+
+A large number of geometric variables does not necessarily provide a useful optimization space.
+If several parameters generate almost the same electromagnetic response, the local design problem is practically rank deficient.
+This behavior was observed in an earlier version of the present X-band combiner, whose step-normalized local Jacobian had condition number approximately 422.
+
+This paper instead works in the natural parity basis and asks whether geometry parameters span independent directions in the two modal reflection trajectories across the complete band.
+The intended contributions are: 1) symmetry-based parity decomposition; 2) a full-band Jacobian/SVD controllability measure; 3) a stepped-post modal-rank interpretation; and 4) separation of local modal rank from distributed spectral rank.
+
+\section{Parity Decomposition}
+Let ports 1 and 2 be the collinear arms, port 3 the H arm, and port 4 the E arm.
+Define
+\begin{equation}
+c_+=\frac{P_1+P_2}{\sqrt2},\qquad
+c_-=\frac{P_1-P_2}{\sqrt2}.
+\end{equation}
+Let \(\mathcal P\) exchange the two collinear arms.
+For a mirror-symmetric geometry,
+\begin{equation}
+[\mathcal L,\mathcal P]=0,\qquad [S,\mathcal P]=0.
+\end{equation}
+Hence the ideal modal scattering matrix decomposes as
+\begin{equation}
+S_m \sim (c_+,H)\oplus(c_-,E).
+\label{eq:block}
+\end{equation}
+
+Define
+\begin{equation}
+\Gamma_+(f)=S_{m,11}(f),\qquad
+\Gamma_-(f)=S_{m,22}(f).
+\end{equation}
+For the symmetric collinear section,
+\begin{equation}
+S_{11}=\frac{\Gamma_++\Gamma_-}{2},\qquad
+S_{12}=\frac{\Gamma_+-\Gamma_-}{2},
+\end{equation}
+so
+\begin{equation}
+|S_{11}|^2+|S_{12}|^2=
+\frac{|\Gamma_+|^2+|\Gamma_-|^2}{2}.
+\end{equation}
+Thus a small physical \(S_{11}\) can be produced by cancellation and does not prove that both parity channels are individually matched.
+
+\section{Full-Band Modal Controllability}
+For geometry parameters \(\bm p=(p_1,\ldots,p_M)^T\), stack the two modal reflections across \(N\) frequencies:
+\begin{equation}
+\bm F(\bm p)=
+[\Re\bm\Gamma_+;\Im\bm\Gamma_+;
+ \Re\bm\Gamma_-;\Im\bm\Gamma_-].
+\end{equation}
+The full-band Jacobian is
+\begin{equation}
+J=\frac{\partial \bm F}{\partial \bm p}
+\in\mathbb R^{4N\times M}.
+\end{equation}
+The parity blocks are denoted \(J_+\) and \(J_-\).
+The local conditioning is measured by
+\begin{equation}
+\kappa(J)=\frac{\sigma_{\max}(J)}{\sigma_{\min}(J)}.
+\end{equation}
+Because the parameters have different natural scales, the main comparison uses
+\begin{equation}
+\widetilde J=JD,
+\qquad
+D=\mathrm{diag}(\Delta p_1,\ldots,\Delta p_M),
+\end{equation}
+where \(\Delta p_i\) is the finite-difference half step.
+
+For parameter \(p_i\), define modal selectivity
+\begin{equation}
+\rho_i^{(+)}=
+\frac{\|J_{+,i}\|_2}{\|J_{-,i}\|_2},
+\qquad
+\rho_i^{(-)}=
+\frac{\|J_{-,i}\|_2}{\|J_{+,i}\|_2}.
+\end{equation}
+Pairwise acute angles between normalized Jacobian columns are used to identify redundant directions.
+
+\section{Stepped-Post Interpretation}
+Let \(j_L\) and \(j_U\) be response columns for lower and upper post-radius perturbations.
+A uniform through-post enforces
+\begin{equation}
+\delta r_L=\delta r_U=\delta r,
+\end{equation}
+hence
+\begin{equation}
+\delta\bm F=(j_L+j_U)\delta r,
+\end{equation}
+which provides only one local response direction.
+
+A stepped post instead gives
+\begin{equation}
+\delta\bm F=j_L\delta r_L+j_U\delta r_U.
+\label{eq:step}
+\end{equation}
+If \(j_L\) and \(j_U\) are not collinear, the reachable response space expands.
+
+This has a field-theoretic interpretation.
+For a small normal boundary perturbation \(V_n\), an S-parameter variation has an adjoint/Hadamard boundary-sensitivity form \cite{zhu2009,dadash2014},
+\begin{equation}
+\delta S=
+\int_{\partial\Omega}
+G_S(\bm r,\omega)V_n(\bm r)\,dS.
+\end{equation}
+The lower and upper post segments occupy different field regions, and the even/H and odd/E fields have different spatial distributions.
+Their overlap integrals therefore need not be proportional.
+
+\section{Modal Rank and Spectral Rank}
+Independent control of \(\Gamma_+\) and \(\Gamma_-\) at one frequency does not guarantee broadband matching.
+Around \(f_0\),
+\begin{equation}
+\Gamma_\pm(f)=
+\Gamma_\pm(f_0)+
+\Gamma_\pm'(f_0)(f-f_0)+
+\frac12\Gamma_\pm''(f_0)(f-f_0)^2+\cdots.
+\end{equation}
+A local post is predominantly a local reactive or resonant perturbation.
+By contrast, a throat or distributed ridge transformer changes both impedance and accumulated propagation phase.
+A first-order distributed-reflection picture is
+\begin{equation}
+\Gamma(f)\approx
+\frac12\int
+\frac{d\ln Z(z)}{dz}
+\exp\left[
+-2j\int_0^z\beta(\xi,f)d\xi
+\right]dz.
+\end{equation}
+This motivates
+\begin{equation}
+\boxed{
+\text{stepped local geometry}\rightarrow\text{modal rank},
+\quad
+\text{throat/ridge}\rightarrow\text{spectral rank}.
+}
+\end{equation}
+
+\section{Existing Evidence}
+The old R11 identification produced step-normalized singular values approximately
+\begin{equation}
+[0.1646,0.07230,0.002146,0.000390],
+\end{equation}
+with \(\kappa\approx422\).
+
+The repository also contains a strict three-parameter central-difference set centered at
+\begin{equation}
+(r_L,h_s,r_U,H)=
+(2.0,10.16,0.9,16.25)~\mathrm{mm}.
+\label{eq:legacy}
+\end{equation}
+This is a legacy local-screen center, not the final v7 seed.
+At this point,
+\begin{equation}
+\sigma(J)\approx[4.3147,2.6554,0.6205],
+\end{equation}
+so
+\begin{equation}
+\kappa(J)\approx6.95,
+\quad
+\kappa(J_+)\approx7.06,
+\quad
+\kappa(J_-)\approx74.4.
+\end{equation}
+The total-height direction is strongly even-selective there, with
+\begin{equation}
+\frac{\|J_{+,H}\|_2}{\|J_{-,H}\|_2}\approx47.
+\end{equation}
+
+The final v7 single-cell PEC design has H/sum efficiency 0.7801 minimum and 0.8699 mean, and E/difference efficiency 0.7038 minimum and 0.7746 mean.
+The complete four-way PEC model has combining efficiency 50.17\% minimum and 78.34\% mean, minimum active return loss about 2.95~dB, and minimum input isolation about 6.94~dB.
+The network-to-full-3-D RMS efficiency difference is approximately 1.22 percentage points.
+These results suggest that the tree topology is modeled consistently while broadband cell matching remains the dominant limitation.
+
+\section{Strict Final-Seed Identification}
+The final v7 seed is
+\begin{equation}
+(r_L,h_s,r_U,H)=
+(1.4,6.2,0.9,16.25)~\mathrm{mm}.
+\label{eq:final}
+\end{equation}
+Existing simulations already provide the center, \(r_L=1.6\)~mm, and \(h_s=7.2\)~mm.
+Six additional solves complete a strict four-parameter central difference:
+\begin{equation}
+r_L=1.2,quad
+h_s=5.2,quad
+r_U=0.7,1.1,quad
+H=15.50,17.00~\mathrm{mm}.
+\end{equation}
+
+The decisive test is whether the upper-radius column adds a non-redundant odd/E direction, increases \(\sigma_{\min}(J_-)\), and reduces \(\kappa(J_-)\) over the entire band.
+
+\begin{table}[t]
+\centering
+\caption{Modal controllability comparison.}
+\begin{tabular}{lccc}
+\toprule
+Case & Full \(\kappa\) & Even/H & Odd/E\\
+\midrule
+Old R11 & \(\sim422\) & -- & --\\
+Legacy center & 6.95 & 7.06 & 74.4\\
+Final seed v8 & \textbf{TODO} & \textbf{TODO} & \textbf{TODO}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Four-Way Tree}
+For four coherent equal inputs,
+\begin{equation}
+\bm a_\Sigma=\frac12[1,1,1,1]^T,
+\end{equation}
+the desired state is the global sum mode.
+Pairwise difference channels ideally vanish at the first stage, while pairwise sum states combine at the second stage.
+This hierarchical sum/difference interpretation explains why coherent amplitude and phase balance can already be accurate even while cell return loss is poor.
+
+\section{Discussion and Conclusion}
+The design problem is governed by the rank and conditioning of electromagnetic response directions, not by the raw number of geometric variables.
+Mirror symmetry protects the parity decomposition.
+The stepped post is useful only if its separated geometric regions create independent modal sensitivities.
+The throat and ridge sections provide a complementary frequency-dependent basis required for broadband flattening.
+
+The final v8 identification must be completed before claiming final-seed controllability improvement.
+The present simulations are PEC and do not yet establish conductor loss, breakdown, multipactor, thermal margin, or 30-kW peak-power handling.
+
+\begin{thebibliography}{99}
+\bibitem{peng2024ridge}
+W. Peng, C. Li, H. Wang, and L. Ye,
+"An 18--40 GHz ridge waveguide Magic-T using stepped conducting T-junction transition,"
+\emph{Electronics}, vol. 13, no. 12, Art. no. 2407, 2024,
+doi: 10.3390/electronics13122407.
+
+\bibitem{leal2013compact}
+C. A. Leal-Sevillano, J. A. Ruiz-Cruz, J. R. Montejo-Garai, and J. M. Rebollar,
+"Compact broadband couplers based on the waveguide magic-T junction,"
+in \emph{Proc. European Microwave Conference}, 2013.
+
+\bibitem{ggw2022}
+"An H-plane groove gap waveguide Magic-T for X-band applications,"
+\emph{Electronics}, vol. 11, no. 24, Art. no. 4075, 2022,
+doi: 10.3390/electronics11244075.
+
+\bibitem{zhu2009}
+X. Zhu and N. K. Nikolova,
+"Accuracy improvement of the S-parameter adjoint sensitivity analysis for shape parameters,"
+in \emph{Proc. IEEE MTT-S International Microwave Symposium}, 2009, pp. 529--532,
+doi: 10.1109/MWSYM.2009.5165750.
+
+\bibitem{dadash2014}
+M. S. Dadash and N. K. Nikolova,
+"Analytical S-parameter sensitivity formula for the shape parameters of dielectric objects,"
+\emph{IEEE Microwave Wireless Components Letters}, vol. 24, no. 5, pp. 291--293, 2014,
+doi: 10.1109/LMWC.2014.2306891.
+\end{thebibliography}
+
+\end{document}
