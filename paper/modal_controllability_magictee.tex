@@ -1,5 +1,10 @@
 \documentclass[journal]{IEEEtran}
 \usepackage{amsmath,amssymb,booktabs,bm,cite}
+\usepackage{tikz,pgfplots}
+\pgfplotsset{compat=1.18}
+\makeatletter
+\def\input@path{{paper/figures/}{figures/}}
+\makeatother
 
 \title{Symmetry-Protected Modal Controllability for Broadband X-Band Magic-T Power Combining}
 \author{Author~Names~Omitted~for~Draft}
@@ -86,6 +91,10 @@ For the evaluated geometry, the largest forbidden parity-conversion term over 9-
 \end{equation}
 This very small leakage is important because it separates two issues that are otherwise easy to confuse.
 The symmetry-protected modal topology is already well preserved; the remaining reflection is predominantly mismatch within the allowed parity blocks.
+
+Figure~\ref{fig:gamma-trajectories} shows the corresponding complex modal-reflection trajectories over the complete band.  The purpose of this plot is not to seek a visually small loop by itself, but to make clear that the residual evolution occurs inside the two allowed parity channels.
+
+\input{fig_gamma_trajectories.tex}
 
 \section{Full-Band Parametric Controllability}
 Let the geometric parameter vector be
@@ -189,6 +198,9 @@ and
 \end{equation}
 These large angles show that the two post regions are not merely redundant tuning knobs.
 They act on the broadband modal response in substantially different directions.
+Figure~\ref{fig:angle-matrix} places this result in the context of all four local controls and makes the remaining near-redundancies immediately visible.
+
+\input{fig_modal_angle_matrix.tex}
 
 The conclusion is also supported by sensitivity magnitude.
 Per millimeter of perturbation,
@@ -237,6 +249,9 @@ The normalized weakest full-space right-singular vector is approximately
 +0.085\,\delta H.
 \end{equation}
 The weak response is therefore dominated by a cancellation involving split height rather than by the absence of a post-control direction.
+Figure~\ref{fig:singular-spectrum} shows the complete singular spectra of the full, even/H, and odd/E Jacobians.  The logarithmic scale emphasizes the separation between the strong controllable directions and the single weak combination.
+
+\input{fig_singular_spectrum.tex}
 
 Table~\ref{tab:roles} summarizes the modal sensitivity of the four parameters.
 
