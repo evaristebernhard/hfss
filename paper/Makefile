@@ -20,7 +20,7 @@ pdf:
 hfss-assets:
 	cd .. && scripts/wsl_pyaedt_launcher.sh hfss/export_paper_hfss_figures.py
 
-bundle:
+bundle: all
 	$(PYTHON) package_reproducible_bundle.py
 
 clean:
