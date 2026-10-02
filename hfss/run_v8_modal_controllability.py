@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
-import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -51,18 +50,19 @@ CASES = [
 
 
 def build_command(
+    launcher: Path,
     builder: Path,
     version: str,
-    output: Path,
+    windows_output: str,
     case: Case,
 ) -> list[str]:
     return [
-        sys.executable,
+        str(launcher),
         str(builder),
         "--version",
         version,
         "--output",
-        str(output),
+        windows_output,
         "--post-lower-radius",
         str(case.lower_radius),
         "--post-lower-height",
@@ -90,6 +90,22 @@ def build_command(
     ]
 
 
+def wsl_to_windows_path(path: Path) -> str:
+    """Convert a WSL path to a path accepted by Windows Python/AEDT."""
+    try:
+        converted = subprocess.check_output(
+            ["wslpath", "-w", str(path)],
+            text=True,
+        ).strip()
+    except FileNotFoundError as exc:
+        raise RuntimeError(
+            "wslpath is unavailable; run this workflow from WSL2"
+        ) from exc
+    if not converted:
+        raise RuntimeError(f"wslpath returned an empty path for {path}")
+    return converted
+
+
 def main() -> None:
     here = Path(__file__).resolve().parent
 
@@ -98,6 +114,12 @@ def main() -> None:
         "--builder",
         type=Path,
         default=here / "build_single_magictee_v6_stepped_post.py",
+    )
+    parser.add_argument(
+        "--launcher",
+        type=Path,
+        default=here.parent / "scripts" / "wsl_pyaedt_launcher.sh",
+        help="WSL launcher for the Windows PyAEDT environment",
     )
     parser.add_argument(
         "--output-root",
@@ -109,8 +131,10 @@ def main() -> None:
     args = parser.parse_args()
 
     builder = args.builder.resolve()
+    launcher = args.launcher.resolve()
     root = args.output_root.resolve()
     root.mkdir(parents=True, exist_ok=True)
+    windows_root = wsl_to_windows_path(root)
 
     manifest = {
         "program": "v8 strict modal controllability identification",
@@ -149,7 +173,8 @@ def main() -> None:
             continue
 
         outdir.mkdir(parents=True, exist_ok=True)
-        cmd = build_command(builder, args.version, outdir, case)
+        windows_output = windows_root.rstrip("\\/") + "\\" + case.name
+        cmd = build_command(launcher, builder, args.version, windows_output, case)
         print("[run]", case.name, flush=True)
         subprocess.run(cmd, check=True)
 
