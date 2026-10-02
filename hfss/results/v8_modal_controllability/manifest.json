@@ -1,0 +1,70 @@
+{
+  "program": "v8 strict modal controllability identification",
+  "center": {
+    "lower_radius_mm": 1.4,
+    "split_height_mm": 6.2,
+    "upper_radius_mm": 0.9,
+    "total_height_mm": 16.25
+  },
+  "central_difference_half_steps_mm": {
+    "lower_radius": 0.2,
+    "split_height": 1.0,
+    "upper_radius": 0.2,
+    "total_height": 0.75
+  },
+  "reused_v7_cases": {
+    "center": "hfss/results/v7_stepped_post_local/joint_l1p4_s6p2",
+    "lower_plus": "hfss/results/v7_stepped_post_local/joint_l1p6_s6p2",
+    "split_plus": "hfss/results/v7_stepped_post_local/joint_l1p4_s7p2"
+  },
+  "new_cases": [
+    {
+      "name": "lower_minus",
+      "lower_radius": 1.2,
+      "lower_height": 6.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/lower_minus/single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "split_minus",
+      "lower_radius": 1.4,
+      "lower_height": 5.2,
+      "upper_radius": 0.9,
+      "total_height": 16.25,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/split_minus/single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "upper_minus",
+      "lower_radius": 1.4,
+      "lower_height": 6.2,
+      "upper_radius": 0.7,
+      "total_height": 16.25,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/upper_minus/single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "upper_plus",
+      "lower_radius": 1.4,
+      "lower_height": 6.2,
+      "upper_radius": 1.1,
+      "total_height": 16.25,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/upper_plus/single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "total_minus",
+      "lower_radius": 1.4,
+      "lower_height": 6.2,
+      "upper_radius": 0.9,
+      "total_height": 15.5,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/total_minus/single_magictee_v4_full.s4p"
+    },
+    {
+      "name": "total_plus",
+      "lower_radius": 1.4,
+      "lower_height": 6.2,
+      "upper_radius": 0.9,
+      "total_height": 17.0,
+      "output": "/home/ubuntu/hfss/hfss/results/v8_modal_controllability/total_plus/single_magictee_v4_full.s4p"
+    }
+  ]
+}
