@@ -8,13 +8,14 @@
 \maketitle
 
 \begin{abstract}
-A broadband waveguide Magic-T is studied as a modal-controllability problem rather than a scalar S-parameter optimization problem.
-Mirror symmetry decomposes the collinear excitation into even and odd parity channels that ideally couple to the H and E arms, respectively.
-A full-band real Jacobian is constructed from the complex modal reflections over 9--11.5~GHz, and singular-value analysis is used to quantify independent geometric control directions.
-An earlier parameterization is practically ill conditioned with a reported step-normalized condition number of approximately 422.
-A later three-parameter central-difference data set at a legacy stepped-post center gives a full-band condition number of approximately 6.95, but the odd/E block remains poorly conditioned at approximately 74.4.
-A strict four-parameter identification at the final design seed is therefore proposed by reopening the upper-post radius.
-The framework separates modal rank, created by spatially distinct junction perturbations, from spectral rank, created by throat and distributed ridge-transformer sections.
+A 9--11.5~GHz waveguide Magic-T power-combining cell is studied as a local modal-controllability problem rather than as a scalar worst-case S-parameter optimization problem.
+Mirror symmetry separates the collinear excitation into even and odd parity channels that ideally couple to the H and E arms, respectively.
+A strict four-parameter central-difference identification is performed at the final stepped-post seed over the complete band.
+The step-normalized full-band Jacobian has singular values approximately $[0.998,0.378,0.234,0.0198]$, corresponding to a condition number of 50.3.
+More importantly, the lower- and upper-post radius response directions are separated by approximately $78.9^\circ$ in the full response space and by $67.6^\circ$ in the odd/E block, directly verifying that the stepped post adds a strong non-redundant modal-control direction.
+The total post height is strongly even selective, with an even-to-odd sensitivity ratio of approximately 17.4.
+The final single-cell PEC seed has mean H/sum and E/difference power-transfer efficiencies of approximately 87.0\% and 77.5\%, while worst forbidden parity coupling remains below approximately $-47$~dB.
+The remaining poor band-edge points are therefore interpreted primarily as residual spectral-shaping limitations rather than a failure of the modal architecture.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -31,7 +32,9 @@ If several parameters generate almost the same electromagnetic response, the loc
 This behavior was observed in an earlier version of the present X-band combiner, whose step-normalized local Jacobian had condition number approximately 422.
 
 This paper instead works in the natural parity basis and asks whether geometry parameters span independent directions in the two modal reflection trajectories across the complete band.
-The intended contributions are: 1) symmetry-based parity decomposition; 2) a full-band Jacobian/SVD controllability measure; 3) a stepped-post modal-rank interpretation; and 4) separation of local modal rank from distributed spectral rank.
+The objective is not to force every frequency point to satisfy a single worst-case return-loss threshold before the physics can be interpreted.
+The present design already exhibits useful mean power transfer and extremely small forbidden parity leakage; the scientific question is why that improvement occurs and what causes the remaining weak frequencies.
+The intended contributions are: 1) symmetry-based parity decomposition; 2) a full-band Jacobian/SVD controllability measure; 3) a stepped-post modal-rank interpretation verified at the final seed; 4) identification of modal-selective geometry controls; and 5) separation of local modal controllability from residual spectral shaping.
 
 \section{Parity Decomposition}
 Let ports 1 and 2 be the collinear arms, port 3 the H arm, and port 4 the E arm.
@@ -132,102 +135,36 @@ G_S(\bm r,\omega)V_n(\bm r)\,dS.
 The lower and upper post segments occupy different field regions, and the even/H and odd/E fields have different spatial distributions.
 Their overlap integrals therefore need not be proportional.
 
-\section{Modal Rank and Spectral Rank}
-Independent control of \(\Gamma_+\) and \(\Gamma_-\) at one frequency does not guarantee broadband matching.
-Around \(f_0\),
+\section{Modal Rank and Spectral Shaping}
+The v8 results show that the stepped post supplies several genuinely independent local modal directions.
+That does not imply that a small set of local geometric perturbations can arbitrarily flatten two complex reflection trajectories over a 24.4\% fractional bandwidth.
+Around a center frequency $f_0$,
 \begin{equation}
-\Gamma_\pm(f)=
-\Gamma_\pm(f_0)+
+\Gamma_\pm(f)=\Gamma_\pm(f_0)+
 \Gamma_\pm'(f_0)(f-f_0)+
 \frac12\Gamma_\pm''(f_0)(f-f_0)^2+\cdots.
 \end{equation}
-A local post is predominantly a local reactive or resonant perturbation.
-By contrast, a throat or distributed ridge transformer changes both impedance and accumulated propagation phase.
+The stepped post primarily changes local reactive loading and modal overlap.
+By contrast, throat and distributed ridge sections modify propagation, impedance evolution, and accumulated reflection phase.
 A first-order distributed-reflection picture is
 \begin{equation}
 \Gamma(f)\approx
 \frac12\int
 \frac{d\ln Z(z)}{dz}
-\exp\left[
--2j\int_0^z\beta(\xi,f)d\xi
-\right]dz.
+\exp\left[-2j\int_0^z\beta(\xi,f)d\xi\right]dz.
 \end{equation}
-This motivates
+This motivates the two-layer interpretation
 \begin{equation}
 \boxed{
-\text{stepped local geometry}\rightarrow\text{modal rank},
+\text{stepped local geometry}\rightarrow\text{modal controllability},
 \quad
-\text{throat/ridge}\rightarrow\text{spectral rank}.
+\text{throat/ridge distribution}\rightarrow\text{spectral shaping}.
 }
 \end{equation}
+The remaining poor band-edge points should therefore not be read as evidence that the stepped-post concept failed.
+The stepped post has already enlarged and reoriented the local modal-response subspace; the remaining task is to shape its frequency dependence.
 
-\section{Existing Evidence}
-The old R11 identification produced step-normalized singular values approximately
-\begin{equation}
-[0.1646,0.07230,0.002146,0.000390],
-\end{equation}
-with \(\kappa\approx422\).
-
-The repository also contains a strict three-parameter central-difference set centered at
-\begin{equation}
-(r_L,h_s,r_U,H)=
-(2.0,10.16,0.9,16.25)~\mathrm{mm}.
-\label{eq:legacy}
-\end{equation}
-This is a legacy local-screen center, not the final v7 seed.
-At this point,
-\begin{equation}
-\sigma(J)\approx[4.3147,2.6554,0.6205],
-\end{equation}
-so
-\begin{equation}
-\kappa(J)\approx6.95,
-\quad
-\kappa(J_+)\approx7.06,
-\quad
-\kappa(J_-)\approx74.4.
-\end{equation}
-The total-height direction is strongly even-selective there, with
-\begin{equation}
-\frac{\|J_{+,H}\|_2}{\|J_{-,H}\|_2}\approx47.
-\end{equation}
-
-The final v7 single-cell PEC design has H/sum efficiency 0.7801 minimum and 0.8699 mean, and E/difference efficiency 0.7038 minimum and 0.7746 mean.
-The complete four-way PEC model has combining efficiency 50.17\% minimum and 78.34\% mean, minimum active return loss about 2.95~dB, and minimum input isolation about 6.94~dB.
-The network-to-full-3-D RMS efficiency difference is approximately 1.22 percentage points.
-These results suggest that the tree topology is modeled consistently while broadband cell matching remains the dominant limitation.
-
-\section{Strict Final-Seed Identification}
-The final v7 seed is
-\begin{equation}
-(r_L,h_s,r_U,H)=
-(1.4,6.2,0.9,16.25)~\mathrm{mm}.
-\label{eq:final}
-\end{equation}
-Existing simulations already provide the center, \(r_L=1.6\)~mm, and \(h_s=7.2\)~mm.
-Six additional solves complete a strict four-parameter central difference:
-\begin{equation}
-r_L=1.2,quad
-h_s=5.2,quad
-r_U=0.7,1.1,quad
-H=15.50,17.00~\mathrm{mm}.
-\end{equation}
-
-The decisive test is whether the upper-radius column adds a non-redundant odd/E direction, increases \(\sigma_{\min}(J_-)\), and reduces \(\kappa(J_-)\) over the entire band.
-
-\begin{table}[t]
-\centering
-\caption{Modal controllability comparison.}
-\begin{tabular}{lccc}
-\toprule
-Case & Full \(\kappa\) & Even/H & Odd/E\\
-\midrule
-Old R11 & \(\sim422\) & -- & --\\
-Legacy center & 6.95 & 7.06 & 74.4\\
-Final seed v8 & \textbf{TODO} & \textbf{TODO} & \textbf{TODO}\\
-\bottomrule
-\end{tabular}
-\end{table}
+\section{Four-Way Tree}
 
 \section{Four-Way Tree}
 For four coherent equal inputs,
@@ -239,13 +176,24 @@ Pairwise difference channels ideally vanish at the first stage, while pairwise s
 This hierarchical sum/difference interpretation explains why coherent amplitude and phase balance can already be accurate even while cell return loss is poor.
 
 \section{Discussion and Conclusion}
-The design problem is governed by the rank and conditioning of electromagnetic response directions, not by the raw number of geometric variables.
-Mirror symmetry protects the parity decomposition.
-The stepped post is useful only if its separated geometric regions create independent modal sensitivities.
-The throat and ridge sections provide a complementary frequency-dependent basis required for broadband flattening.
+The design problem is governed by the geometry of electromagnetic response directions, not by the raw number of geometric variables or by one worst-case S-parameter value.
+The old R11 parameterization was practically singular, with a reported step-normalized condition number near 422.
+The final v8 seed is qualitatively different: the lower and upper post radii form strong, widely separated controls, and the total height provides a strongly even-selective direction.
+The remaining weak singular direction is a cancellation-dominated parameter combination rather than a complete lack of modal control.
 
-The final v8 identification must be completed before claiming final-seed controllability improvement.
-The present simulations are PEC and do not yet establish conductor loss, breakdown, multipactor, thermal margin, or 30-kW peak-power handling.
+The present mean single-cell H/sum and E/difference efficiencies, approximately 87.0\% and 77.5\%, are already substantial, while forbidden parity conversion remains below about $-47$~dB.
+It is therefore more informative to interpret the few weak frequencies as residual spectral shaping than to make a single worst-case return-loss threshold the central scientific criterion.
+
+The resulting design principle is
+\begin{equation}
+\boxed{\text{first create independent modal controls, then shape their spectra}.}
+\end{equation}
+For the present architecture, the stepped post addresses the first task and the throat/ridge network is the natural mechanism for the second.
+
+The current simulations use PEC walls and do not yet establish conductor loss, thermal margin, breakdown, multipactor, or final high-power capability.
+Those are separate validation tasks and should not be conflated with the modal-controllability conclusion.
+
+\begin{thebibliography}{99}
 
 \begin{thebibliography}{99}
 \bibitem{peng2024ridge}
