@@ -8,6 +8,7 @@ Generated figures:
   paper/figures/fig_gamma_trajectories.tex
   paper/figures/fig_modal_angle_matrix.tex
   paper/figures/fig_singular_spectrum.tex
+  paper/figures/fig_broadband_performance.tex
 """
 
 from __future__ import annotations
@@ -230,6 +231,90 @@ label style={{font=\scriptsize}},
     path.write_text(text, encoding="utf-8")
 
 
+
+def write_performance_figure(data, path: Path) -> None:
+    freqs = data["freqs"]
+    sm = data["center_sm"]
+
+    eta_h = np.abs(sm[:, 2, 0]) ** 2
+    eta_e = np.abs(sm[:, 3, 1]) ** 2
+    rl_p = -20.0 * np.log10(np.maximum(np.abs(sm[:, 0, 0]), 1e-15))
+    rl_m = -20.0 * np.log10(np.maximum(np.abs(sm[:, 1, 1]), 1e-15))
+
+    forbidden = np.column_stack(
+        [
+            sm[:, 0, 1],
+            sm[:, 0, 3],
+            sm[:, 1, 2],
+            sm[:, 2, 3],
+        ]
+    )
+    iso = -np.max(
+        20.0 * np.log10(np.maximum(np.abs(forbidden), 1e-15)),
+        axis=1,
+    )
+
+    rows = "\n".join(
+        f"{f:.3f} {h:.8f} {e:.8f} {rp:.6f} {rm:.6f} {ii:.6f}"
+        for f, h, e, rp, rm, ii in zip(freqs, eta_h, eta_e, rl_p, rl_m, iso)
+    )
+
+    table = rf"""f etaH etaE rlP rlM iso
+{rows}"""
+
+    text = rf"""\begin{{figure*}}[t]
+\centering
+\begin{{minipage}}{{0.485\textwidth}}
+\centering
+\begin{{tikzpicture}}
+\begin{{axis}}[
+width=\linewidth,height=0.62\linewidth,
+xmin=9,xmax=11.5,ymin=0.60,ymax=1.02,
+xlabel={{Frequency (GHz)}},ylabel={{Power-transfer efficiency}},
+grid=both,
+legend style={{font=\scriptsize,at={{(0.5,1.02)}},anchor=south,legend columns=2}},
+tick label style={{font=\scriptsize}},label style={{font=\scriptsize}},
+]
+\addplot+[thick,mark=none] table[x=f,y=etaH] {{
+{table}
+}};
+\addplot+[thick,mark=none] table[x=f,y=etaE] {{
+{table}
+}};
+\legend{{H/sum,E/difference}}
+\end{{axis}}
+\end{{tikzpicture}}
+\end{{minipage}}\hfill
+\begin{{minipage}}{{0.485\textwidth}}
+\centering
+\begin{{tikzpicture}}
+\begin{{axis}}[
+width=\linewidth,height=0.62\linewidth,
+xmin=9,xmax=11.5,ymin=0,ymax=60,
+xlabel={{Frequency (GHz)}},ylabel={{Return loss / parity isolation (dB)}},
+grid=both,
+legend style={{font=\scriptsize,at={{(0.5,1.02)}},anchor=south,legend columns=3}},
+tick label style={{font=\scriptsize}},label style={{font=\scriptsize}},
+]
+\addplot+[thick,mark=none] table[x=f,y=rlP] {{
+{table}
+}};
+\addplot+[thick,mark=none] table[x=f,y=rlM] {{
+{table}
+}};
+\addplot+[thick,mark=none,densely dashed] table[x=f,y=iso] {{
+{table}
+}};
+\legend{{$RL_+$,$RL_-$,forbidden parity isolation}}
+\end{{axis}}
+\end{{tikzpicture}}
+\end{{minipage}}
+\caption{{Broadband modal performance of the evaluated single-cell PEC geometry. Left: desired H/sum and E/difference power-transfer efficiencies. Right: even- and odd-mode return losses together with the minimum isolation from forbidden parity conversion. The transfer curves show useful average performance across the band, whereas the weaker band-edge points remain an in-block matching problem rather than a parity-leakage problem.}}
+\label{{fig:broadband-performance}}
+\end{{figure*}}
+"""
+    path.write_text(text, encoding="utf-8")
+
 def main() -> None:
     here = Path(__file__).resolve().parent
     out = here.parent / "paper" / "figures"
@@ -239,10 +324,12 @@ def main() -> None:
     write_gamma_figure(data, out / "fig_gamma_trajectories.tex")
     write_angle_figure(data, out / "fig_modal_angle_matrix.tex")
     write_singular_figure(data, out / "fig_singular_spectrum.tex")
+    write_performance_figure(data, out / "fig_broadband_performance.tex")
 
     print("wrote:", out / "fig_gamma_trajectories.tex")
     print("wrote:", out / "fig_modal_angle_matrix.tex")
     print("wrote:", out / "fig_singular_spectrum.tex")
+    print("wrote:", out / "fig_broadband_performance.tex")
 
 
 if __name__ == "__main__":
