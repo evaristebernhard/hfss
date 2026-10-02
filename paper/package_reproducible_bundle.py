@@ -66,6 +66,15 @@ REQUIRED_FILES = [
     "hfss/results/v7_stepped_post_local/joint_l1p4_s6p2/single_magictee_v4_full.s4p",
     "hfss/results/v7_stepped_post_local/joint_l1p4_s6p2/single_magictee_v4_full.aedt",
 
+    # Legacy baseline Touchstone inputs re-analyzed by analyze_v8_modal_controllability.py.
+    "hfss/results/v7_stepped_post_local/center_l2p0_u0p9_s10p16_t16p25/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/lower1p8/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/lower2p2/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/split9p2/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/split11p2/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/total15p5/single_magictee_v4_full.s4p",
+    "hfss/results/v7_stepped_post_local/total17p0/single_magictee_v4_full.s4p",
+
     # Strict central-difference Touchstone inputs.
     "hfss/results/v8_modal_controllability/lower_minus/single_magictee_v4_full.s4p",
     "hfss/results/v7_stepped_post_local/joint_l1p6_s6p2/single_magictee_v4_full.s4p",
