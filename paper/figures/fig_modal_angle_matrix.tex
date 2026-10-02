@@ -19,11 +19,9 @@
 2/3/31.4,
 3/3/0}
 \foreach \x/\y/\v in \vals {
-  \pgfmathsetmacro{\pct}{12+0.78*\v}
-  \fill[black!\pct] (\x,-\y) rectangle ++(1,-1);
-  \pgfmathparse{\v>55 ? "white" : "black"}
-  \edef\txtcolor{\pgfmathresult}
-  \node[text=\txtcolor,font=\scriptsize] at (\x+0.5,-\y-0.5) {\v$^\circ$};
+  \pgfmathsetmacro{\pct}{5+0.55*\v}
+  \fill[blue!\pct!white] (\x,-\y) rectangle ++(1,-1);
+  \node[text=black,font=\scriptsize] at (\x+0.5,-\y-0.5) {\v$^\circ$};
 }
 \draw (0,0) grid (4,-4);
 \foreach \x/\lab in {0/$r_L$,1/$h_s$,2/$r_U$,3/$H$}
