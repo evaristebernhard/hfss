@@ -1,0 +1,103 @@
+{
+  "definition": {
+    "frequency_basis": "Discrete QR-orthonormalized Legendre basis on 101 uniformly sampled frequencies from 9 to 11.5 GHz.",
+    "order_interpretation": {
+      "0": "frequency-independent offset-like component",
+      "1": "slope-like component",
+      "2": "curvature-like component",
+      "3+": "higher-order spectral shaping"
+    }
+  },
+  "lower_upper_controllability_area": {
+    "acute_angle_deg": 78.87121210749821,
+    "lower_full_norm_per_mm": 1.8050624401984101,
+    "upper_full_norm_per_mm": 2.455356968617424,
+    "gram_area_per_mm2": 4.348731099618567,
+    "gram_determinant_per_mm4": 18.91146217678971,
+    "step_normalized_area": 0.17394924398474268,
+    "step_normalized_gram_determinant": 0.030258339482863536,
+    "uniform_post_two_dimensional_area": 0
+  },
+  "spectral_decomposition": {
+    "lower_radius": {
+      "even_plus": [
+        0.3355682141,
+        0.145521627,
+        0.3037588283,
+        0.1850195352,
+        0.0274842351,
+        0.00210826645,
+        0.00039839454
+      ],
+      "odd_minus": [
+        0.1014056507,
+        0.5314415624,
+        0.2998289696,
+        0.0606608791,
+        0.00625531736,
+        0.0003902679,
+        0.00001675506
+      ]
+    },
+    "split_height": {
+      "even_plus": [
+        0.2723520518,
+        0.1602980169,
+        0.3014858506,
+        0.2244329681,
+        0.037690048,
+        0.00269388089,
+        0.00082374781
+      ],
+      "odd_minus": [
+        0.0972220051,
+        0.5407662168,
+        0.2990036167,
+        0.0573645273,
+        0.00535349886,
+        0.00028095311,
+        0.00000895918
+      ]
+    },
+    "upper_radius": {
+      "even_plus": [
+        0.1000455259,
+        0.551172016,
+        0.2900358124,
+        0.0506156905,
+        0.00651946781,
+        0.00133568191,
+        0.00024702512
+      ],
+      "odd_minus": [
+        0.036665456,
+        0.4665879454,
+        0.3789305471,
+        0.1028578136,
+        0.013809332,
+        0.00109095656,
+        0.00005591885
+      ]
+    },
+    "total_height": {
+      "even_plus": [
+        0.0860992161,
+        0.6163281755,
+        0.279536239,
+        0.0146223969,
+        0.00125035363,
+        0.00158900108,
+        0.0004733003
+      ],
+      "odd_minus": [
+        0.00232447849,
+        0.3479870634,
+        0.4496283377,
+        0.1674056052,
+        0.0294844077,
+        0.00296547472,
+        0.00019580855
+      ]
+    }
+  }
+}
