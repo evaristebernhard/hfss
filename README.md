@@ -5,13 +5,45 @@ Target problem: a compact four-way waveguide power combiner for **9–11.5 GHz**
 ## External requirements
 
 - Frequency band: 9–11.5 GHz
-- Return loss: > 22 dB over band
-- Input-port isolation: > 22 dB over band
-- Coherent combining efficiency: > 95%
+- Return loss: 22 dB retained as a historical stretch target, not a hard paper pass/fail threshold
+- Input-port isolation: 22 dB retained as a historical stretch target
+- Coherent combining efficiency: >= 90% remains the engineering optimization target for the final hardware-oriented design
 - Peak output power: > 30 kW
 - CW average power: > 1 kW
 - Compact mechanical envelope
 - HFSS 2022 target environment
+
+## Paper and reproducibility package
+
+The current reader-facing short paper is:
+
+- [paper/modal_controllability_magictee.tex](paper/modal_controllability_magictee.tex)
+- [paper/README.md](paper/README.md) — build/edit entry point
+- [paper/FIGURE_PROVENANCE.md](paper/FIGURE_PROVENANCE.md) — exact source of every figure
+
+The paper studies the current stepped-post cell in the parity basis and separates
+**modal controllability** from **spectral shaping**. It is not organized around a
+single 22-dB worst-case pass/fail requirement.
+
+To rebuild the analysis, generated figures, and PDF:
+
+```bash
+cd paper
+make all
+```
+
+To create one portable ZIP containing the paper source, figure sources, analysis
+scripts, exact Touchstone inputs, result summaries, and available AEDT assets:
+
+```bash
+make bundle
+```
+
+The bundle is written to:
+
+```text
+paper/dist/Modal_Controllability_MagicT_Reproducible_Bundle.zip
+```
 
 ## Current design status
 
