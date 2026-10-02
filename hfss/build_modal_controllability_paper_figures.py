@@ -115,7 +115,7 @@ def write_gamma_figure(data, path: Path) -> None:
         for f, a, b in zip(freqs, gp, gm)
     )
 
-    text = rf"""\begin{{figure}}[t]
+    text = rf"""% AUTO-GENERATED FIGURE: regenerate with python hfss/build_modal_controllability_paper_figures.py; do not hand-edit numerical data.\n\\begin{{figure}}[t]
 \centering
 \begin{{tikzpicture}}
 \begin{{axis}}[
@@ -163,7 +163,7 @@ def write_angle_figure(data, path: Path) -> None:
         f"{i}/{LABELS[name]}" for i, name in enumerate(PARAMETERS)
     )
 
-    text = rf"""\begin{{figure}}[t]
+    text = rf"""% AUTO-GENERATED FIGURE: regenerate with python hfss/build_modal_controllability_paper_figures.py; do not hand-edit numerical values.\n\\begin{{figure}}[t]
 \centering
 \begin{{tikzpicture}}[x=0.92cm,y=0.92cm]
 \def\vals{{
@@ -200,7 +200,7 @@ def write_singular_figure(data, path: Path) -> None:
     even = singular_values(data["j_plus_step"])
     odd = singular_values(data["j_minus_step"])
 
-    text = rf"""\begin{{figure}}[t]
+    text = rf"""% AUTO-GENERATED FIGURE: regenerate with python hfss/build_modal_controllability_paper_figures.py; do not hand-edit numerical values.\n\\begin{{figure}}[t]
 \centering
 \begin{{tikzpicture}}
 \begin{{axis}}[
@@ -262,7 +262,7 @@ def write_performance_figure(data, path: Path) -> None:
     table = rf"""f etaH etaE rlP rlM iso
 {rows}"""
 
-    text = rf"""\begin{{figure*}}[t]
+    text = rf"""% AUTO-GENERATED FIGURE: regenerate with python hfss/build_modal_controllability_paper_figures.py; do not hand-edit numerical data.\n\\begin{{figure*}}[t]
 \centering
 \begin{{minipage}}{{0.485\textwidth}}
 \centering
