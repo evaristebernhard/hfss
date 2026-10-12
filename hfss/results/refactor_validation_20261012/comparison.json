@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-12",
+  "source_commit": "ad24c169ef5a2c0b04ee0d7616edc10f3beb87dc",
+  "solver": {
+    "aedt": "2025.2SV Student",
+    "pyaedt": "1.6.0"
+  },
+  "acceptance_max_abs_complex_s_error": 0.02,
+  "runs": {
+    "cell": {
+      "reference": "hfss/results/v7_stepped_post_local/joint_l1p4_s6p2/single_magictee_v4_full.s4p",
+      "reference_sha256": "c3d52007ee01172cfa7927112c55f2679e5015d87d2a2cee443f53fab3df69a3",
+      "rebuilt": "hfss/results/refactor_validation_20261012/magictee_cell.s4p",
+      "rebuilt_sha256": "6a4c38883bf685e0f7f19792326aaf444ba6a6f92909464b73811e1afb7a90a3",
+      "metrics": {
+        "frequency_points": 101,
+        "band_GHz": [
+          9.0,
+          11.5
+        ],
+        "ports": 4,
+        "max_abs_complex_S_error": 0.0,
+        "rms_complex_S_error": 0.0,
+        "max_abs_complex_S_error_dB_relative_to_unity": -300.0
+      },
+      "passed": true
+    },
+    "tree": {
+      "reference": "hfss/results/v7_four_way_3d_optimized/four_way_magictee_v6_3d.s8p",
+      "reference_sha256": "cd45522f88d7d026d2c28e4f96003a2686cd48587e3430a46c6fa9020f7fe139",
+      "rebuilt": "hfss/results/refactor_validation_20261012/magictee_tree.s8p",
+      "rebuilt_sha256": "c682584cb98b9497b8b5d1456d32c58e0a0784abe2a940b0b627a4486a5f0856",
+      "metrics": {
+        "frequency_points": 51,
+        "band_GHz": [
+          9.0,
+          11.5
+        ],
+        "ports": 8,
+        "max_abs_complex_S_error": 0.0,
+        "rms_complex_S_error": 0.0,
+        "max_abs_complex_S_error_dB_relative_to_unity": -300.0
+      },
+      "passed": true
+    }
+  }
+}
