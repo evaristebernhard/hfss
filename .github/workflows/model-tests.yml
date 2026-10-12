@@ -1,0 +1,23 @@
+name: Static model regression
+on:
+  push:
+    branches:
+      - cleanup/current-magictee-20261012
+  pull_request:
+    paths:
+      - 'hfss/**'
+      - 'design/current_model.json'
+      - 'tests/**'
+      - '.github/workflows/model-tests.yml'
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m compileall -q hfss/magictee hfss/build_model.py tests
+      - run: python -m unittest discover -s tests -v
+      - run: python hfss/build_model.py --mode cell --dry-run > /dev/null
+      - run: python hfss/build_model.py --mode tree --dry-run > /dev/null

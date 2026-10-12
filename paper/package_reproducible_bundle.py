@@ -55,9 +55,15 @@ REQUIRED_FILES = [
     "hfss/export_paper_hfss_figures.py",
 
     # Geometry builders defining the actual simulated structure.
-    "hfss/build_single_magictee_v4_full.py",
-    "hfss/build_single_magictee_v6_stepped_post.py",
-    "hfss/build_four_way_magictee_v6_3d.py",
+    "design/current_model.json",
+    "hfss/build_model.py",
+    "hfss/run_modal_perturbations.py",
+    "hfss/compare_results.py",
+    "hfss/magictee/__init__.py",
+    "hfss/magictee/config.py",
+    "hfss/magictee/geometry.py",
+    "hfss/magictee/tree.py",
+    "hfss/magictee/solver.py",
 
     # WSL -> Windows PyAEDT bridge used by this repository.
     "scripts/wsl_pyaedt_launcher.sh",
@@ -169,7 +175,7 @@ def manifest_text(files: list[Path], missing: list[str]) -> str:
         "REBUILD",
         "-------",
         "cd paper",
-        "make all",
+        "make reproduce",
         "",
         "HFSS GUI ASSETS",
         "---------------",

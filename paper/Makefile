@@ -3,9 +3,12 @@ LATEXMK ?= latexmk
 PAPER := modal_controllability_magictee.tex
 PDF := modal_controllability_magictee.pdf
 
-.PHONY: all analysis figures pdf hfss-assets bundle clean distclean help
+.PHONY: all reproduce analysis figures pdf hfss-assets bundle clean distclean help
 
-all: analysis figures pdf
+all: pdf
+
+# Explicitly separate manuscript compilation from numerical regeneration.
+reproduce: analysis figures pdf
 
 analysis:
 	cd .. && $(PYTHON) hfss/analyze_v8_modal_controllability.py
@@ -20,7 +23,7 @@ pdf:
 hfss-assets:
 	cd .. && scripts/wsl_pyaedt_launcher.sh hfss/export_paper_hfss_figures.py
 
-bundle: all
+bundle: reproduce
 	$(PYTHON) package_reproducible_bundle.py
 
 clean:
@@ -30,7 +33,8 @@ distclean: clean
 	rm -rf dist
 
 help:
-	@echo "make all         - recompute analyses, regenerate figures, compile PDF"
+	@echo "make all         - compile standalone LaTeX manuscript"
+	@echo "make reproduce   - regenerate analyses, figures, and compile PDF"
 	@echo "make analysis    - regenerate JSON/MD numerical analyses"
 	@echo "make figures     - regenerate data-driven TikZ/PGFPlots figures"
 	@echo "make pdf         - compile IEEE paper PDF"

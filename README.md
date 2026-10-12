@@ -1,113 +1,67 @@
-# HFSS — X-band four-way high-power magic-tee combiner
+# Magic-T — single current research model
 
-Target problem: a compact four-way waveguide power combiner for **9–11.5 GHz**, implemented around cascaded magic tees, impedance-transforming/ridged transitions, and optional tuning bolts.
+This branch contains **one** parametric 9–11.5 GHz Magic-T cell and a three-cell binary four-way tree. The obsolete v1–v7 generator copies and historical sweeps are not in the active checkout. Previous work remains in the original main branch / Git history.
 
-## External requirements
+## Files to start with
 
-- Frequency band: 9–11.5 GHz
-- Return loss: 22 dB retained as a historical stretch target, not a hard paper pass/fail threshold
-- Input-port isolation: 22 dB retained as a historical stretch target
-- Coherent combining efficiency: >= 90% remains the engineering optimization target for the final hardware-oriented design
-- Peak output power: > 30 kW
-- CW average power: > 1 kW
-- Compact mechanical envelope
-- HFSS 2022 target environment
+| Purpose | Current source |
+|---|---|
+| **All nominal dimensions** | [design/current_model.json](design/current_model.json) |
+| Validation and immutable model objects | [hfss/magictee/config.py](hfss/magictee/config.py) |
+| **Single cell geometry, used in both assemblies** | [hfss/magictee/geometry.py](hfss/magictee/geometry.py) |
+| Three-cell four-way assembly and port orientation | [hfss/magictee/tree.py](hfss/magictee/tree.py) |
+| AEDT startup, sweep and .sNp export | [hfss/magictee/solver.py](hfss/magictee/solver.py) |
+| **One HFSS command-line entry** | [hfss/build_model.py](hfss/build_model.py) |
+| Modal Jacobian and spectral post-processing | [hfss/analyze_v8_modal_controllability.py](hfss/analyze_v8_modal_controllability.py) |
+| Standalone manuscript | [paper/modal_controllability_magictee.tex](paper/modal_controllability_magictee.tex) |
 
-## Paper and reproducibility package
+The four-way code calls the **same** `CellGeometry.create_cell()` as the four-port builder, then clones/rotates/translates that solid twice and adds two WR90 links. It does **not** patch module globals or implement a second junction.
 
-The current reader-facing short paper is:
-
-- [paper/modal_controllability_magictee.tex](paper/modal_controllability_magictee.tex)
-- [paper/README.md](paper/README.md) — build/edit entry point
-- [paper/FIGURE_PROVENANCE.md](paper/FIGURE_PROVENANCE.md) — exact source of every figure
-
-The paper studies the current stepped-post cell in the parity basis and separates
-**modal controllability** from **spectral shaping**. It is not organized around a
-single 22-dB worst-case pass/fail requirement.
-
-To rebuild the analysis, generated figures, and PDF:
+## Build and test without AEDT
 
 ```bash
-cd paper
-make all
+python3 hfss/build_model.py --mode cell --dry-run
+python3 hfss/build_model.py --mode tree --dry-run
+python3 -m unittest discover -s tests -v
 ```
 
-To create one portable ZIP containing the paper source, figure sources, analysis
-scripts, exact Touchstone inputs, result summaries, and available AEDT assets:
+## Build in HFSS 2025.2 Student
+
+From WSL2, with the configured Windows PyAEDT environment:
 
 ```bash
-make bundle
+scripts/wsl_pyaedt_launcher.sh hfss/build_model.py --mode cell --version 2025.2
+scripts/wsl_pyaedt_launcher.sh hfss/build_model.py --mode tree --version 2025.2
 ```
 
-The bundle is written to:
+These are **build-only** by default. Inspect the solids/ports before adding `--solve --non-graphical`. Solved output names are `magictee_cell.s4p` and `magictee_tree.s8p` in `hfss/output_current/` (ignored by Git).
 
-```text
-paper/dist/Modal_Controllability_MagicT_Reproducible_Bundle.zip
+The nominal stepped post is `(rL,hs,rU,H)=(1.4,6.2,0.9,16.25) mm`; the tree interstage length is 1.38 mm. CLI overrides are **per run**, never written back into the configuration or shared global state. Example:
+
+```bash
+python3 hfss/build_model.py --mode cell --post-upper-radius 1.1 --dry-run
 ```
 
-## Current design status
+## Paper vs. engineering status
 
-The repository now uses a **rough v1 HFSS baseline** rather than the obsolete early ridge seed.
+```bash
+python3 hfss/analyze_v8_modal_controllability.py
+python3 hfss/analyze_modal_spectral_decomposition.py
+python3 hfss/build_modal_controllability_paper_figures.py
+cd paper && make pdf
+```
 
-Current common-width Cohn/TRM seed:
+`cd paper && make` only compiles standalone LaTeX/TikZ; `make reproduce` recomputes from the **archived actual S4P inputs**; `make bundle` creates a portable reproducibility ZIP. Existing paper numbers remain as originally simulated, **not** output of an unverified post-refactor HFSS run.
 
-- ridge width: **4.572 mm**
-- section 1: **g = 7.672 mm, L = 9.872 mm**
-- section 2: **g = 4.984 mm, L = 8.857 mm**
-- first two-bolt spacing seed: **8.8 mm**
-- electrical center: **10.19465 GHz**
+The stepped post introduces different modal controls (full-band radius angle 78.9°, Jacobian condition 50.3), but PEC four-way efficiency remains 78.34% mean and 50.17% minimum. Peak >30 kW, CW >1 kW, 90% broadband efficiency, metal loss, thermal and breakdown requirements are **not** established.
 
-Primary machine-readable seed:
+After two real HFSS solves, compare the new output to actual retained measurements:
 
-- [design/seed_v1.json](design/seed_v1.json)
+```bash
+python3 hfss/compare_results.py --mode cell --max-abs 0.02
+python3 hfss/compare_results.py --mode tree --max-abs 0.02
+```
 
-design/seed_v0.json is retained as a compatibility path but has also been updated to the current v1 values so old automation no longer builds the obsolete 5.8/9.2 mm ridge geometry.
+The 0.02 threshold is a **suggested regression tolerance**, not a verified achieved value; adjust only with a documented numerical justification. The program compares complex S parameters at every shared frequency and fails when the limit is exceeded. It does not overwrite reference data.
 
-## Design notes
-
-- [main.tex](main.tex) — Cohn/TRM parameter-design rationale
-- [docs/analytic_baseline.md](docs/analytic_baseline.md) — original reduced-model baseline
-- [docs/ridge_cross_section.md](docs/ridge_cross_section.md) — double-ridge cross-section theory
-- [docs/mixed_mode_design_v1.md](docs/mixed_mode_design_v1.md) — current rough mixed-mode / impedance-taper / bolt-tuning design
-
-## Scripts
-
-- [scripts/transformer_seed.py](scripts/transformer_seed.py)
-- [scripts/ridge_cross_section_seed.py](scripts/ridge_cross_section_seed.py)
-- [scripts/ridge_profile_seed.py](scripts/ridge_profile_seed.py)
-- [scripts/mixed_mode_seed.py](scripts/mixed_mode_seed.py)
-- [scripts/bolt_phasor_seed.py](scripts/bolt_phasor_seed.py)
-
-## Current physical model
-
-The design is now organized as
-
-[
-\text{mixed-mode magic tee}
-\rightarrow
-\text{impedance-space ridge taper}
-\rightarrow
-\text{small residual bolt tuning}.
-]
-
-The old literal scalar interpretation ZL = 0.5 Z0 is retained only as a reduced-model initializer. The actual single magic-tee junction should be simulated in symmetric/antisymmetric excitation to extract
-
-[
-\Gamma_\Sigma(f),\qquad \Gamma_\Delta(f).
-]
-
-The first HFSS version does **not** need a rigorous multimode network extraction. A practical sequence is:
-
-1. validate the two uniform ridge sections;
-2. validate the passive ridge transformer;
-3. simulate one magic tee under Sigma and Delta excitation;
-4. combine tee + nearest taper as one full-wave block;
-5. build the four-way tree;
-6. add two shallow tuning bolts only after the passive match is reasonably good;
-7. scale peak electric field to 30 kW and check finite-conductivity loss.
-
-## Important modeling rule
-
-A cascaded magic-tee junction is a multiport 3-D waveguide discontinuity. Do **not** assume that two combining arms imply an exact scalar load of Z0/2. The analytic transformer remains an initializer; HFSS full-wave results take precedence.
-
-No result in this repository should be treated as hardware-qualified until the full-wave and high-power checks are complete.
+**Validation boundary:** this is a code-and-static-geometry refactor. It does not claim fresh HFSS solver equivalence; perform a nominal rebuilt-vs-historical S4P/S8P comparison before promoting any new result.
