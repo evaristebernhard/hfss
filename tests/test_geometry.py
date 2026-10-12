@@ -11,6 +11,7 @@ from magictee.geometry import CellGeometry
 from magictee.tree import assemble_tree, assign_tree_ports
 from magictee.solver import export_touchstone
 import build_model
+import compare_results
 
 
 class Solid:
@@ -203,6 +204,29 @@ class GeometryTests(unittest.TestCase):
             self.assertEqual(tokens[0], 10.25)
             self.assertAlmostEqual(tokens[1], 0.11)
             self.assertAlmostEqual(tokens[1+2*4], 0.21)  # S(2,1) in row-major order
+
+
+    def test_rebuilt_sparam_comparison(self):
+        from tempfile import TemporaryDirectory
+        class FakeData:
+            def get_expression_data(self, expression, formula):
+                row, col = (int(x) for x in expression[2:-1].split(","))
+                return [10.25], [row/10+col/100 if formula == "real" else 0.0]
+        class FakePost:
+            def get_solution_data(self, expressions, setup_sweep_name):
+                return FakeData()
+        class FakeSolver:
+            post = FakePost()
+        with TemporaryDirectory() as d:
+            a,b=Path(d)/"a.s4p",Path(d)/"b.s4p"
+            export_touchstone(FakeSolver(),"setup","sweep",a,4)
+            b.write_text(a.read_text())
+            result = compare_results.compare(a,b,4)
+            self.assertLess(result["max_abs_complex_S_error"], 1e-12)
+            content=b.read_text().replace("0.11", "0.21", 1)
+            b.write_text(content)
+            result=compare_results.compare(a,b,4)
+            self.assertGreater(result["max_abs_complex_S_error"], 0.09)
 
 
 if __name__ == "__main__":
