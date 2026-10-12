@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the six missing HFSS cases needed for a strict v8 modal Jacobian.
+"""Rebuild the six strict central-difference cases with the current shared cell model.
 
 The v7 final seed is
     lower radius  = 1.4 mm
@@ -12,13 +12,13 @@ Existing v7 results already provide:
     lower_plus    : (1.6, 6.2, 0.9, 16.25)
     split_plus    : (1.4, 7.2, 0.9, 16.25)
 
-This script only adds the six missing cases:
+This script builds only the six non-reused cases:
     lower_minus, split_minus,
     upper_minus, upper_plus,
     total_minus, total_plus.
 
-Together they define a four-parameter central-difference Jacobian around the
-v7 seed without rerunning cases that are already in the repository.
+The historical .s4p paper inputs stay untouched. Compare rebuilt cases against
+those inputs before using them to revise manuscript numbers.
 """
 
 from __future__ import annotations
@@ -59,6 +59,8 @@ def build_command(
     return [
         str(launcher),
         str(builder),
+        "--mode",
+        "cell",
         "--version",
         version,
         "--output",
@@ -71,20 +73,6 @@ def build_command(
         str(case.upper_radius),
         "--post-total-height",
         str(case.total_height),
-        "--post-height",
-        "0.7",
-        "--junction-pair-height",
-        "0",
-        "--h-throat-a",
-        "20.4",
-        "--h-throat-len",
-        "5.5",
-        "--h-throat2-len",
-        "0",
-        "--h-iris-open",
-        "0",
-        "--e-step-len",
-        "0",
         "--solve",
         "--non-graphical",
     ]
@@ -113,7 +101,7 @@ def main() -> None:
     parser.add_argument(
         "--builder",
         type=Path,
-        default=here / "build_single_magictee_v6_stepped_post.py",
+        default=here / "build_model.py",
     )
     parser.add_argument(
         "--launcher",
@@ -124,7 +112,7 @@ def main() -> None:
     parser.add_argument(
         "--output-root",
         type=Path,
-        default=here / "results" / "v8_modal_controllability",
+        default=here / "output_current" / "modal_perturbations",
     )
     parser.add_argument("--version", default="2025.2")
     parser.add_argument("--skip-existing", action="store_true")
@@ -160,7 +148,7 @@ def main() -> None:
 
     for case in CASES:
         outdir = root / case.name
-        target = outdir / "single_magictee_v4_full.s4p"
+        target = outdir / "magictee_cell.s4p"
         manifest["new_cases"].append(
             {
                 **asdict(case),

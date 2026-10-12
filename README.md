@@ -1,61 +1,58 @@
-# Magic-T X-band combiner — current research line
+# Magic-T — single current research model
 
-This is the **focused working branch** of the 9–11.5 GHz stepped-post Magic-T study. It deliberately does **not** carry over obsolete HFSS v1–v6 experiments, full dated delivery copies, and old drafts. The earlier material remains recoverable from the original `main` branch and Git history.
+This branch contains **one** parametric 9–11.5 GHz Magic-T cell and a three-cell binary four-way tree. The obsolete v1–v7 generator copies and historical sweeps are not in the active checkout. Previous work remains in the original main branch / Git history.
 
-## One model
+## Files to start with
 
-- **Nominal cell:** stepped post lower radius 1.40 mm, split height 6.20 mm, upper radius 0.90 mm, total height 16.25 mm.
-- **Matching geometry:** WR90/ridge transition, H throat 20.4 mm wide and 5.5 mm long, local H post pair radius 1.5 mm, height 0.7 mm.
-- **Four-way tree:** three Magic-T cells, equal interstage sections of 1.38 mm.
-- **Solver/data:** HFSS 2025.2 Student, PEC, 9–11.5 GHz; Jacobian 101 frequency points, four-way simulation 51 points.
-- **Recorded physical seed:** [design/seed_v7_optimized_tree.json](design/seed_v7_optimized_tree.json).
+| Purpose | Current source |
+|---|---|
+| **All nominal dimensions** | [design/current_model.json](design/current_model.json) |
+| Validation and immutable model objects | [hfss/magictee/config.py](hfss/magictee/config.py) |
+| **Single cell geometry, used in both assemblies** | [hfss/magictee/geometry.py](hfss/magictee/geometry.py) |
+| Three-cell four-way assembly and port orientation | [hfss/magictee/tree.py](hfss/magictee/tree.py) |
+| AEDT startup, sweep and .sNp export | [hfss/magictee/solver.py](hfss/magictee/solver.py) |
+| **One HFSS command-line entry** | [hfss/build_model.py](hfss/build_model.py) |
+| Modal Jacobian and spectral post-processing | [hfss/analyze_v8_modal_controllability.py](hfss/analyze_v8_modal_controllability.py) |
+| Standalone manuscript | [paper/modal_controllability_magictee.tex](paper/modal_controllability_magictee.tex) |
 
-## Actual code/data dependency map
+The four-way code calls the **same** \`CellGeometry.create_cell()\` as the four-port builder, then clones/rotates/translates that solid twice and adds two WR90 links. It does **not** patch module globals or implement a second junction.
 
-```text
-hfss/build_single_magictee_v6_stepped_post.py  <-- wrapper: current single cell
-   └─ hfss/build_single_magictee_v4_full.py   <-- reusable geometry engine
+## Build and test without AEDT
 
-hfss/build_four_way_magictee_v6_3d.py          <-- current four-way builder
-   └─ hfss/build_single_magictee_v4_full.py
+\`\`\`bash
+python3 hfss/build_model.py --mode cell --dry-run
+python3 hfss/build_model.py --mode tree --dry-run
+python3 -m unittest discover -s tests -v
+\`\`\`
 
-retained .s4p data (nominal + 8 central differences + historical comparison)
-   ├─ hfss/analyze_v8_modal_controllability.py
-   ├─ hfss/analyze_modal_spectral_decomposition.py
-   └─ hfss/build_modal_controllability_paper_figures.py
-       └─ paper/figures/*.tex
-           └─ paper/modal_controllability_magictee.tex
-```
+## Build in HFSS 2025.2 Student
 
-These filenames reflect **code provenance** and do not mean multiple physical models remain active. Some v7 Touchstone files are needed because v8 deliberately reuses those perturbation solutions. They are input data, not active alternative model versions.
+From WSL2, with the configured Windows PyAEDT environment:
 
-## Fast reproduction (no HFSS license needed)
+\`\`\`bash
+scripts/wsl_pyaedt_launcher.sh hfss/build_model.py --mode cell --version 2025.2
+scripts/wsl_pyaedt_launcher.sh hfss/build_model.py --mode tree --version 2025.2
+\`\`\`
 
-From the root, with Python 3 and NumPy:
+These are **build-only** by default. Inspect the solids/ports before adding \`--solve --non-graphical\`. Solved output names are \`magictee_cell.s4p\` and \`magictee_tree.s8p\` in \`hfss/output_current/\` (ignored by Git).
 
-```bash
+The nominal stepped post is \`(rL,hs,rU,H)=(1.4,6.2,0.9,16.25) mm\`; the tree interstage length is 1.38 mm. CLI overrides are **per run**, never written back into the configuration or shared global state. Example:
+
+\`\`\`bash
+python3 hfss/build_model.py --mode cell --post-upper-radius 1.1 --dry-run
+\`\`\`
+
+## Paper vs. engineering status
+
+\`\`\`bash
 python3 hfss/analyze_v8_modal_controllability.py
 python3 hfss/analyze_modal_spectral_decomposition.py
 python3 hfss/build_modal_controllability_paper_figures.py
 cd paper && make pdf
-```
+\`\`\`
 
-To build the LaTeX paper without re-running numerical analysis: `cd paper && make`. To regenerate all numerical figures and manuscript: `cd paper && make reproduce`. To produce a portable source-and-data ZIP: `cd paper && make bundle`. Requires `latexmk` and LaTeX/TikZ for compilation.
+\`cd paper && make\` only compiles standalone LaTeX/TikZ; \`make reproduce\` recomputes from the **archived actual S4P inputs**; \`make bundle\` creates a portable reproducibility ZIP. Existing paper numbers remain as originally simulated, **not** output of an unverified post-refactor HFSS run.
 
-For new HFSS runs, see [hfss/README.md](hfss/README.md). **No full-wave solves were performed while preparing this cleanup branch.**
+The stepped post introduces different modal controls (full-band radius angle 78.9°, Jacobian condition 50.3), but PEC four-way efficiency remains 78.34% mean and 50.17% minimum. Peak >30 kW, CW >1 kW, 90% broadband efficiency, metal loss, thermal and breakdown requirements are **not** established.
 
-## What has actually been shown?
-
-| Quantity | Reported PEC result |
-|---|---:|
-| Step-normalized full-band Jacobian condition | 50.3 |
-| Full-band lower-vs-upper post control angle | 78.9° |
-| Single-cell mean H/sum efficiency | 86.99% |
-| Single-cell mean E/difference efficiency | 77.46% |
-| Four-way full-3D mean output efficiency | 78.34% |
-| Four-way full-3D minimum output efficiency | 50.17% |
-| Four-way worst active return loss | 2.95 dB |
-
-The result is a **modal-controllability paper**, not a finished >90%-efficient broadband combiner. Peak >30 kW, CW >1 kW, finite-conductivity loss, thermal, breakdown, and multipactor limits are **not verified**. The next design task is independent broadband matching/spectral-shaping control, with a new full-wave and four-way validation.
-
-**Do not turn this branch into another historical version warehouse.** New numerical work should update the one baseline and its source-data provenance.
+**Validation boundary:** this is a code-and-static-geometry refactor. It does not claim fresh HFSS solver equivalence; perform a nominal rebuilt-vs-historical S4P/S8P comparison before promoting any new result.

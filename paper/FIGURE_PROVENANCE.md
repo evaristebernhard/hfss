@@ -5,7 +5,7 @@ This file is the source-of-truth map for every figure used by the paper.
 | Figure source | Paper role | Type | Primary source | Regeneration / edit method |
 |---|---|---|---|---|
 | `figures/fig_geometry_schematic.tex` | Conceptual parity + control architecture | hand-authored TikZ | paper theory | edit directly |
-| `figures/fig_dimensioned_design_layout.tex` | Dimensioned single-cell layout | builder-derived TikZ | `hfss/build_single_magictee_v4_full.py`, `hfss/build_single_magictee_v6_stepped_post.py`, final nominal parameters | edit only if builder geometry changes |
+| `figures/fig_dimensioned_design_layout.tex` | Dimensioned single-cell layout | builder-derived TikZ | `design/current_model.json` and `hfss/magictee/geometry.py`, final nominal parameters | edit only if builder geometry changes |
 | `figures/fig_gamma_trajectories.tex` | complex-plane `Gamma_+` / `Gamma_-` trajectories | generated PGFPlots | nominal center `.s4p` | `python ../hfss/build_modal_controllability_paper_figures.py` |
 | `figures/fig_modal_angle_matrix.tex` | pairwise Jacobian-column angles | generated TikZ | central-difference perturbation `.s4p` files | same figure generator |
 | `figures/fig_singular_spectrum.tex` | full/even/odd singular spectra | generated PGFPlots | central-difference perturbation `.s4p` files | same figure generator |
@@ -54,7 +54,7 @@ H   = 16.25 mm
 ```
 
 The dimensioned layout also reads the architectural dimensions from the current
-single-cell builder, including WR90 dimensions, H-throat length, terminal ridge,
+shared cell geometry builder, including WR90 dimensions, H-throat length, terminal ridge,
 smooth taper, tuner straight, and port straight.
 
 ## Analysis scripts
