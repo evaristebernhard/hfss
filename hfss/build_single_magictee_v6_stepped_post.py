@@ -15,9 +15,9 @@ import sys
 import build_single_magictee_v4_full as base
 
 
-POST_LOWER_RADIUS = 2.4
-POST_LOWER_HEIGHT = base.B
-POST_UPPER_RADIUS = 2.4
+POST_LOWER_RADIUS = 1.4
+POST_LOWER_HEIGHT = 6.2
+POST_UPPER_RADIUS = 0.9
 POST_TOTAL_HEIGHT = 16.25
 
 

@@ -1,219 +1,29 @@
-# HFSS 2022 first full-wave model
+# Active HFSS code
 
-This directory contains the first deliberately rough HFSS implementation of
-the 9--11.5 GHz four-way-combiner work.
+Only **two** build scripts are treated as current:
+- `build_single_magictee_v6_stepped_post.py`: current 4-port cell. It imports `build_single_magictee_v4_full.py` purely as its geometry engine.
+- `build_four_way_magictee_v6_3d.py`: current 8-port three-cell tree. It also imports the same engine.
 
-It is intended to answer one question first:
+Nominal stepped post parameters are (lower radius, split height, upper radius, total height) = **(1.4, 6.2, 0.9, 16.25) mm**. Tree interstage length **1.38 mm**. The code's old revision numbers are not separate research branches. The reference geometry is documented in `../design/seed_v7_optimized_tree.json`.
 
-> Can the current WR90 + double-ridge seed be connected to a real 3-D
-> magic-tee-like junction and produce a sensible broadband S-matrix?
+## Paper/data analysis
 
-It is **not** yet the final high-power mechanical design.
+Use these from the repository root (Python 3 + NumPy):
 
-## 1. Software
+```bash
+python3 hfss/analyze_v8_modal_controllability.py
+python3 hfss/analyze_modal_spectral_decomposition.py
+python3 hfss/build_modal_controllability_paper_figures.py
+```
 
-Recommended first route:
+`run_v8_modal_controllability.py` is used **only to regenerate the six missing finite-difference HFSS cases**. The remaining three relevant samples (nominal and two positive perturbations) were solved earlier and are retained in `results/v7_stepped_post_local/`; the seven other old samples retained in the tree are needed only for the analysis script's historical comparison. These are data dependencies, not a reason to bring back all old parameter sweeps.
 
-- Ansys Electronics Desktop / HFSS 2022 R1 or R2
-- PyAEDT
-- Python 3
-- optional: scikit-rf for mixed-mode post-processing
+## New HFSS simulation
 
-Install the Python packages in the environment that controls AEDT:
+Requires an installed Windows AEDT/PyAEDT environment, launched through `../scripts/wsl_pyaedt_launcher.sh` from WSL2. Use the geometry scripts' build-only mode first, inspect waveports, PEC air volume, union topology and integration lines, then add `--solve --non-graphical` when ready.
 
-~~~bash
-pip install pyaedt scikit-rf numpy
-~~~
+For the cell, use `build_single_magictee_v6_stepped_post.py` with `--post-lower-radius 1.4 --post-lower-height 6.2 --post-upper-radius 0.9 --post-total-height 16.25 --post-height 0.7 --junction-pair-height 0 --h-throat-a 20.4 --h-throat-len 5.5 --h-throat2-len 0 --h-iris-open 0 --e-step-len 0`.
 
-Recent PyAEDT releases use the import path `ansys.aedt.core`; older ones use
-`pyaedt`.  The builder tries both.
+For the tree, use `build_four_way_magictee_v6_3d.py` with `--interstage-length 1.38 --post-lower-radius 1.4 --post-lower-height 6.2 --post-upper-radius 0.9 --post-total-height 16.25 --points 51`.
 
-## 2. Build only first
-
-From this directory:
-
-~~~bash
-python build_single_magictee_v1.py --version 2022.2
-~~~
-
-For HFSS 2022 R1:
-
-~~~bash
-python build_single_magictee_v1.py --version 2022.1
-~~~
-
-The default behavior is **build only**.
-
-It creates:
-
-~~~text
-output_v1/
-    single_magictee_v1.aedt
-~~~
-
-Open the project and inspect:
-
-1. four wave ports;
-2. the unioned WR90 air channel;
-3. the H-arm double-ridge taper;
-4. the Perfect-E wall assignment;
-5. the central orthogonal junction.
-
-Do not solve until the geometry looks correct.
-
-## 3. What geometry is generated
-
-Coordinate convention:
-
-~~~text
-               P4 E-arm (+Z)
-                    |
-                    |
-P1 (-X) -------- junction -------- P2 (+X)
-                    |
-                    |
-             P3 H-arm (+Y)
-             double-ridge taper
-~~~
-
-The active ridge seed is:
-
-~~~text
-WR90 a = 22.86 mm
-WR90 b = 10.16 mm
-
-common ridge width w = 4.572 mm
-
-section 1:
-    g1 = 7.672 mm
-    L1 = 9.872 mm
-
-section 2:
-    g2 = 4.984 mm
-    L2 = 8.857 mm
-~~~
-
-The taper is approximated by 20 short ridge segments.  This is intentionally
-coarse.  The purpose is to get the first electromagnetic result, not to create
-the final milling profile.
-
-A 6 mm uniform g2 ridged section is retained directly before the tee junction
-so the taper does not terminate in an immediate WR90 step.
-
-## 4. Solve
-
-After visually checking the model:
-
-~~~bash
-python build_single_magictee_v1.py --version 2022.2 --solve
-~~~
-
-The script uses:
-
-~~~text
-adaptive frequency: 10.20 GHz
-frequency sweep: 9.0 -- 11.5 GHz
-points: 101
-solution: HFSS Driven Modal
-~~~
-
-It then attempts to export:
-
-~~~text
-output_v1/single_magictee_v1.s4p
-~~~
-
-The standard PyAEDT wave-port and driven-sweep APIs are used.
-
-## 5. Mixed-mode analysis
-
-After obtaining the S4P file:
-
-~~~bash
-python postprocess_mixed_mode_v1.py \
-    output_v1/single_magictee_v1.s4p \
-    --csv output_v1/mixed_mode_v1.csv
-~~~
-
-The port S matrix is transformed to
-
-~~~text
-Sigma
-Delta1
-Delta2
-Delta3
-~~~
-
-using
-
-[
-S_m = U S_p U^H.
-]
-
-The script reports the minimum in-band modal return loss and the largest modal
-conversion term.
-
-This is more informative than looking only at S11.
-
-## 6. Expected first result
-
-Do **not** expect the bare first geometry to immediately satisfy
-
-~~~text
-return loss > 22 dB
-isolation > 22 dB
-efficiency > 95 %
-~~~
-
-The central junction currently contains no optimized diaphragm, iris, post, or
-multi-bolt matching structure.
-
-A useful first run is one in which:
-
-- all four ports excite the expected dominant mode;
-- no accidental propagating higher mode appears below 11.5 GHz;
-- the S matrix is smooth rather than dominated by a narrow numerical resonance;
-- the Sigma/Delta decomposition behaves sensibly;
-- the current ridge taper improves at least one relevant mode versus a plain
-  bare junction.
-
-## 7. Next geometry correction after the first solve
-
-Use the first S4P result to classify the error.
-
-### Broad smooth mismatch
-
-If the response is smooth but return loss is poor across most of 9--11.5 GHz,
-change the ridge impedance trajectory / terminal gap before adding bolts.
-
-### One or two broad ripple peaks
-
-If the passive match is already reasonable and there are residual ripple
-peaks, add two shallow tuning bolts with the current seed:
-
-~~~text
-initial center spacing: 8.8 mm
-spacing sweep: 7.5 -- 10.0 mm
-penetration sweep: 0 -- 2.0 mm
-~~~
-
-### Strong narrow resonances
-
-If narrow resonances dominate, first inspect the central junction and local
-higher-order fields.  Do not try to cure a trapped-mode resonance with a large
-bolt penetration.
-
-## 8. High-power work is later
-
-The first solve uses PEC walls to isolate geometry/matching behavior.
-
-After the S-parameter structure is credible:
-
-1. replace PEC by finite-conductivity metal;
-2. compute loss;
-3. extract peak E field per accepted watt;
-4. scale to 30 kW peak;
-5. inspect ridge edges and bolt tips;
-6. then address the 1 kW CW thermal requirement.
-
-The present model is a design seed, not a hardware power-rating claim.
+**Note:** The builder uses some fixed internal constants and does not automatically load the JSON seed. The post/tree defaults were aligned here, but exact rebuilt-model equivalence must still be verified by an AEDT solve. No new HFSS simulation has been run for this cleanup.
