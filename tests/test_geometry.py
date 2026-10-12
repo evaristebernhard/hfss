@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "hfss"))
 from magictee.config import load_config
 from magictee.geometry import CellGeometry
-from magictee.tree import assemble_tree
+from magictee.tree import assemble_tree, assign_tree_ports
+from magictee.solver import export_touchstone
 import build_model
 
 
@@ -41,6 +42,10 @@ class Solid:
         self.moves.append(distance)
         return True
 
+    @property
+    def faces(self):
+        return []  # wall face listing is irrelevant to pure-port tests
+
 
 class FakeModeler:
     def __init__(self):
@@ -49,6 +54,7 @@ class FakeModeler:
         self.cylinders = []
         self.subtractions = []
         self.unions = []
+        self.face_positions = {}
 
     def create_box(self, origin, sizes, name, material):
         self.boxes.append((name, tuple(origin), tuple(sizes), material))
@@ -70,6 +76,10 @@ class FakeModeler:
         self.subtractions.append((solid, tuple(tools)))
         return True
 
+    def get_faceid_from_position(self, position, assignment):
+        self.face_positions[tuple(position)] = len(self.face_positions) + 1
+        return self.face_positions[tuple(position)]
+
     def __getitem__(self, name):
         return self.objects[name]
 
@@ -77,6 +87,14 @@ class FakeModeler:
 class FakeHFSS:
     def __init__(self):
         self.modeler = FakeModeler()
+        self.ports = []
+
+    def wave_port(self, face, **kwargs):
+        self.ports.append((face, kwargs))
+        return True
+
+    def assign_perfect_e(self, faces, name):
+        return True
 
 
 class GeometryTests(unittest.TestCase):
@@ -139,6 +157,52 @@ class GeometryTests(unittest.TestCase):
         self.assertEqual(cell.post_lower_radius, 1.6)
         self.assertEqual(tree.interstage_length_mm, 2.0)
         self.assertEqual(points, 101)
+
+    def test_single_and_tree_ports_preserve_orientation(self):
+        hfss = FakeHFSS()
+        _, geometry = self.builder.create_cell(hfss)
+        self.builder._assign_ports_and_walls(hfss, geometry)
+        self.assertEqual([kwargs["name"] for _,kwargs in hfss.ports],
+                         ["P1_CollinearMinusX", "P2_CollinearPlusX", "P3_HArm_v4", "P4_EArm"])
+        self.assertEqual(len(hfss.ports), 4)
+        self.assertIn((0.0, 73.159, 0.0), {
+            tuple(round(z, 6) for z in x) for x in hfss.modeler.face_positions
+        })
+
+        four = FakeHFSS()
+        geom = assemble_tree(four, self.builder, self.tree)
+        assign_tree_ports(four, geom, self.cell)
+        self.assertEqual(len(four.ports), 8)
+        self.assertEqual([kwargs["name"] for _,kwargs in four.ports],
+                         ["P1_IN1", "P2_IN2", "P3_IN3", "P4_IN4", "P5_OUT",
+                          "P6_DUMP_A", "P7_DUMP_B", "P8_DUMP_C"])
+
+    def test_sparam_export_shape_order_and_units(self):
+        from tempfile import TemporaryDirectory
+
+        class FakeData:
+            def get_expression_data(self, expression, formula):
+                # S(row,col) -> row/10 + col/100, imaginary zero.
+                row,col = (int(s) for s in expression[2:-1].split(","))
+                return [10.25], [row/10 + col/100 if formula=="real" else 0]
+
+        class FakePost:
+            def get_solution_data(self, expressions, setup_sweep_name):
+                return FakeData()
+
+        class FakeSolver:
+            post = FakePost()
+
+        with TemporaryDirectory() as d:
+            dest = Path(d) / "sample.s4p"
+            export_touchstone(FakeSolver(), "Setup1", "Sweep1", dest, ports=4)
+            rows = [line for line in dest.read_text().splitlines() if line and not line.startswith("!")]
+            self.assertEqual(rows[0], "# GHz S MA R 50")
+            tokens = [float(s) for s in rows[1].split()]
+            self.assertEqual(len(tokens), 33)
+            self.assertEqual(tokens[0], 10.25)
+            self.assertAlmostEqual(tokens[1], 0.11)
+            self.assertAlmostEqual(tokens[1+2*4], 0.21)  # S(2,1) in row-major order
 
 
 if __name__ == "__main__":
