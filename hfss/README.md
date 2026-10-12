@@ -29,6 +29,15 @@ By default, these **only construct and save** AEDT projects; add \`--solve --non
 
 \`analyze_v8_modal_controllability.py\` and \`analyze_modal_spectral_decomposition.py\` intentionally consume the **retained original 2026 S4P files**, because those were the actual simulation inputs used for the paper. \`run_modal_perturbations.py\` prepares rebuilt perturbations under \`output_current/modal_perturbations\`, not in the historical result folder.
 
+### Verify solver equivalence before using rebuilt data
+
+\`\`\`bash
+python3 hfss/compare_results.py --mode cell --max-abs 0.02
+python3 hfss/compare_results.py --mode tree --max-abs 0.02
+\`\`\`
+
+The comparison checks complex S matrices on the same frequency grid against **the original retained simulations**. The tolerance is suggested, not yet validated. Missing rebuilt files fail explicitly.
+
 The AEDT design names and single-cell port names remain compatible with historical project inspection. The current CLI uses non-versioned file output names, so rebuilt analyses must be compared to the old Touchstone data before publication.
 
 PEC only. The dimensional dry-run and fake-modeler tests do not substitute for an HFSS electromagnetic validation.
