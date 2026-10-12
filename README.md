@@ -55,4 +55,13 @@ cd paper && make pdf
 
 The stepped post introduces different modal controls (full-band radius angle 78.9°, Jacobian condition 50.3), but PEC four-way efficiency remains 78.34% mean and 50.17% minimum. Peak >30 kW, CW >1 kW, 90% broadband efficiency, metal loss, thermal and breakdown requirements are **not** established.
 
+After two real HFSS solves, compare the new output to actual retained measurements:
+
+\`\`\`bash
+python3 hfss/compare_results.py --mode cell --max-abs 0.02
+python3 hfss/compare_results.py --mode tree --max-abs 0.02
+\`\`\`
+
+The 0.02 threshold is a **suggested regression tolerance**, not a verified achieved value; adjust only with a documented numerical justification. The program compares complex S parameters at every shared frequency and fails when the limit is exceeded. It does not overwrite reference data.
+
 **Validation boundary:** this is a code-and-static-geometry refactor. It does not claim fresh HFSS solver equivalence; perform a nominal rebuilt-vs-historical S4P/S8P comparison before promoting any new result.
