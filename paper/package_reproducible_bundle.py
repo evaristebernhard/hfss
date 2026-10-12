@@ -58,6 +58,7 @@ REQUIRED_FILES = [
     "design/current_model.json",
     "hfss/build_model.py",
     "hfss/run_modal_perturbations.py",
+    "hfss/compare_results.py",
     "hfss/magictee/__init__.py",
     "hfss/magictee/config.py",
     "hfss/magictee/geometry.py",
