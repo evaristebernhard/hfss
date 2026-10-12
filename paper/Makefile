@@ -34,7 +34,8 @@ distclean: clean
 
 help:
 	@echo "make all         - compile standalone LaTeX manuscript"
-	@echo "make reproduce   - regenerate analyses, figures, and compile PDF"\n\t@echo "make analysis    - regenerate JSON/MD numerical analyses"
+	@echo "make reproduce   - regenerate analyses, figures, and compile PDF"
+	@echo "make analysis    - regenerate JSON/MD numerical analyses"
 	@echo "make figures     - regenerate data-driven TikZ/PGFPlots figures"
 	@echo "make pdf         - compile IEEE paper PDF"
 	@echo "make hfss-assets - export AEDT model/field PNGs (requires graphical AEDT)"
